@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.11.1'
-gem 'sprockets', '3.5.2'
+gem 'sprockets', '3.7.2'
 gem 'mysql2', '= 0.4.6'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '= 3.2.0'
