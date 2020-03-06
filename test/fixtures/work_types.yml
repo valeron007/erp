@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  metric: MyString
+  price: 1.5
+  facility_id: 
+
+two:
+  name: MyString
+  metric: MyString
+  price: 1.5
+  facility_id: 

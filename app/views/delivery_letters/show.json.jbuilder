@@ -1,0 +1,1 @@
+json.partial! "delivery_letters/delivery_letter", delivery_letter: @delivery_letter

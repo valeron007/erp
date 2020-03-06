@@ -1,0 +1,162 @@
+<% content_for :title do %>
+    <%= t('.View S Tool') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View S Tool') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to s_tools_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@s_tool).can_edit? %>
+        <%= link_to edit_s_tool_path(@s_tool), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@s_tool).can_delete? %>
+        <%= link_to s_tool_path(@s_tool), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('.Transactions') %>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+            <dl class="dl-horizontal">
+
+              <dt><%= t('.Name') %></dt>
+              <dd><%= @s_tool.name %></dd>
+
+              <dt><%= t('.Description') %></dt>
+              <dd><%= @s_tool.description %></dd>
+              <dt><%= t('.Location') %></dt>
+              <dd><%= @s_tool.get_current_location %></dd>
+
+              <dt><%= t('.Serial number') %></dt>
+              <dd><%= @s_tool.serial_number %></dd>
+
+              <dt><%= t('.Inventory number') %></dt>
+              <dd><%= @s_tool.inventory_number %></dd>
+
+              <dt><%= t('.Rfid tag') %></dt>
+              <dd><%= @s_tool.rfid_tag %></dd>
+
+              <dt><%= t('.Barcode tag') %></dt>
+              <dd><%= @s_tool.barcode_tag %></dd>
+
+              <dt><%= t('.Consist') %></dt>
+              <dd><%= @s_tool.consist %></dd>
+
+              <dt><%= t('.Storage place') %></dt>
+              <dd><%= @s_tool.storage_place %></dd>
+
+              <dt><%= t('.State') %></dt>
+              <dd><%= t(@s_tool.state) unless @s_tool.state.blank? %></dd>
+
+              <dt><%= t('.Comments') %></dt>
+              <dd><%= @s_tool.comments %></dd>
+            </dl>
+            <br/>
+            <h3><%= t('Files') %></h3>
+            <hr/>
+
+            <table class="table">
+              <tbody>
+              <% @s_tool.s_tool_files.each_with_index do |file, index| %>
+                  <tr>
+                    <td>
+                      <% if MIME::Types.type_for(file.url).first.try(:media_type) == 'image' %>
+                          <%= link_to image_tag(file.url, border: 0, style: 'max-width: 200px'), file.url, "data-toggle": 'lightbox', "data-gallery": "gallery" %>
+                      <% else %>
+                          <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+
+          </div>
+          <!-- /.box-body -->
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th><%= t('.Date') %></th>
+
+                    <th><%= t('simple_form.labels.s_transaction.source') %></th>
+
+                    <th><%= t('simple_form.labels.s_transaction.destination') %></th>
+
+                    <th><%= t('.User from') %></th>
+
+                    <th><%= t('.User to') %></th>
+
+                    <th class="centered"><%= t('.Operation') %></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @s_tool.get_transactions.each do |transaction| %>
+                      <tr>
+                        <% unless transaction.nil? %>
+                            <td><%= h_localize_date(transaction.date) %></td>
+
+                            <td><%= transaction.get_source %></td>
+
+                            <td><%= transaction.get_dest %></td>
+
+                            <td><%= transaction.user_from %></td>
+
+                            <td><%= transaction.user_to %></td>
+
+                            <td class="centered">
+                              <%= transaction.get_transaction_icon.html_safe unless transaction.get_transaction_icon.blank? %>
+                            </td>
+
+                            <td class="centered">
+                              <%= link_to s_transaction_path(transaction), target: '_blank', class: 'btn btn-sm btn-default', title: t('View') do %>
+                                  <i class='fa fa-lg fa-eye'></i>
+                              <%- end -%>
+                            </td>
+                            </tr>
+                        <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

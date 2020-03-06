@@ -1,0 +1,56 @@
+<% content_for :title do %>
+    <%= t('.Employee Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.Employee Management') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <% if policy(:employee).can_create? %>
+        <%= link_to new_employee_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(:employee).can_export? %>
+        <%= link_to employees_export_path(format: :xlsx), class: 'btn btn-app' do %>
+            <i class='fa fa-file-excel-o'></i>
+            <span><%= t('Export to Excel') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-3">
+              <%= f.select(:search_query, {"#{@filterrific.search_query}":"#{@filterrific.search_query}"}, { include_blank: ''}, {'data-source': employees_search_path, 'data-placeholder': t('Search'), class: 'form-control autoselect2' }) %>
+            </div>
+            <div class="col-xs-3">
+              <%= f.select(:with_position_id, @filterrific.select_options[:with_position_id], { include_blank: ''}, {'data-placeholder': t('Position'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-2">
+              <%= f.select(:with_employee_status_id, @filterrific.select_options[:with_employee_status_id], { include_blank: ''} ,{'data-placeholder': t('Employee Status'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-2">
+              <div class="has-icon date">
+                <%= f.text_field(:hire_date_gte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('Hire Date')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+            <div class="centered col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+</div>

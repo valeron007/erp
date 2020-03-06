@@ -1,0 +1,33 @@
+class STransactionOther < ActiveRecord::Base
+  belongs_to :s_other
+  belongs_to :s_transaction
+
+  def total_price
+    price = 0
+    unless s_other.name.price_per_unit.nil?
+      price = s_amount * s_other.name.price_per_unit
+    end
+    price
+  end
+
+  def update_amount(mode)
+    type = self.s_transaction.operation_type
+    self.s_other.amount = 0 if self.s_other.amount.nil?
+    if mode == :destroy
+      if type == 'income' or type == 'entrance'
+        self.s_other.amount -= self.s_amount
+      elsif type == 'outcome' or type == 'exit'
+        self.s_other.amount += self.s_amount
+      end
+    else
+      amount = 0
+      amount = self.s_amount_was if self.s_amount_was
+      if type == 'income' or type == 'entrance'
+        self.s_other.amount += (self.s_amount - amount)
+      elsif type == 'outcome' or type == 'exit'
+        self.s_other.amount -= (self.s_amount - amount)
+      end
+    end
+    self.s_other.save
+  end
+end

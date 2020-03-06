@@ -1,0 +1,64 @@
+<% content_for :title do %>
+    <%= t('Adoc Status Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Adoc Status Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:adoc_status).can_create? %>
+        <%= link_to new_adoc_status_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+
+      <th>Name</th>
+
+      <th>Color</th>
+
+      <th>Order</th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @adoc_statuses.each do |adoc_status| %>
+        <tr>
+
+          <td><%= adoc_status.name %></td>
+
+          <td><%= adoc_status.color %></td>
+
+          <td><%= adoc_status.order %></td>
+
+          <td class="centered">
+            <% if policy(adoc_status).can_view? %>
+                <%= link_to adoc_status_path(adoc_status), class: 'btn btn-sm btn-default', title: t('View') do %>
+                    <i class='fa fa-lg fa-eye'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(adoc_status).can_edit? %>
+                <%= link_to edit_adoc_status_path(adoc_status), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(adoc_status).can_delete? %>
+                <%= link_to adoc_status_path(adoc_status), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

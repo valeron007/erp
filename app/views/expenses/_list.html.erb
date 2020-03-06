@@ -1,0 +1,70 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :expense_date, {label: t('When')}) %></th>
+      <% if policy(:expense).can_assign? %>
+          <th><%= filterrific_sorting_link(@filterrific, :expense_by, {label: t('Who')}) %></th>
+      <% end %>
+      <th><%= filterrific_sorting_link(@filterrific, :expense_to, {label: t('Whom')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :amount, {label: t('How much')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :title, {label: t('Where')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :expense_category, {label: t('Category')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :company, {label: t('Company')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :facility, {label: t('Facility')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @expenses.each do |expense| %>
+        <tr>
+          <td style="white-space: nowrap;">
+            <% if policy(expense).can_edit? %>
+                <%= link_to(h_localize_date(expense.expense_date), edit_expense_path(expense)) %>
+            <% else %>
+                <%= h_localize_date(expense.expense_date) %>
+            <% end %>
+          </td>
+          <% if policy(expense).can_assign? %>
+              <td><%= expense.expense_by %></td>
+          <% end %>
+          <td><%= expense.expense_to %></td>
+          <td>
+            <span class="label label-<%=  expense.color %>">
+              <%= number_to_currency(expense.amount) %>
+            </span>
+          </td>
+          <td><%= expense.title %></td>
+          <td><%= expense.expense_category %></td>
+          <td><%= expense.company %></td>
+          <td><%= expense.facility %></td>
+          <td class="centered">
+            <% if policy(expense).can_edit? %>
+                <%= link_to edit_expense_path(expense), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(expense).can_delete? %>
+                <%= link_to expense_path(expense), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @expenses %></div>
+    <div class="col-md-4"><%= page_navigation_links @expenses %></div>
+  </div>
+</div>

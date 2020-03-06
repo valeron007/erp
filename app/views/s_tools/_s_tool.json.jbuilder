@@ -1,0 +1,2 @@
+json.extract! s_tool, :id, :name_id, :description, :description, :amount, :serial_number, :rfid_tag, :barcode_tag, :consist, :min_amount, :storage_place, :state, :comments, :created_at, :updated_at
+json.url s_tool_url(s_tool, format: :json)

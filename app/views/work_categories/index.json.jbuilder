@@ -1,0 +1,1 @@
+json.array! @work_categories, partial: 'work_categories/work_category', as: :work_category

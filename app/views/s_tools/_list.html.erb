@@ -1,0 +1,49 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.s_tool.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :inventory_number, {label: t('simple_form.labels.s_tool.inventory_number')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :location, {label: t('simple_form.labels.s_tool.location')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :state, {label: t('simple_form.labels.s_tool.state')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :storage_place, {label: t('simple_form.labels.s_tool.storage_place')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @s_tools.each do |s_tool| %>
+        <tr>
+          <td>
+             <%= link_to(s_tool.name.name, s_tool_path(s_tool), title: s_tool.name.alias_names, 'data-toggle': 'tooltip') %>
+          </td>
+          <td><%= s_tool.inventory_number %></td>
+          <td><%= s_tool.facility %></td>
+          <td><%= t(s_tool.state) unless s_tool.state.blank? %></td>
+          <td><%= s_tool.storage_place %></td>
+          <td class="centered">
+                <%= link_to edit_s_tool_path(s_tool), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+                <%= link_to s_tool_path(s_tool), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @s_tools %></div>
+    <div class="col-md-4"><%= page_navigation_links @s_tools %></div>
+  </div>
+</div>
+

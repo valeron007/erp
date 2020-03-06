@@ -1,0 +1,10 @@
+<div class="nested-fields">
+  <div class="clearfix">
+    <%= link_to_remove_association t('Remove'), f %>
+  </div>
+  <%= f.input :tool do %>
+      <%= f.select :tool_id, Tool.all.map {|e| [e.to_s, e.id]}, {include_blank: ''}, {class: 'form-control s-object'} %>
+  <% end %>
+
+  <%= f.input :amount,input_html: {min: 0, class: 's-amount'} %>
+</div>

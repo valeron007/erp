@@ -1,0 +1,65 @@
+<% content_for :title do %>
+    <%= t('Other Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Other Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <%= form_tag others_path, method: :get, class: "form-inline" do %>
+      <%= text_field_tag :name, nil, class: "form-control", placeholder: t("Name") %>
+      <%= submit_tag t("Search"), class: "btn btn-default", name: nil %>
+      <% if policy(:other).can_create? %>
+        <%= link_to new_other_path, class: 'btn btn-default pull-right' do %>
+          <i class='fa fa-plus-square-o'></i>
+          <span><%= t('Create Other') %></span>
+        <%- end -%>
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+
+      <th><%= t('simple_form.labels.other.name') %></th>
+      <th><%= t('simple_form.labels.other.tags') %></th>
+      <% if policy(:other).can_view_document_name? %>
+          <th><%= t('simple_form.labels.other.document_name') %></th>
+      <% end %>
+      <th><%= t('simple_form.labels.other.price_per_unit') %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @others.each do |other| %>
+        <tr>
+          <td><%= other.name %></td>
+          <td><%= !other.tags.blank? ? JSON.parse(other.tags).reject { |c| c.empty? }.join(', ') : ''  %></td>
+          <% if policy(:other).can_view_document_name? %>
+              <td><%= !other.d_names.blank? ? other.d_names.map {|a| '<span class="badge badge-default">'+a.to_s+'</span>' }.join.html_safe : '' %></td>
+          <% end %>
+          <td><%= other.price_to_s %></td>
+
+          <td class="centered">
+            <% if policy(other).can_edit? %>
+                <%= link_to edit_other_path(other), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(other).can_delete? %>
+                <%= link_to other_path(other), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,1 @@
+json.array! @adoc_statuses, partial: 'adoc_statuses/adoc_status', as: :adoc_status

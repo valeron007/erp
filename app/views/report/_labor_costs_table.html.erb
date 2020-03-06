@@ -1,0 +1,37 @@
+<div class="box box-primary">
+  <div class="box-header">
+    <i class="ion ion-stats-bars"></i>
+    <h3 class="box-title"><%= t('Report preview') %></h3>
+  </div>
+  <div class="box-body">
+    <table class="table table-condensed table-hover">
+      <thead>
+      <tr>
+        <th><%= t('Employee') %></th>
+        <th><%= t('Facility') %></th>
+        <th><%= t('Total Payout') %></th>
+        <th><%= t('Time Based') %></th>
+        <th><%= t('Work Based') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% unless @data.blank? %>
+          <% @data.each do |e| %>
+              <tr>
+                <td><%= e %></td>
+                <td><%= @filter_facility %></td>
+                <td><%= number_to_currency(DailyTimesheet.total_for_employee(e, @f.date_from, @f.date_to, @filter_facility)) %></td>
+                <td><%= number_to_currency(DailyTimesheet.total_salary_for_employee(e, @f.date_from, @f.date_to, @filter_facility)) %></td>
+                <td><%= number_to_currency(DailyTimesheet.total_piecework_for_employee(e, @f.date_from, @f.date_to, @filter_facility)) %></td>
+              </tr>
+          <% end %>
+      <% else %>
+          <tr><td colspan="5"><%= t('No data for current filter') %></td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="box-footer clearfix centered">
+    <button type="button" class="btn btn-default btn-export" data-action-url="<%= report_labor_costs_url(format: :xlsx) %>"><i class="fa fa-file-excel-o"></i> <%= t('Export to Excel') %></button>
+  </div>
+</div>

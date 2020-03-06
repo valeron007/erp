@@ -1,0 +1,2 @@
+$('select.penalty-select').append($('<option></option>').data('price','<%= @penalty.penalty_rate %>').val(<%= @penalty.id %>).html('<%= @penalty %>')).trigger('change');
+$('#new_penalty_modal').modal_success();

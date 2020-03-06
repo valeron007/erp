@@ -1,0 +1,66 @@
+<% content_for :title do %>
+    <%= t('Material Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Material Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <%= form_tag materials_path, method: :get, class: "form-inline" do %>
+      <%= text_field_tag :name, nil, class: "form-control", placeholder: t("Name") %>
+      <%= submit_tag t("Search"), class: "btn btn-default", name: nil %>
+      <% if policy(:material).can_create? %>
+        <%= link_to new_material_path, class: 'btn btn-default pull-right' do %>
+          <i class='fa fa-plus-square-o'></i>
+          <span><%= t('Create Material') %></span>
+        <%- end -%>
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+
+      <th><%= t('simple_form.labels.material.name') %></th>
+      <th><%= t('simple_form.labels.material.tags') %></th>
+      <% if policy(:material).can_view_document_name? %>
+          <th><%= t('simple_form.labels.material.document_name') %></th>
+      <% end %>
+      <th><%= t('simple_form.labels.material.price_per_unit') %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @materials.each do |material| %>
+        <tr>
+
+          <td><%= material.name %></td>
+          <td><%= !material.tags.blank? ? JSON.parse(material.tags).reject { |c| c.empty? }.join(', ') : ''  %></td>
+          <% if policy(:material).can_view_document_name? %>
+              <td><%= !material.d_names.blank? ? material.d_names.map {|a| '<span class="badge badge-default">'+a.to_s+'</span>' }.join.html_safe : '' %></td>
+          <% end %>
+          <td><%= material.price_to_s %></td>
+
+          <td class="centered">
+            <% if policy(material).can_edit? %>
+                <%= link_to edit_material_path(material), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(material).can_delete? %>
+                <%= link_to material_path(material), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  amount: 
+  company: MyString
+  faсility: MyString
+  expense_category_id: 
+  expense_by: 
+  expense_date: 2016-08-17
+  created_by_id: 
+  updated_by_id: 
+
+two:
+  title: MyString
+  amount: 
+  company: MyString
+  faсility: MyString
+  expense_category_id: 
+  expense_by: 
+  expense_date: 2016-08-17
+  created_by_id: 
+  updated_by_id: 

@@ -1,0 +1,183 @@
+<%= simple_form_for @daily_timesheet, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <fieldset>
+            <legend><%= t('General details') %></legend>
+            <%= f.association :employee, collection: Employee.for_timesheet(@daily_timesheet.employee)%>
+
+            <%= f.association :facility, collection: Facility.for_timesheet(@daily_timesheet.facility).for_foreman(current_user) %>
+
+            <div class="form-group <%= ("has-error" if @daily_timesheet.errors[:date].any? || @daily_timesheet.errors[:start_time].any? || @daily_timesheet.errors[:end_time].any?) %>">
+              <%= f.label :date, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <%= f.input_field :date, as: :date_picker, value: h_localize_date(f.object.date) %>
+              </div>
+
+              <div class="col-sm-6 no-work">
+                <div class="row">
+                  <%= f.label t('Time from'), class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-4">
+                    <%= f.input_field :start_time, as: :string, value: h_time(f.object.start_time), class: 'form-control clockpicker' %>
+                  </div>
+                  <%= f.label t('to'), class: 'col-sm-1 control-label' %>
+                  <div class="col-sm-4">
+                    <%= f.input_field :end_time, as: :string, value: h_time(f.object.end_time), class: 'form-control clockpicker' %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <%= f.input :no_work %>
+
+            <% if (@daily_timesheet.errors[:date].any? || @daily_timesheet.errors[:start_time].any? || @daily_timesheet.errors[:end_time].any?) %>
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-9 col-xs-6">
+                <%= f.error :date %>
+                <%= f.error :start_time %>
+                <%= f.error :end_time %>
+              </div>
+            </div>
+            <% end  %>
+
+          </fieldset>
+
+          <fieldset>
+            <legend><%= t('Payment details') %></legend>
+            <%= f.hidden_field :probation_period, id: "daily_timesheet_probation_period_h" %>
+
+            <%= f.association :salary_period %>
+
+            <%= f.input :rework %>
+
+            <%= f.input :probation_period, disabled: true %>
+
+            <%= f.association :payment_type %>
+
+            <%= f.input :ratio, input_html: {min: 0, step: 0.01} %>
+
+            <%= f.input :salary, input_html: {step: 0.01, min: 0, value: number_with_precision(f.object.salary, precision: 2)} %>
+
+            <%= f.input :description %>
+          </fieldset>
+
+          <fieldset>
+            <legend>
+              <%= t('Penalties') %>
+              <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :daily_timesheet_penalties, {'data-association-insertion-node':'.penalties', 'data-association-insertion-method': 'append'} %>
+            </legend>
+            <div class="penalties">
+              <%= f.simple_fields_for :daily_timesheet_penalties do |pen|  %>
+                  <%= render 'daily_timesheet_penalty_fields', f: pen %>
+              <% end %>
+            </div>
+
+            <%= f.input :penalty_description %>
+
+          </fieldset>
+
+          <fieldset>
+            <legend>
+              <%= t('Work Categories') %>
+            </legend>
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="work_category_id"><%= t('Category') %></label>
+              <div class="col-sm-9">
+                <%= select_tag 'work_category_id', options_for_select(WorkCategory.all.map {|e| [e.to_s, e.id, {'data-works' => e.work_type_categories.to_json}]}), include_blank: true, class: 'form-control', id: 'work_category_id' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="work_amount"><%= t('Amount') %></label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="work_amount" id="work_amount"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9 col-sm-offset-3">
+                <button type="button" id="calc_works"><i class="fa fa-plus"></i> <%= t('Add works from category') %></button>
+                <button type="button" id="clear_works"><i class="fa fa-trash"></i> <%= t('Clear all works') %></button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>
+              <%= t('Timesheet works') %>
+              <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :daily_timesheet_work_types, {'class': 'add-work', 'data-association-insertion-node':'.work_fields', 'data-association-insertion-method': 'append'} %>
+            </legend>
+            <div class="work_fields">
+              <%= f.simple_fields_for :daily_timesheet_work_types do |work|  %>
+                  <%= render 'daily_timesheet_work_type_fields', f: work %>
+              <% end %>
+            </div>
+            <% if @daily_timesheet.errors[:daily_timesheet_work_types].any? %>
+                <div class="form-group has-error">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-9 col-xs-6">
+                    <%= f.error :daily_timesheet_work_types %>
+                  </div>
+                </div>
+            <% end  %>
+            <hr/>
+            <%= f.input :additional_payment_value, input_html: {min: 0, step: 0.01} %>
+            <%= f.input :additional_payment_reason %>
+          </fieldset>
+
+          <fieldset>
+            <legend>&nbsp;</legend>
+            <%= f.association :daily_timesheet_status %>
+
+            <%= f.input :total_amount, input_html: {step: 0.01, min: 0, value: number_with_precision(f.object.total_amount, precision: 2)} %>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">&nbsp;</label>
+              <div class="col-sm-9">
+                <button type="button" class="btn btn-default recalculate"><i class="fa fa-refresh fa-fw" aria-hidden="true"></i> <%= t('Recalculate') %></button>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), daily_timesheets_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>
+
+<div class="modal fade" id="new_penalty_modal" tabindex="-1" role="dialog" aria-labelledby="penaltyModalLabel" aria-hidden="true">
+  <%= simple_form_for @penalty, remote: true, html: { class: 'form-horizontal', 'data-model' => 'penalty' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="penaltyModalLabel"><%= t('Add new penalty') %></h4>
+          </div>
+          <div class="modal-body">
+            <%= render 'penalties/form', modal: true %>
+          </div>
+          <div class="modal-footer">
+            <button id="modal-submit" type="button" class="btn btn-success"><%= t('Submit') %></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+</div>

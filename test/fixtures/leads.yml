@@ -1,0 +1,79 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  short_name: MyString
+  client_id: 
+  address: MyString
+  visit_date: 2016-06-06
+  lead_status_id: 
+  lead_type_id: 
+  lead_construction_type_id: 
+  project: false
+  project_institute: MyString
+  gip: MyString
+  gip_phone: MyString
+  gap: MyString
+  gap_phone: MyString
+  project_help: false
+  details: MyText
+  representatives: MyText
+  psycho01: false
+  psycho02: false
+  psycho03: false
+  psycho04: false
+  psycho05: false
+  psycho06: false
+  psycho07: false
+  psycho08: false
+  psycho09: false
+  psycho10: false
+  psycho11: false
+  psycho12: false
+  psycho13: false
+  psycho_other: MyText
+  sum_contract: 9.99
+  lead_payment_status_id: 
+  sum_payment: 9.99
+  debt: 9.99
+  credit: MyString
+  next_date: 2016-06-06
+
+two:
+  name: MyString
+  short_name: MyString
+  client_id: 
+  address: MyString
+  visit_date: 2016-06-06
+  lead_status_id: 
+  lead_type_id: 
+  lead_construction_type_id: 
+  project: false
+  project_institute: MyString
+  gip: MyString
+  gip_phone: MyString
+  gap: MyString
+  gap_phone: MyString
+  project_help: false
+  details: MyText
+  representatives: MyText
+  psycho01: false
+  psycho02: false
+  psycho03: false
+  psycho04: false
+  psycho05: false
+  psycho06: false
+  psycho07: false
+  psycho08: false
+  psycho09: false
+  psycho10: false
+  psycho11: false
+  psycho12: false
+  psycho13: false
+  psycho_other: MyText
+  sum_contract: 9.99
+  lead_payment_status_id: 
+  sum_payment: 9.99
+  debt: 9.99
+  credit: MyString
+  next_date: 2016-06-06

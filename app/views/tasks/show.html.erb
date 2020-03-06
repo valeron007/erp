@@ -1,0 +1,164 @@
+<% content_for :title do %>
+    <%= t('View Task') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View Task') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to tasks_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@task).can_edit? %>
+        <%= link_to edit_task_path(@task), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@task).can_delete? %>
+        <%= link_to task_path(@task), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@task).history? %>
+        <%= link_to task_history_path(@task), class: 'btn btn-app' do %>
+            <i class='fa fa-history'></i>
+            <span><%= t('History') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('Notes') %>
+                <span class="badge bg-yellow"><%= @task.task_notes.count %></span>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+            <dl class="dl-horizontal">
+              <dt><%= t('.Title') %></dt>
+              <dd><%= @task.title %></dd>
+
+              <dt><%= t('.Desc') %></dt>
+              <dd><%= @task.desc %></dd>
+
+              <dt><%= t('.Assign date') %></dt>
+              <dd><%= h_localize_date(@task.assign_date) %></dd>
+
+              <dt><%= t('.Finish date') %></dt>
+              <dd><%= @task.regularly ? t('.Regularly') : h_localize_date(@task.finish_date) %></dd>
+
+              <dt><%= t('.Task status') %></dt>
+              <dd><span class="badge <%= @task.task_status.get_badge_color %>"><%= @task.task_status %></span></dd>
+
+              <dt><%= t('.Important') %></dt>
+              <dd>
+                <% if @task.important %>
+                    <span class="badge bg-red"><%= t('true') %></span>
+                <% else %>
+                    <span class="badge"><%= t('false') %></span>
+                <%end%>
+              </dd>
+
+              <dt><%= t('.Urgent') %></dt>
+              <dd>
+                <% if @task.urgent %>
+                    <span class="badge bg-red"><%= t('true') %></span>
+                <% else %>
+                    <span class="badge"><%= t('false') %></span>
+                <%end%>
+              </dd>
+
+              <dt><%= t('.Assigned by') %></dt>
+              <dd><%= @task.assigned_by %></dd>
+
+              <dt><%= t('.Assigned to') %></dt>
+              <dd><%= @task.assigned_to %></dd>
+
+              <dt><%= t('.Created by') %></dt>
+              <dd><%= @task.created_by %></dd>
+
+              <dt><%= t('.Updated by') %></dt>
+              <dd><%= @task.updated_by %></dd>
+
+              <dt><%= t('.Result') %></dt>
+              <dd><%= simple_format @task.result %></dd>
+            </dl>
+
+            <br/>
+            <h3><%= t('Files') %></h3>
+            <hr/>
+
+            <table class="table">
+              <tbody>
+              <% @task.files.each_with_index do |file, index| %>
+                  <tr>
+                    <td><%= link_to URI::decode(file.url.to_s.split('/').last), file.url %></td>
+                    <td>
+                      <div>
+                        <% if file.to_s.split("/").last.split(".").last.in?(%w(jpg jpeg gif png)) %>
+                          <%= image_tag file.url, width: 200, class: "file-preview", alt: file.url.to_s.split('/').last %>
+                        <% end %>
+                      </div>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <%= t('.No notes') if @task.task_notes.empty? %>
+                <% @task.task_notes.each do |note| %>
+                    <div class="box-comment">
+                      <div class="comment-text">
+                      <span class="username">
+                        <%= note.user %>
+                        <span class="text-muted pull-right"><%= h_localize_datetime(note.created_at) %></span>
+                      </span><!-- /.username -->
+                        <%= note.val %>
+                        <br/>
+                        <% if policy(@task).destroy_note?  %>
+                            <%= link_to tasks_destroy_note_path(id: note), method: :post, data: { confirm: t('Are you sure?') }, class: 'btn btn-xs btn-danger pull-right', title: t('Delete') do %>
+                                <i class='fa fa-lg fa-trash-o'></i>
+                            <%- end -%>
+                        <% end %>
+                      </div><!-- /.comment-text -->
+                    </div><!-- /.box-comment -->
+                <% end %>
+              </div><!-- /.box-footer -->
+              <div class="box-footer">
+                <%= form_for @task_note, url: tasks_create_note_url do |f| %>
+                    <%= f.hidden_field :task_id %>
+                    <div class="input-group">
+                      <%= f.text_field :val, class: 'form-control', placeholder: t('Note text') %>
+                      <span class="input-group-btn">
+                          <%= f.submit t('Add'), class: 'btn btn-warning btn-flat' %>
+                        </span>
+                    </div>
+                <% end %>
+              </div><!-- /.box-footer -->
+            </div>
+          </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+      </div>
+    </div>
+  </div>
+
+</div>

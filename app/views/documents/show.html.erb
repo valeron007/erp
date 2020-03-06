@@ -1,0 +1,81 @@
+<% content_for :title do %>
+    <%= t('View Document') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View Document') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar hidden-print">
+    <%= link_to documents_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@document).can_edit? %>
+        <%= link_to edit_document_path(@document), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+    <% if policy(@document).history? %>
+        <%= link_to document_history_path(@document), class: 'btn btn-app' do %>
+            <i class='fa fa-history'></i>
+            <span><%= t('History') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@document).can_delete? %>
+        <%= link_to document_path(@document), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <h1><%= @document.name %></h1>
+          <div>
+            <small class="text-muted"><%= @document.updated_by.blank? ? @document.created_by : @document.updated_by %>, <%= @document.updated_at.blank? ? h_localize_datetime(@document.created_at) : h_localize_datetime(@document.updated_at) %></small>
+          </div>
+          <% if @document.sheet? %>
+            <form id="document-form">
+              <input type="hidden" value="<%= @document.content %>" id="sheet_content">
+              <div id="js-spreadsheet"></div>
+            </form>
+            <style>
+              #SocialCalc-settingsview, 
+              #SocialCalc-auditview, 
+              #SocialCalc-edittools, 
+              #SocialCalc-clipboardview,  
+              #js-spreadsheet > div > div:nth-child(1), 
+              #js-spreadsheet > div > div:nth-child(2) {
+                display: none;
+              }
+              #te_griddiv {
+                pointer-events: none;
+              }
+            </style>
+          <% else %>
+            <%= @document.content.html_safe %>
+          <% end %>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,6 @@
+$('#crop_form_wrapper').html('\
+<%= simple_form_for @employee, :url => { :action => "crop_image"}, html: { multipart: true, id: 'crop_form' }, remote: true do |form| %> \
+<%= form.cropbox :avatar, width: 870 %> \
+<% end %> \
+');
+init_papercrop();

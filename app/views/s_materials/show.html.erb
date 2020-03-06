@@ -1,0 +1,150 @@
+<% content_for :title do %>
+    <%= t('.View S Material') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View S Material') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to s_materials_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@s_material).can_edit? %>
+        <%= link_to edit_s_material_path(@s_material), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@s_material).can_delete? %>
+        <%= link_to s_material_path(@s_material), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('.Transactions') %>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+            <dl class="dl-horizontal">
+
+              <dt><%= t('.Name') %></dt>
+              <dd><%= @s_material.name.name %></dd>
+
+              <dt><%= t('.Pack') %></dt>
+              <dd><%= @s_material.pack %></dd>
+
+              <dt><%= t('.Amount') %></dt>
+              <dd><%= h_decimal(@s_material.amount) %></dd>
+
+              <dt><%= t('.Unit') %></dt>
+              <dd><%= @s_material.unit %></dd>
+
+              <dt><%= t('.Min amount') %></dt>
+              <dd><%= h_decimal(@s_material.min_amount) %></dd>
+
+              <dt><%= t('.Storage place') %></dt>
+              <dd><%= @s_material.storage_place %></dd>
+
+              <dt><%= t('.Comments') %></dt>
+              <dd><%= @s_material.comments %></dd>
+            </dl>
+            <br/>
+            <h3><%= t('Files') %></h3>
+            <hr/>
+
+            <table class="table">
+              <tbody>
+              <% @s_material.s_material_files.each_with_index do |file, index| %>
+                  <tr>
+                    <td>
+                      <% if MIME::Types.type_for(file.url).first.try(:media_type) == 'image' %>
+                          <%= link_to image_tag(file.url, border: 0, style: 'max-width: 200px'), file.url, "data-toggle": 'lightbox', "data-gallery": "gallery" %>
+                      <% else %>
+                          <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th><%= t('.Date') %></th>
+
+                    <th><%= t('.Destination') %></th>
+
+                    <th><%= t('.User from') %></th>
+
+                    <th><%= t('.User to') %></th>
+
+                    <th class="centered"><%= t('.Operation') %></th>
+
+                    <th><%= t('.Count') %></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @s_material.s_transaction_material.each do |transaction| %>
+                      <tr>
+                        <% unless transaction.s_transaction.nil? %>
+                            <td><%= h_localize_date(transaction.s_transaction.date) %></td>
+
+                            <td><%= transaction.s_transaction.destination %></td>
+
+                            <td><%= transaction.s_transaction.user_from %></td>
+
+                            <td><%= transaction.s_transaction.user_to %></td>
+
+                            <td class="centered">
+                              <%= transaction.s_transaction.get_transaction_icon.html_safe unless transaction.s_transaction.get_transaction_icon.blank? %>
+                            </td>
+
+                            <td><%= h_decimal(transaction.s_amount) %></td>
+
+                            <td class="centered">
+                              <%= link_to s_transaction_path(transaction.s_transaction), target: '_blank', class: 'btn btn-sm btn-default', title: t('View') do %>
+                                  <i class='fa fa-lg fa-eye'></i>
+                              <%- end -%>
+                            </td>
+                            </tr>
+                        <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

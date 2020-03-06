@@ -1,0 +1,48 @@
+<% content_for :title do %>
+    <%= t('.View Position') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View Position') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to positions_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@position).can_edit? %>
+        <%= link_to edit_position_path(@position), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@position).can_delete? %>
+        <%= link_to position_path(@position), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Position') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <strong><%= t('.Titles') %></strong>
+          <p class="text-muted"><%= @position.name %></p>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

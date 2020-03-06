@@ -1,0 +1,55 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :date, {label: t('Date')}) %></th>
+      <% if policy(:daily_work).can_assign? %>
+          <th><%= filterrific_sorting_link(@filterrific, :user, {label: t('User')}) %></th>
+      <% end %>
+      <th><%= t('Done') %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @daily_works.each do |work| %>
+        <tr>
+          <td style="white-space: nowrap;">
+            <% if policy(work).can_edit? %>
+                <%= link_to(human_date_format(work.date, "%d.%m.%y (%a)"), edit_daily_work_path(work)) %>
+            <% else %>
+                <%= human_date_format(work.date, "%d.%m.%y (%a)") %>
+            <% end %>
+          </td>
+          <% if policy(work).can_assign? %>
+              <td><%= work.user %></td>
+          <% end %>
+          <td><%= truncate(work.daily_work_kpis.join(", "), length: 50) unless work.daily_work_kpis.blank? %></td>
+          <td class="centered">
+            <% if policy(work).can_edit? %>
+                <%= link_to edit_daily_work_path(work), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(work).can_delete? %>
+                <%= link_to daily_work_path(work), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @daily_works %></div>
+    <div class="col-md-4"><%= page_navigation_links @daily_works %></div>
+  </div>
+</div>

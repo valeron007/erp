@@ -1,0 +1,2 @@
+$('#employee_position_id').append($('<option></option>').val(<%= @position.id %>).html('<%= @position.name %>')).val(<%= @position.id %>).trigger('change');
+$('#new_position_modal').modal_success();

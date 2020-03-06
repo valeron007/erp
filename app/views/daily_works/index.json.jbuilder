@@ -1,0 +1,1 @@
+json.array! @daily_works, partial: 'daily_works/daily_work', as: :daily_work

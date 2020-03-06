@@ -1,0 +1,39 @@
+<% content_for :title do %>
+    <%= t('Employee Payments Report') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Employee Payments Report') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="box">
+    <div class="box-body">
+      <%= form_for @filter, url: report_employee_payments_url(format: :js), remote: true, html: { class: 'form' }, class:'' do |f| %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <div class="row">
+            <div class="col-xs-6">
+              <select name="report_controller_report_filter[employee_name]" class="form-control autoselect2" data-source="<%= employees_search_path %>" data-placeholder="<%= t('Employee') %>">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="col-xs-6">
+              <div class="has-icon date">
+                <%= f.text_field(:date_range, class: 'form-control daterange', placeholder: t('Date Range')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-12 centered">
+          <button type="button" class="btn btn-default btn-preview" data-action-url="<%= report_employee_payments_url(format: :js) %>"><%= t('View Report') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="report_preview"></div>
+
+
+</div>

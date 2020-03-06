@@ -1,0 +1,1 @@
+json.partial! "s_others/s_other", s_other: @s_other

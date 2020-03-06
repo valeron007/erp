@@ -1,0 +1,45 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.transport_company.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :phone, {label: t('simple_form.labels.transport_company.phone')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :email, {label: t('simple_form.labels.transport_company.email')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @transport_companies.each do |transport_company| %>
+        <tr>
+          <td>
+            <% if policy(transport_company).can_view? %>
+                <%= link_to(transport_company.name, transport_company_path(transport_company)) %>
+            <% else %>
+                <%= transport_company.name %>
+            <% end %>
+          </td>
+          <td><%= transport_company.phone %></td>
+          <td><%= transport_company.email %></td>
+          <td class="centered">
+            <% if policy(transport_company).can_edit? %>
+                <%= link_to edit_transport_company_path(transport_company), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(transport_company).can_delete? %>
+                <%= link_to transport_company_path(transport_company), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-5"><%= page_entries_info @transport_companies %></div>
+    <div class="col-xs-5 pull-right"><%= page_navigation_links @transport_companies %></div>
+  </div>
+</div>
+

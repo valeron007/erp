@@ -1,0 +1,68 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :order_date, {label: t('simple_form.labels.delivery.order_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :update_date, {label: t('simple_form.labels.delivery.update_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.delivery.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :count, {label: t('simple_form.labels.delivery.count')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :price_per_unit, {label: t('simple_form.labels.delivery.price_per_unit')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :cost, {label: t('simple_form.labels.delivery.cost')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :contractor, {label: t('simple_form.labels.delivery.contractor')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :delivery_payment_status, {label: t('simple_form.labels.delivery.delivery_payment_status')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :arrival_date, {label: t('simple_form.labels.delivery.arrival_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :delivery_status, {label: t('simple_form.labels.delivery.delivery_status')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @deliveries.each do |delivery| %>
+        <tr>
+          <td><%= h_localize_date(delivery.order_date) %></td>
+          <td><%= delivery.updated_at.to_datetime.strftime('%d.%m.%Y') %></td>
+          <td>
+            <% if policy(delivery).can_view? %>
+                <%= link_to delivery.name, delivery_path(delivery) %>
+            <% else %>
+                <%= delivery.name %>
+            <% end %>
+          </td>
+          <td><%= delivery.count %></td>
+          <td><%= number_to_currency(delivery.price_per_unit) %></td>
+          <td><%= number_to_currency(delivery.cost) %></td>
+          <td><%= link_to delivery.contractor, delivery.contractor %></td>
+          <td><%= delivery.delivery_payment_status %></td>
+          <td><%= h_localize_date(delivery.arrival_date) %></td>
+          <td><%= delivery.delivery_status %></td>
+
+          <td class="centered">
+            <% if policy(delivery).can_edit? %>
+                <%= link_to edit_delivery_path(delivery), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(delivery).can_delete? %>
+                <%= link_to delivery_path(delivery), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @deliveries %></div>
+    <div class="col-md-4"><%= page_navigation_links @deliveries %></div>
+  </div>
+</div>
+

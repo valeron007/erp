@@ -1,0 +1,56 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: t('Employee Payments Report')) do |sheet|
+
+  sheet.add_row ['', '', '']
+  sheet.add_row ['', t('Report Filter'), '']
+  sheet.merge_cells 'B2:C2'
+  sheet.add_style 'B2:C2', b: true, sz: 14, alignment: { horizontal: :center }
+
+  sheet.add_row ['', t('Employee'), @f.employee_name.blank? ? t('All') : @f.employee_name]
+  sheet.add_row ['', t('From date'), @f.date_from]
+  sheet.add_row ['', t('To date'), @f.date_to]
+
+
+  sheet.add_style 'B3:B5', b: true, sz: 13, alignment: { horizontal: :right }
+  sheet.add_style 'C3:C5', sz: 13
+  sheet.add_border 'B3:C5'
+
+  sheet.add_row ['']
+
+  sheet.add_row ['', t('Employee'), t('Position'), t('Had piecework'), t('Total Payout'), t('Time Based'), t('Work Based'), t('Total Penalties'), t('Penalties Details'), t('Facilities Time Based'), t('Facilities Work Based')]
+  sheet.add_style 'B7:K7', b: true, sz: 13
+
+  if not @data.blank?
+    @data.each do |e|
+      total = DailyTimesheet.total_for_employee(e, @f.date_from, @f.date_to)
+      salary = DailyTimesheet.total_salary_for_employee(e, @f.date_from, @f.date_to)
+      piecework = DailyTimesheet.total_piecework_for_employee(e, @f.date_from, @f.date_to)
+      penalties = DailyTimesheet.penalties_for_employees(e, @f.date_from, @f.date_to)
+      sheet.add_row [
+                        '',
+                        e,
+                        e.position,
+                        t(DailyTimesheet.has_piecework_for_employee(e, @f.date_from, @f.date_to).to_s),
+                        number_with_precision(total+penalties, precision: 2),
+                        number_with_precision(salary+penalties, precision: 2),
+                        number_with_precision(piecework+penalties, precision: 2),
+                        number_with_precision(penalties, precision: 2),
+                        DailyTimesheet.penalties_list_for_employees(e, @f.date_from, @f.date_to).map(&:name).join(', '),
+                        DailyTimesheet.facilities_salary_list_for_employees(e, @f.date_from, @f.date_to).map(&:name).join(', '),
+                        DailyTimesheet.facilities_piecework_list_for_employees(e, @f.date_from, @f.date_to).map(&:name).join(', ')
+                    ]
+    end
+    li = sheet.rows.last.index+1
+    sheet.add_table "B7:K#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+
+  else
+    li = sheet.rows.last.index+2
+    sheet.add_row ['', t('No data for current filter'), '', '', '', '', '']
+    sheet.add_table "B7:K#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+  end
+
+  sheet.column_widths 5, 30, 20, 20, 20, 20, 20, 20, 30, 30, 30
+
+end
+
+wb.apply_styles

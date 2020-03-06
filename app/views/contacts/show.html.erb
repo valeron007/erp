@@ -1,0 +1,61 @@
+<% content_for :title do %>
+<%= t('View')%> <%= t('Contact') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('View')%> <%= t('Contact') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to contacts_path, class: 'btn btn-app' do %>
+    <i class='fa fa-chevron-left'></i>
+    <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@contact).can_edit? %>
+      <%= link_to edit_contact_path(@contact), class: 'btn btn-app' do %>
+      <i class='fa fa-pencil-square-o'></i>
+      <span><%= t('Edit') %></span>
+      <%- end -%>
+    <% end %>
+
+    <% if policy(@contact).can_delete? %>
+      <%= link_to contact_path(@contact), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+      <i class='fa fa-trash-o'></i>
+      <span><%= t('Delete') %></span>
+      <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Contact') %> <%= t('Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+            
+                <dt><%= t('Name') %></dt>
+                <dd><%= @contact.name %></dd>
+            
+                <dt><%= t('Phone') %></dt>
+                <dd><%= @contact.phone %></dd>
+            
+                <dt><%= t('Position') %></dt>
+                <dd><%= @contact.position %></dd>
+            
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

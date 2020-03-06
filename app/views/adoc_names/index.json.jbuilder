@@ -1,0 +1,1 @@
+json.array! @adoc_names, partial: 'adoc_names/adoc_name', as: :adoc_name

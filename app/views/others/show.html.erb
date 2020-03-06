@@ -1,0 +1,59 @@
+<% content_for :title do %>
+<%= t('View')%> <%= t('Other') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('View')%> <%= t('Other') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to others_path, class: 'btn btn-app' do %>
+    <i class='fa fa-chevron-left'></i>
+    <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@other).can_edit? %>
+      <%= link_to edit_other_path(@other), class: 'btn btn-app' do %>
+      <i class='fa fa-pencil-square-o'></i>
+      <span><%= t('Edit') %></span>
+      <%- end -%>
+    <% end %>
+
+    <% if policy(@other).can_delete? %>
+      <%= link_to other_path(@other), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+      <i class='fa fa-trash-o'></i>
+      <span><%= t('Delete') %></span>
+      <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Other') %> <%= t('Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+            
+                <dt><%= t('Name') %></dt>
+                <dd><%= @other.name %></dd>
+                <dt><%= t('Unit') %></dt>
+                <dd><%= @other.unit %></dd>
+
+                <dt><%= t('Price per unit') %></dt>
+                <dd><%= @other.price_per_unit %></dd>
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,63 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.lead.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :short_name, {label: t('simple_form.labels.lead.short_name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :client, {label: t('simple_form.labels.lead.client')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :visit_date, {label: t('simple_form.labels.lead.visit_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :next_date, {label: t('simple_form.labels.lead.next_date')}) %></th>
+      <% if has_lead_full_access %>
+          <th><%= filterrific_sorting_link(@filterrific, :manager, {label: t('simple_form.labels.lead.created_by')}) %></th>
+      <% end %>
+      <th><%= filterrific_sorting_link(@filterrific, :lead_status, {label: t('simple_form.labels.lead.lead_status')}) %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @leads.each do |lead| %>
+        <tr>
+          <td>
+            <% if policy(lead).can_view? %>
+                <%= link_to(lead.name, lead_path(lead)) %>
+            <% else %>
+                <%= lead.name %>
+            <% end %>
+          </td>
+          <td><%= lead.short_name %></td>
+          <td><%= lead.client %></td>
+          <td><%= h_localize_date(lead.visit_date) %></td>
+          <td><%= h_localize_date(lead.next_date) %></td>
+          <% if has_lead_full_access %>
+              <td><%= lead.created_by %></td>
+          <% end %>
+          <td><%= lead.lead_status %></td>
+          <td class="centered">
+            <% if policy(lead).can_edit? %>
+                <%= link_to edit_lead_path(lead), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(lead).can_delete? %>
+                <%= link_to lead_path(lead), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @leads %></div>
+    <div class="col-md-4"><%= page_navigation_links @leads %></div>
+  </div>
+</div>

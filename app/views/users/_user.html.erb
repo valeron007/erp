@@ -1,0 +1,25 @@
+<td>
+  <%= user.name %>
+</td>
+<td>
+  <%= user.email %>
+</td>
+<td>
+  <%= human_date_format(user.last_sign_in_at, '%d.%m.%Y, %H:%M')  %>
+</td>
+<td>
+  <%= form_for(user, html: {class: 'form-inline'}) do |f| %>
+    <div class="form-group">
+    <%= f.select(:role, User.roles_attributes_for_select, {}, {:class => 'form-control', :style => 'width: 200px;'}) %>
+    <%= f.submit t('Update'), :class => 'btn btn-default' %>
+    </div>
+  <% end %>
+</td>
+<td class="centered">
+  <%= link_to edit_user_path(user), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+      <i class='fa fa-lg fa-pencil-square-o'></i>
+  <%- end -%>
+  <%= link_to user_path(user), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+      <i class='fa fa-lg fa-trash-o'></i>
+  <%- end -%>
+</td>

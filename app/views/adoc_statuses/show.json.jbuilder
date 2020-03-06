@@ -1,0 +1,1 @@
+json.partial! "adoc_statuses/adoc_status", adoc_status: @adoc_status

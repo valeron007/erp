@@ -1,0 +1,2 @@
+json.extract! delivery, :id, :name, :count, :unit_id, :contractor_id, :city, :address, :transport_company_id, :volume, :volume_unit_id, :dispatch_date, :arrival_date, :delivery_cost, :delivery_perunit, :delivery_payment_status_id, :delivery_status_id, :cost, :total_with_delivery, :vat, :delivery_document_id, :delivery_letter_id, :delivery_dest_id, :order_date, :commodity_type_id, :pack, :created_at, :updated_at
+json.url delivery_url(delivery, format: :json)

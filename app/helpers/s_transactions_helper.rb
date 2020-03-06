@@ -1,0 +1,2 @@
+module STransactionsHelper
+end

@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Export Sheet') do |sheet|
+
+  sheet.add_row ['']
+  sheet.add_row ['', t('Date'), t('Time'), t('State'), t('Employee'), t('Facility'), t('Total amount')]
+
+  unless @daily_timesheets.blank?
+    @daily_timesheets.each do |e|
+      sheet.add_row ['', h_localize_date(e.date), e.time_period, e.daily_timesheet_status, e.employee, e.facility, e.total_amount]
+    end
+  end
+
+  sheet.add_table "B2:G#{sheet.rows.last.index+2}", :name => 'DailyTimesheets', :style_info => { :name => 'TableStyleMedium2' }
+
+  sheet.column_widths 5, 10, 15, 10, 40, 70, 10
+
+  sheet.add_style 'B2:G2', b: true, sz: 13
+
+end
+
+wb.apply_styles

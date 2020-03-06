@@ -1,0 +1,63 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  middle_name: MyString
+  position_id: 
+  hire_date: 2016-03-08
+  probation_period: 1
+  employee_status_id: 
+  fire_date: 2016-03-08
+  fire_reason_id: 
+  passport: MyString
+  birth_date: 2016-03-08
+  citizenship: MyString
+  nationality: MyString
+  felony: 
+  felony_notes: MyText
+  salary: 1.5
+  salary_ratio: 1.5
+  card_number: MyString
+  card_owner: MyString
+  shoes_size: MyString
+  dress_size: MyString
+  height: MyString
+  children_count: 1
+  mobile_number: MyString
+  phone_number: MyString
+  address: MyString
+  residential_address: MyString
+  emergency_name: MyString
+  emergency_phone: MyString
+
+two:
+  first_name: MyString
+  last_name: MyString
+  middle_name: MyString
+  position_id: 
+  hire_date: 2016-03-08
+  probation_period: 1
+  employee_status_id: 
+  fire_date: 2016-03-08
+  fire_reason_id: 
+  passport: MyString
+  birth_date: 2016-03-08
+  citizenship: MyString
+  nationality: MyString
+  felony: 
+  felony_notes: MyText
+  salary: 1.5
+  salary_ratio: 1.5
+  card_number: MyString
+  card_owner: MyString
+  shoes_size: MyString
+  dress_size: MyString
+  height: MyString
+  children_count: 1
+  mobile_number: MyString
+  phone_number: MyString
+  address: MyString
+  residential_address: MyString
+  emergency_name: MyString
+  emergency_phone: MyString

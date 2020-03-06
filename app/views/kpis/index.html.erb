@@ -1,0 +1,63 @@
+<% content_for :title do %>
+<%= t('Kpi Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('Kpi Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:kpi).can_create? %>
+      <%= link_to new_kpi_path, class: 'btn btn-app' do %>
+      <i class='fa fa-plus-square-o'></i>
+      <span><%= t('Add new') %></span>
+      <%- end -%>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+      
+          <th>Name</th>
+      
+          <th>Weight</th>
+      
+          <th>Norm</th>
+
+          <th>Roles</th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @kpis.each do |kpi| %>
+    <tr>
+      
+          <td><%= kpi.name %></td>
+      
+          <td><%= kpi.weight %></td>
+      
+          <td><%= kpi.norm %></td>
+
+          <td><%= kpi.roles_to_s %></td>
+
+      <td class="centered">
+        <% if policy(kpi).can_edit? %>
+          <%= link_to edit_kpi_path(kpi), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+          <i class='fa fa-lg fa-pencil-square-o'></i>
+          <%- end -%>
+        <% end %>
+        <% if policy(kpi).can_delete? %>
+          <%= link_to kpi_path(kpi), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+          <i class='fa fa-lg fa-trash-o'></i>
+          <%- end -%>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

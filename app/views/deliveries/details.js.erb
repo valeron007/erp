@@ -1,0 +1,76 @@
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.order_date') %>:
+      </td>
+      <td>
+        <%= h_localize_date(@delivery.order_date) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.update_date') %>:
+      </td>
+      <td>
+        <%= @delivery.updated_at.to_datetime.strftime('%d.%m.%Y') %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.name') %>:
+      </td>
+      <td>
+        <%= @delivery.name %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.count') %>:
+      </td>
+      <td>
+        <%= @delivery.count %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.delivery_perunit') %>:
+      </td>
+      <td>
+        <%= @delivery.delivery_perunit %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.contractor') %>:
+      </td>
+      <td>
+        <%= @delivery.contractor %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.delivery_payment_status') %>:
+      </td>
+      <td>
+        <%= @delivery.delivery_payment_status %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.arrival_date') %>:
+      </td>
+      <td>
+        <%= h_localize_date(@delivery.arrival_date) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= t('simple_form.labels.delivery.delivery_status') %>:
+      </td>
+      <td>
+        <%= @delivery.delivery_status %>
+      </td>
+    </tr>
+  </tbody>
+</table>

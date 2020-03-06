@@ -1,0 +1,616 @@
+=== puma startup: 2019-04-03 15:13:19 +0300 ===
+[18142] * Starting control server on unix:///tmp/puma-status-1554293599277-18142
+[18142] - Worker 1 (pid: 18154) booted, phase: 0
+[18142] - Worker 0 (pid: 18150) booted, phase: 0
+[18142] - Gracefully shutting down workers...
+[18142] === puma shutdown: 2019-04-03 15:13:43 +0300 ===
+[18142] - Goodbye!
+=== puma startup: 2019-04-03 15:35:36 +0300 ===
+[18508] * Starting control server on unix:///tmp/puma-status-1554294936454-18508
+[18508] - Gracefully shutting down workers...
+[18520] Early termination of worker
+[18516] Early termination of worker
+[18508] === puma shutdown: 2019-04-03 15:35:41 +0300 ===
+[18508] - Goodbye!
+=== puma startup: 2019-04-03 15:37:17 +0300 ===
+[18559] * Starting control server on unix:///tmp/puma-status-1554295037940-18559
+[18559] - Worker 1 (pid: 18570) booted, phase: 0
+[18559] - Worker 0 (pid: 18566) booted, phase: 0
+[18559] - Gracefully shutting down workers...
+[18559] === puma shutdown: 2019-04-03 15:41:05 +0300 ===
+[18559] - Goodbye!
+=== puma startup: 2019-04-03 15:41:09 +0300 ===
+[18825] * Starting control server on unix:///tmp/puma-status-1554295269435-18825
+[18825] - Worker 0 (pid: 18832) booted, phase: 0
+[18825] - Worker 1 (pid: 18836) booted, phase: 0
+[18825] - Gracefully shutting down workers...
+[18825] === puma shutdown: 2019-04-03 15:42:05 +0300 ===
+[18825] - Goodbye!
+=== puma startup: 2019-04-03 16:02:43 +0300 ===
+[19623] * Starting control server on unix:///tmp/puma-status-1554296563754-19623
+[19623] - Worker 0 (pid: 19631) booted, phase: 0
+[19623] - Worker 1 (pid: 19635) booted, phase: 0
+[19623] - Gracefully shutting down workers...
+[19623] === puma shutdown: 2019-04-03 16:08:28 +0300 ===
+[19623] - Goodbye!
+=== puma startup: 2019-04-03 18:47:28 +0300 ===
+[26647] * Starting control server on unix:///tmp/puma-status-1554306448578-26647
+[26647] - Gracefully shutting down workers...
+[27042] Early termination of worker
+[27046] Early termination of worker
+[26647] === puma shutdown: 2019-04-03 18:50:55 +0300 ===
+[26647] - Goodbye!
+=== puma startup: 2019-04-03 18:53:21 +0300 ===
+[27085] * Starting control server on unix:///tmp/puma-status-1554306800925-27085
+[27085] - Gracefully shutting down workers...
+[28399] Early termination of worker
+[28403] Early termination of worker
+[27085] === puma shutdown: 2019-04-03 19:07:56 +0300 ===
+[27085] - Goodbye!
+=== puma startup: 2019-04-03 19:08:51 +0300 ===
+[28418] * Starting control server on unix:///tmp/puma-status-1554307731715-28418
+[28418] - Gracefully shutting down workers...
+[29093] Early termination of worker
+[29097] Early termination of worker
+[28418] === puma shutdown: 2019-04-03 19:19:25 +0300 ===
+[28418] - Goodbye!
+=== puma startup: 2019-04-03 19:19:44 +0300 ===
+[29115] * Starting control server on unix:///tmp/puma-status-1554308384495-29115
+[29115] - Worker 1 (pid: 29126) booted, phase: 0
+[29115] - Worker 0 (pid: 29122) booted, phase: 0
+[29115] - Gracefully shutting down workers...
+[29115] === puma shutdown: 2019-04-03 19:20:04 +0300 ===
+[29115] - Goodbye!
+=== puma startup: 2019-04-03 20:04:00 +0300 ===
+[29592] * Starting control server on unix:///tmp/puma-status-1554311040403-29592
+[29592] - Worker 0 (pid: 29599) booted, phase: 0
+[29592] - Worker 1 (pid: 29603) booted, phase: 0
+[29592] - Gracefully shutting down workers...
+[29592] === puma shutdown: 2019-04-03 20:05:39 +0300 ===
+[29592] - Goodbye!
+=== puma startup: 2019-04-03 20:05:53 +0300 ===
+[29643] * Starting control server on unix:///tmp/puma-status-1554311153767-29643
+[29643] - Worker 1 (pid: 29655) booted, phase: 0
+[29643] - Worker 0 (pid: 29651) booted, phase: 0
+[29655] ! Detected parent died, dying
+[29651] ! Detected parent died, dying
+=== puma startup: 2019-04-03 22:26:50 +0300 ===
+[32208] * Starting control server on unix:///tmp/puma-status-1554319610319-32208
+[32208] - Gracefully shutting down workers...
+[32264] Early termination of worker
+[32260] Early termination of worker
+[32208] === puma shutdown: 2019-04-03 22:27:39 +0300 ===
+[32208] - Goodbye!
+=== puma startup: 2019-04-03 22:35:26 +0300 ===
+[32461] * Starting control server on unix:///tmp/puma-status-1554320126296-32461
+[32461] - Gracefully shutting down workers...
+[32703] Early termination of worker
+[32707] Early termination of worker
+[32461] === puma shutdown: 2019-04-03 22:38:18 +0300 ===
+[32461] - Goodbye!
+=== puma startup: 2019-04-03 22:38:31 +0300 ===
+[32721] * Starting control server on unix:///tmp/puma-status-1554320310981-32721
+[32721] - Gracefully shutting down workers...
+[488] Early termination of worker
+[492] Early termination of worker
+[32721] === puma shutdown: 2019-04-03 22:41:38 +0300 ===
+[32721] - Goodbye!
+=== puma startup: 2019-04-03 22:43:46 +0300 ===
+[659] * Starting control server on unix:///tmp/puma-status-1554320626166-659
+[659] - Gracefully shutting down workers...
+[691] Early termination of worker
+[659] === puma shutdown: 2019-04-03 22:44:19 +0300 ===
+[659] - Goodbye!
+=== puma startup: 2019-04-03 22:44:41 +0300 ===
+[700] * Starting control server on unix:///tmp/puma-status-1554320681059-700
+[700] - Gracefully shutting down workers...
+[814] Early termination of worker
+[700] === puma shutdown: 2019-04-03 22:46:49 +0300 ===
+[700] - Goodbye!
+=== puma startup: 2019-04-03 22:47:02 +0300 ===
+[825] * Starting control server on unix:///tmp/puma-status-1554320822654-825
+[825] - Worker 0 (pid: 831) booted, phase: 0
+[825] - Gracefully shutting down workers...
+[825] === puma shutdown: 2019-04-03 22:47:20 +0300 ===
+[825] - Goodbye!
+=== puma startup: 2019-04-03 22:51:06 +0300 ===
+[1211] * Starting control server on unix:///tmp/puma-status-1554321066413-1211
+[1211] - Worker 0 (pid: 1217) booted, phase: 0
+[1211] - Gracefully shutting down workers...
+[1211] === puma shutdown: 2019-04-03 22:52:52 +0300 ===
+[1211] - Goodbye!
+=== puma startup: 2019-04-03 23:21:02 +0300 ===
+[2688] * Starting control server on unix:///tmp/puma-status-1554322862137-2688
+[2688] - Worker 0 (pid: 2694) booted, phase: 0
+[2688] - Gracefully shutting down workers...
+[2688] === puma shutdown: 2019-04-03 23:22:31 +0300 ===
+[2688] - Goodbye!
+=== puma startup: 2019-04-03 23:23:55 +0300 ===
+[2750] * Starting control server on unix:///tmp/puma-status-1554323035486-2750
+[2750] - Worker 0 (pid: 2758) booted, phase: 0
+[2750] - Gracefully shutting down workers...
+[2750] === puma shutdown: 2019-04-03 23:24:24 +0300 ===
+[2750] - Goodbye!
+=== puma startup: 2019-04-03 23:24:36 +0300 ===
+[2780] * Starting control server on unix:///tmp/puma-status-1554323076246-2780
+[2780] - Worker 0 (pid: 2786) booted, phase: 0
+[2780] - Gracefully shutting down workers...
+[2780] === puma shutdown: 2019-04-03 23:25:40 +0300 ===
+[2780] - Goodbye!
+=== puma startup: 2019-04-03 23:26:04 +0300 ===
+[2976] * Starting control server on unix:///tmp/puma-status-1554323164360-2976
+[2976] - Worker 0 (pid: 2982) booted, phase: 0
+[2976] - Gracefully shutting down workers...
+[2976] === puma shutdown: 2019-04-04 01:40:55 +0300 ===
+[2976] - Goodbye!
+=== puma startup: 2019-04-04 01:41:10 +0300 ===
+[4046] * Starting control server on unix:///tmp/puma-status-1554331270519-4046
+[4046] - Worker 0 (pid: 4052) booted, phase: 0
+[4046] - Gracefully shutting down workers...
+[4046] === puma shutdown: 2019-04-04 11:58:04 +0300 ===
+[4046] - Goodbye!
+=== puma startup: 2019-04-04 11:58:21 +0300 ===
+[8237] * Starting control server on unix:///tmp/puma-status-1554368301007-8237
+[8237] - Worker 0 (pid: 8243) booted, phase: 0
+[8237] - Gracefully shutting down workers...
+[8237] === puma shutdown: 2019-04-04 14:33:27 +0300 ===
+[8237] - Goodbye!
+=== puma startup: 2019-04-04 14:33:43 +0300 ===
+[23337] * Starting control server on unix:///tmp/puma-status-1554377623312-23337
+[23337] - Worker 0 (pid: 23343) booted, phase: 0
+[23337] - Gracefully shutting down workers...
+[23337] === puma shutdown: 2019-04-04 22:34:10 +0300 ===
+[23337] - Goodbye!
+=== puma startup: 2019-04-05 10:08:35 +0300 ===
+[5533] * Starting control server on unix:///tmp/puma-status-1554448115742-5533
+[5533] - Worker 0 (pid: 5539) booted, phase: 0
+[5533] - Gracefully shutting down workers...
+[5533] === puma shutdown: 2019-04-05 10:09:13 +0300 ===
+[5533] - Goodbye!
+=== puma startup: 2019-04-05 10:09:18 +0300 ===
+[5553] * Starting control server on unix:///tmp/puma-status-1554448158428-5553
+[5553] - Worker 0 (pid: 5559) booted, phase: 0
+[5553] - Gracefully shutting down workers...
+[5553] === puma shutdown: 2019-04-13 18:14:47 +0300 ===
+[5553] - Goodbye!
+=== puma startup: 2019-04-13 18:15:23 +0300 ===
+[30027] * Starting control server on unix:///tmp/puma-status-1555168523558-30025
+[30027] - Worker 0 (pid: 30032) booted, phase: 0
+[30027] - Gracefully shutting down workers...
+[30027] * Restarting...
+[30027] Puma starting in cluster mode...
+[30027] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[30027] * Min threads: 1, max threads: 6
+[30027] * Environment: production
+[30027] * Process workers: 1
+[30027] * Phased restart available
+[30027] * Inherited tcp://0.0.0.0:3000
+[30027] * Daemonizing...
+=== puma startup: 2019-04-13 18:16:55 +0300 ===
+[30049] * Starting control server on unix:///tmp/puma-status-1555168523558-30025
+[30049] - Gracefully shutting down workers...
+[30054] Early termination of worker
+[30049] === puma shutdown: 2019-04-13 18:17:02 +0300 ===
+[30049] - Goodbye!
+=== puma startup: 2019-04-13 18:17:42 +0300 ===
+[30062] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[30062] - Worker 0 (pid: 30067) booted, phase: 0
+[30062] - Gracefully shutting down workers...
+[30062] * Restarting...
+[30062] Puma starting in cluster mode...
+[30062] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[30062] * Min threads: 1, max threads: 6
+[30062] * Environment: production
+[30062] * Process workers: 1
+[30062] * Phased restart available
+[30062] * Inherited tcp://0.0.0.0:3000
+[30062] * Daemonizing...
+=== puma startup: 2019-04-13 18:30:47 +0300 ===
+[30174] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[30174] - Worker 0 (pid: 30179) booted, phase: 0
+[30174] - Gracefully shutting down workers...
+[30174] * Restarting...
+[30174] Puma starting in cluster mode...
+[30174] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[30174] * Min threads: 1, max threads: 6
+[30174] * Environment: production
+[30174] * Process workers: 1
+[30174] * Phased restart available
+[30174] * Inherited tcp://0.0.0.0:3000
+[30174] * Daemonizing...
+=== puma startup: 2019-04-15 17:34:16 +0300 ===
+[22781] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[22781] - Worker 0 (pid: 22786) booted, phase: 0
+[22781] - Gracefully shutting down workers...
+[22781] * Restarting...
+[22781] Puma starting in cluster mode...
+[22781] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[22781] * Min threads: 1, max threads: 6
+[22781] * Environment: production
+[22781] * Process workers: 1
+[22781] * Phased restart available
+[22781] * Inherited tcp://0.0.0.0:3000
+[22781] * Daemonizing...
+=== puma startup: 2019-04-16 14:10:11 +0300 ===
+[340] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[340] - Worker 0 (pid: 345) booted, phase: 0
+[340] - Gracefully shutting down workers...
+[340] * Restarting...
+[340] Puma starting in cluster mode...
+[340] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[340] * Min threads: 1, max threads: 6
+[340] * Environment: production
+[340] * Process workers: 1
+[340] * Phased restart available
+[340] * Inherited tcp://0.0.0.0:3000
+[340] * Daemonizing...
+=== puma startup: 2019-04-18 15:47:54 +0300 ===
+[29784] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[29784] - Worker 0 (pid: 29789) booted, phase: 0
+[29784] - Gracefully shutting down workers...
+[29784] * Restarting...
+[29784] Puma starting in cluster mode...
+[29784] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[29784] * Min threads: 1, max threads: 6
+[29784] * Environment: production
+[29784] * Process workers: 1
+[29784] * Phased restart available
+[29784] * Inherited tcp://0.0.0.0:3000
+[29784] * Daemonizing...
+=== puma startup: 2019-04-19 17:50:18 +0300 ===
+[7677] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[7677] - Worker 0 (pid: 7682) booted, phase: 0
+[7677] - Gracefully shutting down workers...
+[7677] * Restarting...
+[7677] Puma starting in cluster mode...
+[7677] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[7677] * Min threads: 1, max threads: 6
+[7677] * Environment: production
+[7677] * Process workers: 1
+[7677] * Phased restart available
+[7677] * Inherited tcp://0.0.0.0:3000
+[7677] * Daemonizing...
+=== puma startup: 2019-04-19 22:44:31 +0300 ===
+[10002] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[10002] - Worker 0 (pid: 10007) booted, phase: 0
+[10002] - Gracefully shutting down workers...
+[10002] * Restarting...
+[10002] Puma starting in cluster mode...
+[10002] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[10002] * Min threads: 1, max threads: 6
+[10002] * Environment: production
+[10002] * Process workers: 1
+[10002] * Phased restart available
+[10002] * Inherited tcp://0.0.0.0:3000
+[10002] * Daemonizing...
+=== puma startup: 2019-04-29 13:50:20 +0300 ===
+[25800] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[25800] - Worker 0 (pid: 25805) booted, phase: 0
+[25800] - Gracefully shutting down workers...
+[25800] * Restarting...
+[25800] Puma starting in cluster mode...
+[25800] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[25800] * Min threads: 1, max threads: 6
+[25800] * Environment: production
+[25800] * Process workers: 1
+[25800] * Phased restart available
+[25800] * Inherited tcp://0.0.0.0:3000
+[25800] * Daemonizing...
+=== puma startup: 2019-04-29 15:45:33 +0300 ===
+[26215] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[26215] - Worker 0 (pid: 26220) booted, phase: 0
+[26215] - Gracefully shutting down workers...
+[26215] * Restarting...
+[26215] Puma starting in cluster mode...
+[26215] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[26215] * Min threads: 1, max threads: 6
+[26215] * Environment: production
+[26215] * Process workers: 1
+[26215] * Phased restart available
+[26215] * Inherited tcp://0.0.0.0:3000
+[26215] * Daemonizing...
+=== puma startup: 2019-04-29 17:17:20 +0300 ===
+[27608] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[27608] - Worker 0 (pid: 27613) booted, phase: 0
+[27608] - Gracefully shutting down workers...
+[27608] * Restarting...
+[27608] Puma starting in cluster mode...
+[27608] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[27608] * Min threads: 1, max threads: 6
+[27608] * Environment: production
+[27608] * Process workers: 1
+[27608] * Phased restart available
+[27608] * Inherited tcp://0.0.0.0:3000
+[27608] * Daemonizing...
+=== puma startup: 2019-05-17 12:58:36 +0300 ===
+[30747] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[30747] - Worker 0 (pid: 30752) booted, phase: 0
+[30747] - Gracefully shutting down workers...
+[30747] * Restarting...
+[30747] Puma starting in cluster mode...
+[30747] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[30747] * Min threads: 1, max threads: 6
+[30747] * Environment: production
+[30747] * Process workers: 1
+[30747] * Phased restart available
+[30747] * Inherited tcp://0.0.0.0:3000
+[30747] * Daemonizing...
+=== puma startup: 2019-05-17 13:16:51 +0300 ===
+[30860] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[30860] - Worker 0 (pid: 30865) booted, phase: 0
+[30860] - Gracefully shutting down workers...
+[30860] * Restarting...
+[30860] Puma starting in cluster mode...
+[30860] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[30860] * Min threads: 1, max threads: 6
+[30860] * Environment: production
+[30860] * Process workers: 1
+[30860] * Phased restart available
+[30860] * Inherited tcp://0.0.0.0:3000
+[30860] * Daemonizing...
+=== puma startup: 2019-05-20 09:02:29 +0300 ===
+[17328] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[17328] - Worker 0 (pid: 17333) booted, phase: 0
+[17328] - Gracefully shutting down workers...
+[17328] * Restarting...
+[17328] Puma starting in cluster mode...
+[17328] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[17328] * Min threads: 1, max threads: 6
+[17328] * Environment: production
+[17328] * Process workers: 1
+[17328] * Phased restart available
+[17328] * Inherited tcp://0.0.0.0:3000
+[17328] * Daemonizing...
+=== puma startup: 2019-05-20 11:53:14 +0300 ===
+[19693] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[19693] - Worker 0 (pid: 19698) booted, phase: 0
+[19693] - Gracefully shutting down workers...
+[19693] * Restarting...
+[19693] Puma starting in cluster mode...
+[19693] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[19693] * Min threads: 1, max threads: 6
+[19693] * Environment: production
+[19693] * Process workers: 1
+[19693] * Phased restart available
+[19693] * Inherited tcp://0.0.0.0:3000
+[19693] * Daemonizing...
+=== puma startup: 2019-06-04 12:17:54 +0300 ===
+[4859] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[4859] - Worker 0 (pid: 4864) booted, phase: 0
+[4859] - Gracefully shutting down workers...
+[4859] * Restarting...
+[4859] Puma starting in cluster mode...
+[4859] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[4859] * Min threads: 1, max threads: 6
+[4859] * Environment: production
+[4859] * Process workers: 1
+[4859] * Phased restart available
+[4859] * Inherited tcp://0.0.0.0:3000
+[4859] * Daemonizing...
+=== puma startup: 2019-06-04 12:53:40 +0300 ===
+[5120] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[5120] - Worker 0 (pid: 5125) booted, phase: 0
+[5120] - Gracefully shutting down workers...
+[5120] * Restarting...
+[5120] Puma starting in cluster mode...
+[5120] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[5120] * Min threads: 1, max threads: 6
+[5120] * Environment: production
+[5120] * Process workers: 1
+[5120] * Phased restart available
+[5120] * Inherited tcp://0.0.0.0:3000
+[5120] * Daemonizing...
+=== puma startup: 2019-06-04 13:15:30 +0300 ===
+[5262] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[5262] - Worker 0 (pid: 5267) booted, phase: 0
+[5262] - Gracefully shutting down workers...
+[5262] * Restarting...
+[5262] Puma starting in cluster mode...
+[5262] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[5262] * Min threads: 1, max threads: 6
+[5262] * Environment: production
+[5262] * Process workers: 1
+[5262] * Phased restart available
+[5262] * Inherited tcp://0.0.0.0:3000
+[5262] * Daemonizing...
+=== puma startup: 2019-06-04 13:34:40 +0300 ===
+[5371] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[5371] - Worker 0 (pid: 5376) booted, phase: 0
+[5371] - Gracefully shutting down workers...
+[5371] * Restarting...
+[5371] Puma starting in cluster mode...
+[5371] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[5371] * Min threads: 1, max threads: 6
+[5371] * Environment: production
+[5371] * Process workers: 1
+[5371] * Phased restart available
+[5371] * Inherited tcp://0.0.0.0:3000
+[5371] * Daemonizing...
+=== puma startup: 2019-06-14 18:52:49 +0300 ===
+[26474] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[26474] - Worker 0 (pid: 26479) booted, phase: 0
+[26474] - Gracefully shutting down workers...
+[26474] * Restarting...
+[26474] Puma starting in cluster mode...
+[26474] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[26474] * Min threads: 1, max threads: 6
+[26474] * Environment: production
+[26474] * Process workers: 1
+[26474] * Phased restart available
+[26474] * Inherited tcp://0.0.0.0:3000
+[26474] * Daemonizing...
+=== puma startup: 2019-06-16 21:29:32 +0300 ===
+[9299] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[9299] - Worker 0 (pid: 9304) booted, phase: 0
+[9299] - Gracefully shutting down workers...
+[9299] * Restarting...
+[9299] Puma starting in cluster mode...
+[9299] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[9299] * Min threads: 1, max threads: 6
+[9299] * Environment: production
+[9299] * Process workers: 1
+[9299] * Phased restart available
+[9299] * Inherited tcp://0.0.0.0:3000
+[9299] * Daemonizing...
+=== puma startup: 2019-06-16 21:42:07 +0300 ===
+[9454] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[9454] - Worker 0 (pid: 9459) booted, phase: 0
+[9454] - Gracefully shutting down workers...
+[9454] * Restarting...
+[9454] Puma starting in cluster mode...
+[9454] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[9454] * Min threads: 1, max threads: 6
+[9454] * Environment: production
+[9454] * Process workers: 1
+[9454] * Phased restart available
+[9454] * Inherited tcp://0.0.0.0:3000
+[9454] * Daemonizing...
+=== puma startup: 2019-06-20 16:01:28 +0300 ===
+[6926] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[6926] - Worker 0 (pid: 6931) booted, phase: 0
+[6926] - Gracefully shutting down workers...
+[6926] * Restarting...
+[6926] Puma starting in cluster mode...
+[6926] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[6926] * Min threads: 1, max threads: 6
+[6926] * Environment: production
+[6926] * Process workers: 1
+[6926] * Phased restart available
+[6926] * Inherited tcp://0.0.0.0:3000
+[6926] * Daemonizing...
+=== puma startup: 2019-06-25 00:21:59 +0300 ===
+[16033] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[16033] - Worker 0 (pid: 16038) booted, phase: 0
+[16033] - Gracefully shutting down workers...
+[16033] * Restarting...
+[16033] Puma starting in cluster mode...
+[16033] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[16033] * Min threads: 1, max threads: 6
+[16033] * Environment: production
+[16033] * Process workers: 1
+[16033] * Phased restart available
+[16033] * Inherited tcp://0.0.0.0:3000
+[16033] * Daemonizing...
+=== puma startup: 2019-07-02 02:28:51 +0300 ===
+[4736] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[4736] - Worker 0 (pid: 4741) booted, phase: 0
+[4736] - Gracefully shutting down workers...
+[4736] * Restarting...
+[4736] Puma starting in cluster mode...
+[4736] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[4736] * Min threads: 1, max threads: 6
+[4736] * Environment: production
+[4736] * Process workers: 1
+[4736] * Phased restart available
+[4736] * Inherited tcp://0.0.0.0:3000
+[4736] * Daemonizing...
+=== puma startup: 2019-07-02 02:35:31 +0300 ===
+[4844] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[4844] - Worker 0 (pid: 4849) booted, phase: 0
+[4844] - Gracefully shutting down workers...
+[4844] * Restarting...
+[4844] Puma starting in cluster mode...
+[4844] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[4844] * Min threads: 1, max threads: 6
+[4844] * Environment: production
+[4844] * Process workers: 1
+[4844] * Phased restart available
+[4844] * Inherited tcp://0.0.0.0:3000
+[4844] * Daemonizing...
+=== puma startup: 2019-07-02 23:39:55 +0300 ===
+[2179] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[2179] - Worker 0 (pid: 2184) booted, phase: 0
+[2179] - Gracefully shutting down workers...
+[2179] * Restarting...
+[2179] Puma starting in cluster mode...
+[2179] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[2179] * Min threads: 1, max threads: 6
+[2179] * Environment: production
+[2179] * Process workers: 1
+[2179] * Phased restart available
+[2179] * Inherited tcp://0.0.0.0:3000
+[2179] * Daemonizing...
+=== puma startup: 2019-07-03 11:46:29 +0300 ===
+[7475] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[7475] - Worker 0 (pid: 7480) booted, phase: 0
+[7475] - Gracefully shutting down workers...
+[7475] * Restarting...
+[7475] Puma starting in cluster mode...
+[7475] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[7475] * Min threads: 1, max threads: 6
+[7475] * Environment: production
+[7475] * Process workers: 1
+[7475] * Phased restart available
+[7475] * Inherited tcp://0.0.0.0:3000
+[7475] * Daemonizing...
+=== puma startup: 2019-07-03 22:45:38 +0300 ===
+[12409] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[12409] - Worker 0 (pid: 12414) booted, phase: 0
+[12409] - Gracefully shutting down workers...
+[12409] * Restarting...
+[12409] Puma starting in cluster mode...
+[12409] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[12409] * Min threads: 1, max threads: 6
+[12409] * Environment: production
+[12409] * Process workers: 1
+[12409] * Phased restart available
+[12409] * Inherited tcp://0.0.0.0:3000
+[12409] * Daemonizing...
+=== puma startup: 2019-07-03 22:53:32 +0300 ===
+[12500] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[12500] - Worker 0 (pid: 12505) booted, phase: 0
+[12500] - Gracefully shutting down workers...
+[12500] * Restarting...
+[12500] Puma starting in cluster mode...
+[12500] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[12500] * Min threads: 1, max threads: 6
+[12500] * Environment: production
+[12500] * Process workers: 1
+[12500] * Phased restart available
+[12500] * Inherited tcp://0.0.0.0:3000
+[12500] * Daemonizing...
+=== puma startup: 2019-07-04 00:16:32 +0300 ===
+[13304] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[13304] - Worker 0 (pid: 13309) booted, phase: 0
+[13304] - Gracefully shutting down workers...
+[13304] * Restarting...
+[13304] Puma starting in cluster mode...
+[13304] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[13304] * Min threads: 1, max threads: 6
+[13304] * Environment: production
+[13304] * Process workers: 1
+[13304] * Phased restart available
+[13304] * Inherited tcp://0.0.0.0:3000
+[13304] * Daemonizing...
+=== puma startup: 2019-07-04 12:56:28 +0300 ===
+[18975] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[18975] - Worker 0 (pid: 18980) booted, phase: 0
+[18975] - Gracefully shutting down workers...
+[18975] * Restarting...
+[18975] Puma starting in cluster mode...
+[18975] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[18975] * Min threads: 1, max threads: 6
+[18975] * Environment: production
+[18975] * Process workers: 1
+[18975] * Phased restart available
+[18975] * Inherited tcp://0.0.0.0:3000
+[18975] * Daemonizing...
+=== puma startup: 2019-07-04 13:03:54 +0300 ===
+[19033] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[19033] - Worker 0 (pid: 19038) booted, phase: 0
+[19033] - Gracefully shutting down workers...
+[19033] * Restarting...
+[19033] Puma starting in cluster mode...
+[19033] * Version 3.12.1 (ruby 2.6.2-p47), codename: Llamas in Pajamas
+[19033] * Min threads: 1, max threads: 6
+[19033] * Environment: production
+[19033] * Process workers: 1
+[19033] * Phased restart available
+[19033] * Inherited tcp://0.0.0.0:3000
+[19033] * Daemonizing...
+=== puma startup: 2019-07-13 20:17:15 +0300 ===
+[27954] * Starting control server on unix:///tmp/puma-status-1555168662473-30060
+[27954] - Worker 0 (pid: 27959) booted, phase: 0
+=== puma startup: 2019-12-06 00:46:05 +0300 ===
+[4765] * Starting control server on unix:///tmp/puma-status-1575582364953-4763
+[4765] - Worker 0 (pid: 4770) booted, phase: 0

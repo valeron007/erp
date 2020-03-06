@@ -1,0 +1,31 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<%= simple_form_for @penalty, remote: remote, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+<div class="box box-primary">
+  <div class="box-body">
+
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+
+          <%= f.input :name %>
+
+          <%= f.input :penalty_rate, input_html: {min: 0, step: 0.01, value: number_with_precision(f.object.penalty_rate, precision: 2)} %>
+
+    </div>
+
+  </div>
+  <% if !modal %>
+  <div class="box-footer">
+    <div class="form-group">
+      <div class='col-sm-offset-3 col-sm-9'>
+        <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+            <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+        <% end %>
+        <%= link_to t('Cancel'), penalties_path, class: 'btn btn-lg btn-default' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% end %>

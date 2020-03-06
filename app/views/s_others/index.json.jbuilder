@@ -1,0 +1,1 @@
+json.array! @s_others, partial: 's_others/s_other', as: :s_other

@@ -1,0 +1,56 @@
+<% content_for :title do %>
+    <%= t('Unit Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Unit Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:unit).can_create? %>
+        <%= link_to new_unit_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+
+      <th>Name</th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @units.each do |unit| %>
+        <tr>
+
+          <td><%= unit.name %></td>
+
+          <td class="centered">
+            <% if policy(unit).can_view? %>
+                <%= link_to unit_path(unit), class: 'btn btn-sm btn-default', title: t('View') do %>
+                    <i class='fa fa-lg fa-eye'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(unit).can_edit? %>
+                <%= link_to edit_unit_path(unit), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(unit).can_delete? %>
+                <%= link_to unit_path(unit), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

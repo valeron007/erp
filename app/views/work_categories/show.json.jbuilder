@@ -1,0 +1,1 @@
+json.partial! "work_categories/work_category", work_category: @work_category

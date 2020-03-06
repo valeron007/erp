@@ -1,0 +1,191 @@
+<%= simple_form_for @lead, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <% if has_lead_full_access %>
+              <%= f.association :created_by %>
+          <% end %>
+
+          <%= f.input :name %>
+
+          <%= f.input :short_name %>
+
+          <div class="group-with-plus">
+            <%= f.association :client, :selected => params[:client_id] %>
+            <a href="#new_client_modal" data-toggle="modal" class="btn btn-success group-plus"><i class="fa fa-plus"></i></a>
+          </div>
+
+          <%= f.input :address %>
+
+          <div class="form-group <%= ("has-error" if @lead.errors[:visit_date].any?) %>">
+            <%= f.label :visit_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :visit_date, as: :date_picker, value: h_localize_date(f.object.visit_date) %>
+            </div>
+          </div>
+          <%= f.association :lead_status %>
+
+          <%= f.association :lead_type %>
+
+          <%= f.association :lead_construction_types %>
+
+          <fieldset>
+            <legend><%= t('Project information') %></legend>
+            <%= f.input :project %>
+
+            <%= f.input :project_institute %>
+
+            <%= f.input :gip %>
+
+            <%= f.input :gip_phone %>
+
+            <%= f.input :gap %>
+
+            <%= f.input :gap_phone %>
+
+            <%= f.input :project_help %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Additional information') %></legend>
+            <%= f.input :details %>
+
+            <%= f.input :representatives %>
+          </fieldset>
+          <fieldset>
+            <legend>
+              <%= t('Contacts') %>
+              <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :contacts, {'data-association-insertion-node':'.contact_fields', 'data-association-insertion-method': 'prepend'} %>
+            </legend>
+            <div class="contact_fields">
+              <%= f.simple_fields_for :contacts do |o|  %>
+                  <%= render 'contact_fields', f: o %>
+              <% end %>
+            </div>
+            <% if @lead.errors[:contacts].any? %>
+                <div class="form-group has-error">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-9 col-xs-6">
+                    <%= f.error :contacts %>
+                  </div>
+                </div>
+            <% end  %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Psycho aspects') %></legend>
+            <%= f.input :psycho01 %>
+
+            <%= f.input :psycho02 %>
+
+            <%= f.input :psycho03 %>
+
+            <%= f.input :psycho04 %>
+
+            <%= f.input :psycho05 %>
+
+            <%= f.input :psycho06 %>
+
+            <%= f.input :psycho07 %>
+
+            <%= f.input :psycho08 %>
+
+            <%= f.input :psycho09 %>
+
+            <%= f.input :psycho10 %>
+
+            <%= f.input :psycho11 %>
+
+            <%= f.input :psycho12 %>
+
+            <%= f.input :psycho13 %>
+
+            <%= f.input :psycho_other %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Financial information') %></legend>
+            <%= f.input :sum_contract, as: :string %>
+
+            <%= f.association :lead_payment_status %>
+
+            <%= f.input :sum_payment, as: :string %>
+
+            <%= f.input :debt, as: :string %>
+
+            <%= f.input :credit, as: :string %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Next visit') %></legend>
+            <div class="form-group <%= ("has-error" if @lead.errors[:next_date].any?) %>">
+              <%= f.label :next_date, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <%= f.input_field :next_date, as: :date_picker, value: h_localize_date(f.object.next_date) %>
+              </div>
+            </div>
+            <%= f.input :next_visit_comment %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Files') %></legend>
+            <% @lead.lead_files.each_with_index do |file, index| %>
+                <div class="form-group">
+                  <label class="date optional col-sm-3 control-label"></label>
+                  <div class="col-sm-5">
+                    <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-file-del"><%= t('Delete') %></button>
+                    <input name="lead_files_remove[<%= index %>]" type="hidden" value="0">
+                  </div>
+                </div>
+            <% end %>
+            <div class="form-group">
+              <label class="date optional col-sm-3 control-label"><%= t('Upload files') %></label>
+              <div class="col-sm-5">
+                <%= f.file_field :lead_files, multiple: true %>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><%= t('simple_form.labels.lead.error') %></legend>
+            <%= f.input :error_text %>
+          </fieldset>
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), leads_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>
+
+<div class="modal fade" id="new_client_modal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
+  <%= simple_form_for @client, remote: true, html: { class: 'form-horizontal', 'data-model' => 'client' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="clientModalLabel"><%= t('Add new client') %></h4>
+          </div>
+          <div class="modal-body">
+            <%= render 'clients/form', modal: true %>
+          </div>
+          <div class="modal-footer">
+            <button id="modal-submit" type="button" class="btn btn-success"><%= t('Submit') %></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('Close') %></button>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

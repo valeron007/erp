@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Export Sheet') do |sheet|
+
+  sheet.add_row ['']
+  sheet.add_row ['', t('Date'), t('User'), t('KPI')]
+
+  unless @daily_works.blank?
+    @daily_works.each do |e|
+      sheet.add_row ['', h_localize_date(e.date), e.user, !e.daily_work_kpis.blank? ? e.daily_work_kpis.join(", ") : '']
+    end
+  end
+
+  sheet.add_table "B2:D#{sheet.rows.last.index+2}", :name => 'DailyWorks', :style_info => { :name => 'TableStyleMedium2' }
+
+  sheet.column_widths 5, 20, 40, 70
+
+  sheet.add_style 'B2:D2', b: true, sz: 13
+
+end
+
+wb.apply_styles

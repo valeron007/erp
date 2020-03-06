@@ -1,0 +1,87 @@
+<% content_for :title do %>
+    <%= t('.Work Category Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.Work Category Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:work_category).can_create? %>
+        <%= link_to new_work_category_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-2">
+              <%= f.text_field(:search_query, {'placeholder': t('Work categories'), class: 'form-control' }) %>
+            </div>
+
+            <div class="col-xs-8">
+              <%= f.submit(t('Search'), class: 'btn btn-default') %>
+            </div>
+
+            <div class="centered col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+
+      <th><%= t('.Name') %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @work_categories.each do |work_category| %>
+        <tr>
+
+          <td>
+            <%= link_to work_category_path(work_category), title: t('View') do %>
+                <%= work_category.name %>
+            <%- end -%>
+          </td>
+
+          <td class="centered">
+            <% if policy(work_category).can_edit? %>
+                <%= link_to edit_work_category_path(work_category), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(work_category).can_delete? %>
+                <%= link_to work_category_path(work_category), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @work_categories %></div>
+    <div class="col-md-4"><%= page_navigation_links @work_categories %></div>
+  </div>
+</div>

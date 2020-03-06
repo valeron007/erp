@@ -1,0 +1,111 @@
+<% content_for :title do %>
+    <%= t('View')%> <%= t('Daily Timesheet') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View')%> <%= t('Daily Timesheet') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@daily_timesheet).can_edit? %>
+        <%= link_to edit_daily_timesheet_path(@daily_timesheet), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@daily_timesheet).can_delete? %>
+        <%= link_to daily_timesheet_path(@daily_timesheet), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Daily Timesheet') %> <%= t('Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('.Facility') %></dt>
+            <dd><%= @daily_timesheet.facility %></dd>
+
+            <dt><%= t('.Employee') %></dt>
+            <dd><%= @daily_timesheet.employee %></dd>
+
+            <dt><%= t('.Date') %></dt>
+            <dd><%= h_localize_date(@daily_timesheet.date) %></dd>
+
+            <dt><%= t('.Start time') %></dt>
+            <dd><%= h_time(@daily_timesheet.start_time) %></dd>
+
+            <dt><%= t('.End time') %></dt>
+            <dd><%= h_time(@daily_timesheet.end_time) %></dd>
+
+            <dt><%= t('.Salary period') %></dt>
+            <dd><%= @daily_timesheet.salary_period ? @daily_timesheet.salary_period.name : t('.Not set') %></dd>
+
+            <dt><%= t('.Rework') %></dt>
+            <dd><%= t(".#{@daily_timesheet.rework?.to_s}") %></dd>
+
+            <dt><%= t('.Penalties') %></dt>
+            <dd>
+              <ul>
+                <% @daily_timesheet.daily_timesheet_penalties.each do |p| %>
+                    <li><%= p %></li>
+                <% end %>
+              </ul>
+            </dd>
+
+            <dt><%= t('.Penalty description') %></dt>
+            <dd><%= @daily_timesheet.penalty_description %></dd>
+
+            <dt><%= t('.Probation period') %></dt>
+            <dd><%= t(".#{@daily_timesheet.probation_period?.to_s}") %></dd>
+
+            <dt><%= t('.Payment type') %></dt>
+            <dd><%= @daily_timesheet.payment_type ? @daily_timesheet.payment_type.name : t('.Not set') %></dd>
+
+            <dt><%= t('.Ratio') %></dt>
+            <dd><%= @daily_timesheet.ratio %></dd>
+
+            <dt><%= t('.Salary') %></dt>
+            <dd><%= number_to_currency(@daily_timesheet.salary) %></dd>
+
+            <dt><%= t('.Description') %></dt>
+            <dd><%= @daily_timesheet.description %></dd>
+
+            <dt><%= t('.Total amount') %></dt>
+            <dd><%= number_to_currency(@daily_timesheet.total_amount) %></dd>
+
+            <dt><%= t('.Work type') %></dt>
+
+            <dd>
+              <ul>
+                <% @daily_timesheet.daily_timesheet_work_types.each do |work| %>
+                    <li><%= work.work_type.name %> <%= number_to_currency(work.work_type.price_per_unit) %>/<%= work.work_type.unit %> x <%= work.amount %></li>
+                <% end %>
+              </ul>
+            </dd>
+
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

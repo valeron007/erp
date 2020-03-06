@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  count: 1
+  unit_id: 
+  contractor_id: 
+  city: MyString
+  address: MyString
+  transport_company_id: 
+  volume: 1.5
+  volume_unit_id: 
+  dispatch_date: 2016-11-19
+  arrival_date: 2016-11-19
+  delivery_cost: 1.5
+  delivery_perunit: 1.5
+  delivery_payment_status_id: 
+  delivery_status_id: 
+  cost: 1.5
+  total_with_delivery: 1.5
+  vat: false
+  delivery_document_id: 
+  delivery_letter: MyString
+  delivery_dest_id: 
+  order_date: 2016-11-19
+  commodity_type_id: 
+  pack: MyString
+
+two:
+  name: MyString
+  count: 1
+  unit_id: 
+  contractor_id: 
+  city: MyString
+  address: MyString
+  transport_company_id: 
+  volume: 1.5
+  volume_unit_id: 
+  dispatch_date: 2016-11-19
+  arrival_date: 2016-11-19
+  delivery_cost: 1.5
+  delivery_perunit: 1.5
+  delivery_payment_status_id: 
+  delivery_status_id: 
+  cost: 1.5
+  total_with_delivery: 1.5
+  vat: false
+  delivery_document_id: 
+  delivery_letter: MyString
+  delivery_dest_id: 
+  order_date: 2016-11-19
+  commodity_type_id: 
+  pack: MyString

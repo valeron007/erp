@@ -1,0 +1,56 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :date, {label: t('simple_form.labels.s_transaction.date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :source, {label: t('simple_form.labels.s_transaction.source')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :destination, {label: t('simple_form.labels.s_transaction.destination')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :user_from, {label: t('simple_form.labels.s_transaction.user_from')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :user_to, {label: t('simple_form.labels.s_transaction.user_to')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :document_number, {label: t('simple_form.labels.s_transaction.document_number')}) %></th>
+      <th class="centered"><%= filterrific_sorting_link(@filterrific, :user_to, {label: t('simple_form.labels.s_transaction.operation')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @s_transactions.each do |s_transaction| %>
+        <tr class="transaction_row" data-transaction-details-url="<%= s_transactions_details_url(s_transaction) %>">
+          <td><%= h_localize_date(s_transaction.date) %></td>
+          <td><%= s_transaction.get_source %></td>
+          <td><%= s_transaction.get_dest %></td>
+          <td><%= s_transaction.user_from %></td>
+          <td><%= s_transaction.user_to %></td>
+          <td><%= s_transaction.document_number %></td>
+          <td class="centered">
+            <%= s_transaction.get_transaction_icon.html_safe unless s_transaction.get_transaction_icon.blank? %>
+          </td>
+          <td class="centered no-popover">
+                <%= link_to s_transaction_path(s_transaction), class: 'btn btn-sm btn-default', title: t('View') do %>
+                    <i class='fa fa-lg fa-eye'></i>
+                <%- end -%>
+                <%= link_to edit_s_transaction_path(s_transaction), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+                <%= link_to s_transaction_path(s_transaction), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @s_transactions %></div>
+    <div class="col-md-4"><%= page_navigation_links @s_transactions %></div>
+  </div>
+</div>
+

@@ -1,0 +1,7 @@
+<% js = escape_javascript(
+  render('list')
+) %>
+$("#filterrific_results").html("<%= js %>");
+$("#total").html("<%= number_to_currency(@total) %>");
+$("#penalty").html("<%= number_to_currency(@penalty) %>");
+$("#workhours").html("<%= @workhours %> ч.");

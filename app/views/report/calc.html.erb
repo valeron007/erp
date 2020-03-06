@@ -1,0 +1,156 @@
+<% content_for :title do %>
+    <%= t('Calc Report') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Calc Report') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar hidden-print">
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+  </div>
+  <div class="box hidden-print">
+    <div class="box-body">
+      <%= simple_form_for @facility, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+          <div class="form-inputs">
+            <fieldset>
+              <legend>
+                <%= t('Work Categories') %>
+              </legend>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="work_category_id"><%= t('Category') %></label>
+                <div class="col-sm-9">
+                  <%= select_tag 'work_category_id', options_for_select(WorkCategory.all.map {|e| [e.to_s, e.id, {'data-works' => e.work_type_categories.to_json}]}), include_blank: true, class: 'form-control', id: 'work_category_id' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="work_amount"><%= t('Amount') %></label>
+                <div class="col-sm-9">
+                  <input type="number" min="0" class="form-control" name="work_amount" id="work_amount"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="button" id="calc_works"><i class="fa fa-plus"></i> <%= t('Add works from category') %></button>
+                  <button type="button" id="clear_works"><i class="fa fa-trash"></i> <%= t('Clear all works') %></button>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <%= t('Projected works') %>
+                <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_work_types, {'class': 'add-work', 'data-association-insertion-node':'.work_fields', 'data-association-insertion-method': 'prepend'} %>
+              </legend>
+              <div class="work_fields">
+                <%= f.simple_fields_for :facility_work_types do |o|  %>
+                    <%= render 'facility_work_type_fields', f: o %>
+                <% end %>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <%= t('Needed tools') %>
+                <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_tools, {'class': 'add-tool', 'data-association-insertion-node':'.tool_fields', 'data-association-insertion-method': 'prepend'} %>
+              </legend>
+              <div class="clearfix row">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="button" id="calc_tools"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                  <button type="button" id="clear_tools"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                </div>
+              </div>
+              <div class="tool_fields">
+                <%= f.simple_fields_for :facility_tools do |o|  %>
+                    <%= render 'facility_tool_fields', f: o %>
+                <% end %>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <%= t('Needed materials') %>
+                <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_materials, {'class': 'add-material', 'data-association-insertion-node':'.material_fields', 'data-association-insertion-method': 'prepend'} %>
+              </legend>
+              <div class="clearfix row">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="button" id="calc_materials"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                  <button type="button" id="clear_materials"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                </div>
+              </div>
+              <div class="material_fields">
+                <%= f.simple_fields_for :facility_materials do |o|  %>
+                    <%= render 'facility_material_fields', f: o %>
+                <% end %>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <%= t('Needed others') %>
+                <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_others, {'class': 'add-other', 'data-association-insertion-node':'.other_fields', 'data-association-insertion-method': 'prepend'} %>
+              </legend>
+              <div class="clearfix row">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="button" id="calc_others"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                  <button type="button" id="clear_others"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                </div>
+              </div>
+              <div class="other_fields">
+                <%= f.simple_fields_for :facility_others do |o|  %>
+                    <%= render 'facility_other_fields', f: o %>
+                <% end %>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>
+                <%= t('Needed additionals') %>
+                <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_additionals, {'class': 'add-additional', 'data-association-insertion-node':'.additional_fields', 'data-association-insertion-method': 'prepend'} %>
+              </legend>
+              <div class="clearfix row">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="button" id="calc_additionals"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                  <button type="button" id="clear_additionals"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                </div>
+              </div>
+              <div class="additional_fields">
+                <%= f.simple_fields_for :facility_additionals do |o|  %>
+                    <%= render 'facility_additional_fields', f: o %>
+                <% end %>
+              </div>
+            </fieldset>
+          </div>
+      <% end %>
+    </div>
+    <div class="box-footer">
+      <div class="form-group">
+        <div class='col-sm-offset-3 col-sm-9'>
+          <%= button_tag(type: 'button', id: 'btn-preview', class: 'btn btn-lg btn-success') do %>
+              <i class="fa fa-eye fa-fw" aria-hidden="true"></i> <%= t('Preview') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-1">
+      <div class="box box-success">
+        <div class="box-body">
+          <div id="calc_preview">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,117 @@
+<% content_for :title do %>
+    <%= t('.View contractor') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View contractor') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to contractors_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@contractor).can_edit? %>
+        <%= link_to edit_contractor_path(@contractor), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@contractor).can_delete? %>
+        <%= link_to contractor_path(@contractor), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('.Contractor details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('.Name') %></dt>
+            <dd><%= @contractor.name %></dd>
+
+            <dt><%= t('.Address') %></dt>
+            <dd><%= @contractor.address %></dd>
+
+            <dt><%= t('.Phone') %></dt>
+            <dd><%= @contractor.phone %></dd>
+
+            <dt><%= t('.Email') %></dt>
+            <dd><%= @contractor.email %></dd>
+
+            <dt><%= t('.Contacts') %></dt>
+            <dd><%= simple_format(@contractor.contacts) %></dd>
+
+            <dt><%= t('.Storage address') %></dt>
+            <dd><%= @contractor.storage_address %></dd>
+
+            <br/>
+            <h3><%= t('Files') %></h3>
+            <hr/>
+
+            <table class="table">
+              <tbody>
+              <% @contractor.contractor_files.each_with_index do |file, index| %>
+                  <tr>
+                    <td><%= link_to URI::decode(file.url.to_s.split('/').last), file.url %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+            <br/>
+            <h3><%= t('Deliveries') %></h3>
+            <hr/>
+            <table class="table">
+              <thead>
+                <td><%= t('simple_form.labels.delivery.order_date') %></td>
+                <td><%= t('simple_form.labels.delivery.name') %></td>
+                <td><%= t('simple_form.labels.delivery.count') %></td>
+                <td><%= t('simple_form.labels.delivery.cost') %></td>
+                <td><%= t('simple_form.labels.delivery.delivery_status') %></td>
+              </thead>
+              <tbody>
+                <% @deliveries.each do |delivery| %>
+                  <tr>
+                    <td><%= delivery.created_at.strftime('%d.%m.%Y') %></td>
+                    <td><%= link_to delivery.name, delivery %></td>
+                    <td><%= delivery.count %></td>
+                    <td><%= number_to_currency delivery.cost %></td>
+                    <td><%= delivery.delivery_status %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+                <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+                <select id="per_page_select" name="per_page" class="form-control">
+                  <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+                      <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+                  <% end %>
+                </select>
+              </div>
+              <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @deliveries %></div>
+              <div class="col-md-4"><%= page_navigation_links @deliveries %></div>
+            </div>
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<% content_for :title do %>
+    <%= t('View Task History') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View Task History') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar hidden-print">
+    <%= link_to task_path(@task), class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to task') %></span>
+    <%- end -%>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table">
+              <% @task.versions.each do |version| %>
+                <tbody class="history-table-title">
+                  <tr>
+                    <td colspan="3">
+                      <b>
+                        <a href="#">
+                          <%= t("Version") %>
+                          <%= version.id %> – 
+                          <%= human_date_format(version.created_at, "%-d %B, %Y %H:%M") %> – 
+                          <% if version.whodunnit && version.whodunnit != 'Guest' %>
+                              <%= User.find_by_id(version.whodunnit) %>
+                          <% else %>
+                              -
+                          <% end %>
+                        </a>
+                      </b>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody class="history-table-changes" style="display: none;">
+                  <tr>
+                    <td><b><%= t("Attribute") %></b></td>
+                    <td><b><%= t("Before") %></b></td>
+                    <td><b><%= t("After") %></b></td>
+                  </tr>
+                  <% format_task_changes(version.changeset).each do |change, values| %>
+                    <tr>
+                      <td><%= t("tasks.history.#{change}") %></td>
+                      <td><%= values.first %></td>
+                      <td><%= values.last %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              <% end %>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+</div>

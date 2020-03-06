@@ -1,0 +1,59 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('Employee')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :position, {label: t('Position')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :employee_status, {label: t('Status')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :hire_date, {label: t('Hire Date')}) %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @employees.each do |employee| %>
+        <tr>
+          <td>
+            <% if policy(employee).can_view? %>
+                <%= link_to(employee, employee_path(employee)) %>
+            <% else %>
+                <%= employee %>
+            <% end %>
+          </td>
+          <td><%= employee.position %></td>
+          <td><%= employee.employee_status %></td>
+          <td><%= h_localize_date(employee.hire_date) %></td>
+
+          <td class="centered">
+            <% if policy(:daily_timesheet).can_create? %>
+                <%= link_to new_daily_timesheet_path(employee_id: employee.id), class: 'btn btn-sm btn-default', title: t('Add timesheet') do %>
+                    <i class='fa fa-lg fa-calendar-plus-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(employee).can_edit? %>
+                <%= link_to edit_employee_path(employee), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(employee).can_delete? %>
+                <%= link_to employee_path(employee), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @employees %></div>
+    <div class="col-md-4"><%= page_navigation_links @employees %></div>
+  </div>
+</div>

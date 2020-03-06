@@ -1,0 +1,89 @@
+<% content_for :title do %>
+    <%= t('Reports Dashboard') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Reports Dashboard') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="row">
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>&nbsp;</h3>
+          <p><%= t('Employee Payments Report') %></p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person"></i>
+        </div>
+        <%= link_to report_employee_payments_path, class: 'small-box-footer' do %>
+            <%= t('View report') %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>&nbsp;</h3>
+          <p><%= t('Facility Works Report') %></p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <%= link_to report_facility_works_path, class: 'small-box-footer' do %>
+            <%= t('View report') %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <h3>&nbsp;</h3>
+          <p><%= t('Labor Costs Report') %></p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-social-usd"></i>
+        </div>
+        <%= link_to report_labor_costs_path, class: 'small-box-footer' do %>
+            <%= t('View report') %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h3>&nbsp;</h3>
+          <p><%= t('Work Efficiency Report') %></p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <%= link_to report_work_efficiency_path, class: 'small-box-footer' do %>
+            <%= t('View report') %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>&nbsp;</h3>
+          <p><%= t('Daily Summary Report') %></p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <%= link_to report_daily_summary_path, class: 'small-box-footer' do %>
+            <%= t('View report') %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+  </div>
+</div>

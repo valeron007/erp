@@ -1,0 +1,47 @@
+<%= simple_form_for @work_category, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+<div class="box box-primary">
+  <div class="box-body">
+
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+
+          <%= f.input :name %>
+
+          <fieldset>
+            <legend>
+              <%= t('Work types') %>
+              <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :work_type_categories, {'data-association-insertion-node':'.work_type_categories_fields', 'data-association-insertion-method': 'append'} %>
+            </legend>
+            <div class="work_type_categories_fields">
+              <%= f.simple_fields_for :work_type_categories do |work|  %>
+                  <%= render 'work_type_category_fields', f: work %>
+              <% end %>
+            </div>
+            <% if @work_category.errors[:work_type_categories].any? %>
+                <div class="form-group has-error">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-9 col-xs-6">
+                    <%= f.error :work_type_categories %>
+                  </div>
+                </div>
+            <% end  %>
+          </fieldset>
+
+    </div>
+
+  </div>
+
+  <div class="box-footer">
+    <div class="form-group">
+      <div class='col-sm-offset-3 col-sm-9'>
+        <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+            <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+        <% end %>
+        <%= link_to t('Cancel'), work_categories_path, class: 'btn btn-lg btn-default' %>
+      </div>
+    </div>
+  </div>
+
+</div>
+<% end %>

@@ -1,0 +1,40 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: t('Daily Summary Report')) do |sheet|
+
+  sheet.add_row ['', '', '']
+  sheet.add_row ['', t('Report Filter'), '']
+  sheet.merge_cells 'B2:C2'
+  sheet.add_style 'B2:C2', b: true, sz: 14, alignment: { horizontal: :center }
+
+  sheet.add_row ['', t('Facility'), @filter_facility]
+  sheet.add_row ['', t('From date'), @f.date_from]
+  sheet.add_row ['', t('To date'), @f.date_to]
+
+
+  sheet.add_style 'B3:B5', b: true, sz: 13, alignment: { horizontal: :right }
+  sheet.add_style 'C3:C5', sz: 13
+  sheet.add_border 'B3:C5'
+
+  sheet.add_row ['']
+
+  sheet.add_row ['', t('Date'), t('Employee Count'), t('Facility Count'), t('Facility List')]
+  sheet.add_style 'B7:E7', b: true, sz: 13
+
+  if not @data.blank?
+    @data.each do |d|
+      sheet.add_row ['', d['report_date'], d['employee_count'], d['facility_count'], d['facility_list']]
+    end
+    li = sheet.rows.last.index+1
+    sheet.add_table "B7:E#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+
+  else
+    li = sheet.rows.last.index+2
+    sheet.add_row ['', t('No data for current filter'), '', '', '', '', '']
+    sheet.add_table "B8:E#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+  end
+
+  sheet.column_widths 5, 10, 20, 20, 100
+
+end
+
+wb.apply_styles

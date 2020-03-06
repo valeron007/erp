@@ -1,0 +1,46 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: t('Facility Works Report')) do |sheet|
+
+  sheet.add_row ['', '', '']
+  sheet.add_row ['', t('Report Filter'), '']
+  sheet.merge_cells 'B2:C2'
+  sheet.add_style 'B2:C2', b: true, sz: 14, alignment: { horizontal: :center }
+
+  sheet.add_row ['', t('Facility'), @filter_facility]
+  sheet.add_row ['', t('Employee'), @f.employee_name]
+  sheet.add_row ['', t('From date'), @f.date_from]
+  sheet.add_row ['', t('To date'), @f.date_to]
+
+
+  sheet.add_style 'B3:B6', b: true, sz: 13, alignment: { horizontal: :right }
+  sheet.add_style 'C3:C6', sz: 13
+  sheet.add_border 'B3:C6'
+
+  sheet.add_row ['']
+
+  sheet.add_row ['', t('Facility'), t('Employee'), t('Work Name'), t('Price'), t('Amount'), t('Total')]
+  sheet.add_style 'B8:G8', b: true, sz: 13
+
+  if not @data.blank?
+    @data.each do |d|
+      sheet.add_row ['', d['facility_name'], "#{d['employee_last_name']} #{d['employee_first_name']} #{d['employee_middle_name']}", d['work_name'], d['work_price'], d['work_amount'], d['work_price']*d['work_amount']]
+    end
+    li = sheet.rows.last.index+2
+    sheet.add_row ['', '', '', '', '', t('Total'), "=SUM(G9:G#{li-1})"]
+
+    sheet.add_style "F#{li}:G#{li}", b: true, sz: 13
+    sheet.add_style "F#{li}", alignment: { horizontal: :right }
+    sheet.add_border "B#{li}:G#{li}", [:top]
+    sheet.add_table "B8:G#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+
+  else
+    li = sheet.rows.last.index+2
+    sheet.add_row ['', t('No data for current filter'), '', '', '', '', '']
+    sheet.add_table "B8:G#{li}", :name => 'Data', :style_info => { :name => 'TableStyleMedium2' }
+  end
+
+  sheet.column_widths 5, 30, 30, 30, 20, 20, 20
+
+end
+
+wb.apply_styles

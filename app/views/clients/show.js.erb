@@ -1,0 +1,2 @@
+$('#lead_client_id').append($('<option></option>').val(<%= @client.id %>).html('<%= @client.name %>')).val(<%= @client.id %>).trigger('change');
+$('#new_client_modal').modal_success();

@@ -1,0 +1,88 @@
+<% content_for :title do %>
+    <%= t('.View Work Category') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View Work Category') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar hidden-print">
+    <%= link_to work_categories_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+    <% if policy(@work_category).can_edit? %>
+        <%= link_to edit_work_category_path(@work_category), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@work_category).can_delete? %>
+        <%= link_to work_category_path(@work_category), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Work Category Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('.Name') %></dt>
+            <dd><%= @work_category.name %></dd>
+
+          </dl>
+
+          <br/>
+          <h4><%= t('.Work types') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('.Work') %></th>
+              <th><%= t('.Amount') %></th>
+              <th><%= t('.Price') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% total = 0 %>
+            <% @work_category.work_type_categories.each do |w| %>
+                <% total += w.work_type.price_per_unit * w.amount %>
+                <tr>
+                  <td><%= w.work_type %></td>
+                  <td><%= w.amount %></td>
+                  <td><%= number_to_currency(w.work_type.price_per_unit * w.amount) %></td>
+                </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td><%= t('.Totals') %></td>
+              <td>&nbsp;</td>
+              <td><%= number_to_currency(total) %></td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

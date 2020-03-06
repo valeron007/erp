@@ -1,0 +1,1 @@
+json.array! @transport_companies, partial: 'transport_companies/transport_company', as: :transport_company

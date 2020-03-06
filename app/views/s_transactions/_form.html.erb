@@ -1,0 +1,130 @@
+<%= simple_form_for @s_transaction, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+<div class="box box-primary">
+  <div class="box-body">
+
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+
+      <div class="form-group s_transaction-fields <%= ("has-error" if @s_transaction.errors[:date].any?) %>">
+        <%= f.label :date, class: 'col-sm-3 control-label' %>
+        <div class="col-sm-3">
+          <%= f.input_field :date, as: :date_picker, value: h_localize_date(f.object.date) %>
+        </div>
+      </div>
+
+      <%= f.input :operation_type, as: :radio_buttons, label: t('simple_form.labels.s_transaction.operation'), collection: [[t('simple_form.labels.s_transaction.income'), :income],[t('simple_form.labels.s_transaction.outcome'), :outcome],[t('simple_form.labels.s_transaction.transfer'), :transfer],[t('simple_form.labels.s_transaction.entrance'), :entrance],[t('simple_form.labels.s_transaction.exit'), :exit]], disabled: (params[:action] == 'edit') %>
+
+      <% unless params[:action] == 'edit' && (:operation_type != :income || :operation_type != :transfer) %>
+          <%= f.association :destination %>
+          <%= f.association :source %>
+      <% end %>
+      <%= f.association :user_from, collection: Employee.active %>
+
+      <%= f.association :driver, collection: Employee.active %>
+
+      <%= f.association :user_to, collection: Employee.active %>
+
+
+      <%= f.association :employee, collection: Employee.all %>
+      
+      <%= f.input :document_number %>
+          
+      <%= f.input :comments %>
+      <fieldset class="s-materials-fields">
+        <legend>
+          <%= t('Materials') %>
+          <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :s_transaction_materials, {'class': 'add-material', 'data-association-insertion-node':'.material_fields', 'data-association-insertion-method': 'prepend'} %>
+        </legend>
+        <div class="material_fields">
+          <%= f.simple_fields_for :s_transaction_materials do |o|  %>
+              <%= render 's_transaction_material_fields', f: o %>
+          <% end %>
+        </div>
+        <% if @s_transaction.errors[:s_transaction_materials].any? %>
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-9 col-xs-6">
+                <%= f.error :s_transaction_materials %>
+              </div>
+            </div>
+        <% end  %>
+      </fieldset>
+      <fieldset class="s-tools-fields">
+        <legend>
+          <%= t('Tools') %>
+          <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :s_transaction_tools, {'class': 'add-tool', 'data-association-insertion-node':'.tool_fields', 'data-association-insertion-method': 'prepend'} %>
+        </legend>
+        <div class="tool_fields">
+          <%= f.simple_fields_for :s_transaction_tools do |o|  %>
+              <%= render 's_transaction_tool_fields', f: o %>
+          <% end %>
+        </div>
+        <% if @s_transaction.errors[:s_transaction_tools].any? %>
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-9 col-xs-6">
+                <%= f.error :s_transaction_tools %>
+              </div>
+            </div>
+        <% end  %>
+      </fieldset>
+      <fieldset class="s-others-fields">
+        <legend>
+          <%= t('Others') %>
+          <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :s_transaction_others, {'class': 'add-other', 'data-association-insertion-node':'.other_fields', 'data-association-insertion-method': 'prepend'} %>
+        </legend>
+        <div class="other_fields">
+          <%= f.simple_fields_for :s_transaction_others do |o|  %>
+              <%= render 's_transaction_other_fields', f: o %>
+          <% end %>
+        </div>
+        <% if @s_transaction.errors[:s_transaction_others].any? %>
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-9 col-xs-6">
+                <%= f.error :s_transaction_others %>
+              </div>
+            </div>
+        <% end  %>
+      </fieldset>
+      <fieldset class="s-additionals-fields">
+        <legend>
+          <%= t('Additionals') %>
+          <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :s_transaction_additionals, {'class': 'add-additional', 'data-association-insertion-node':'.additional_fields', 'data-association-insertion-method': 'prepend'} %>
+        </legend>
+        <div class="additional_fields">
+          <%= f.simple_fields_for :s_transaction_additionals do |o|  %>
+              <%= render 's_transaction_additional_fields', f: o %>
+          <% end %>
+        </div>
+        <% if @s_transaction.errors[:s_transaction_additionals].any? %>
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-9 col-xs-6">
+                <%= f.error :s_transaction_additionals %>
+              </div>
+            </div>
+        <% end  %>
+      </fieldset>
+      <fieldset>
+        <legend><%= t('simple_form.labels.s_transaction.error') %></legend>
+        <%= f.input :error_text %>
+      </fieldset>
+    </div>
+
+  </div>
+
+  <div class="box-footer">
+    <div class="form-group">
+      <div class='col-sm-offset-3 col-sm-9'>
+        <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+            <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+        <% end %>
+        <%= link_to t('Cancel'), s_transactions_path, class: 'btn btn-lg btn-default' %>
+      </div>
+    </div>
+  </div>
+
+</div>
+<% end %>

@@ -1,0 +1,94 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :title, {label: t('simple_form.labels.task.title')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :task_status, {label: t('simple_form.labels.task.task_status')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :important, {label: t('simple_form.labels.task.important')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :urgent, {label: t('simple_form.labels.task.urgent')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :updated_at, {label: t('simple_form.labels.task.updated_at')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :assign_date, {label: t('simple_form.labels.task.assign_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :finish_date, {label: t('simple_form.labels.task.finish_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :done_date, {label: t('simple_form.labels.task.done_date')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :assigned_by, {label: t('simple_form.labels.task.assigned_by')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :assigned_to, {label: t('simple_form.labels.task.assigned_to')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @tasks.each do |task| %>
+        <tr>
+          <td>
+            <% if policy(task).can_view? %>
+                <%= link_to(task.title, task_path(task), title: task.desc, 'data-toggle': 'tooltip') %>
+            <% else %>
+                <a href="#" title="<%= task.desc %>" data-toggle="tooltip"><%= task.title %></a>
+            <% end %>
+          </td>
+          <td><span class="badge <%= task.task_status.get_badge_color %>"><%= task.task_status %></span></td>
+          <td>
+            <% if task.important %>
+                <span class="badge bg-red"><%= t('true') %></span>
+            <% else %>
+                <span class="badge"><%= t('false') %></span>
+            <%end%>
+          </td>
+          <td>
+            <% if task.urgent %>
+                <span class="badge bg-red"><%= t('true') %></span>
+            <% else %>
+                <span class="badge"><%= t('false') %></span>
+            <%end%>
+          </td>
+          <td><%= human_date_format(task.updated_at, "%d.%m.%y, %H:%M:%S") %></td>
+          <td><%= h_localize_date(task.assign_date) %></td>
+          <td><%= task.regularly ? t('simple_form.labels.task.regularly') : h_localize_date(task.finish_date) %></td>
+          <td><%= human_date_format(task.done_date, "%d.%m.%y, %H:%M:%S") %></td>
+          <td><%= task.assigned_by %></td>
+          <td><%= task.assigned_to %></td>
+          <td style="padding-left:40px;">
+            <% if policy(task).can_edit? and task.closed? %>
+                <%= link_to task_open_path(task), method: :post, data: { confirm: t('Are you sure?'), title: t('Open Task'), text: t('Are you sure?') }, class: 'btn btn-sm btn-warning', title: t('Open Task') do %>
+                    <i class='fa fa-lg fa-repeat'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(task).can_edit? and task.not_closed? %>
+                <%= link_to task_close_path(task), method: :post, data: { confirm: t('Are you sure?'), title: t('Close Task'), text: t('Are you sure?') }, class: 'btn btn-sm btn-success', title: t('Close Task') do %>
+                    <i class='fa fa-lg fa-check-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(task).can_edit? %>
+                <%= link_to edit_task_path(task), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(task).history? %>
+              <%= link_to task_history_path(task), class: 'btn btn-sm btn-default', title: t('History') do %>
+                <i class='fa fa-lg fa-history'></i>
+              <% end %>
+            <% end %>
+            <% if policy(task).can_delete? %>
+                <%= link_to task_path(task), method: :delete, data: { confirm: t('Are you sure?'), title: t('Delete Task'), text: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete Task') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @tasks %></div>
+    <div class="col-md-4"><%= page_navigation_links @tasks %></div>
+  </div>
+</div>
+

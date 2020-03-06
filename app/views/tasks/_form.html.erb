@@ -1,0 +1,89 @@
+<%= javascript_include_tag Ckeditor.cdn_url %>
+<%= simple_form_for @task, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :title %>
+
+          <%= f.input :desc %>
+
+          <%= f.input :regularly %>
+
+          <div class="form-group <%= ("has-error" if @task.errors[:assign_date].any? || @task.errors[:finish_date].any?) %>">
+            <%= f.label :assign_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :assign_date, as: :date_picker, value: h_localize_date(f.object.assign_date) %>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row finish_date_wrapper">
+                <%= f.label :finish_date, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :finish_date, as: :date_picker, value: h_localize_date(f.object.finish_date) %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= f.association :task_status, collection: TaskStatus.options_for_select %>
+
+          <%= f.input :important %>
+
+          <%= f.input :urgent %>
+
+          <%if can_change_task_owner(@task) %>
+              <%= f.association :assigned_by %>
+          <% end %>
+          <%if can_assign_task(@task) %>
+              <%= f.association :assigned_to %>
+          <% end %>
+
+          <%= f.input :result, as: :ckeditor, input_html: { ckeditor: { toolbar: 'Full' } } %>
+
+          <fieldset>
+            <legend><%= t('Files') %></legend>
+            <% @task.files.each_with_index do |file, index| %>
+                <div class="form-group">
+                  <label class="date optional col-sm-3 control-label"></label>
+                  <div class="col-sm-5">
+                    <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-file-del"><%= t('Delete') %></button>
+                    <input name="files_remove[<%= index %>]" type="hidden" value="0">
+                  </div>
+                  <div>
+                    <% if file.to_s.split("/").last.split(".").last.in?(%w(jpg jpeg gif png)) %>
+                      <%= image_tag file.url, width: 300, class: "file-preview", alt: file.url.to_s.split('/').last %>
+                    <% end %>
+                  </div>
+                </div>
+            <% end %>
+            <div class="form-group">
+              <label class="date optional col-sm-3 control-label"><%= t('Upload files') %></label>
+              <div class="col-sm-5">
+                <%= f.file_field :files, multiple: true %>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), tasks_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>

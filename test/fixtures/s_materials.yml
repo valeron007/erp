@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_id: 
+  pack: MyString
+  amount: 1.5
+  unit_id: 
+  min_amount: 1.5
+  storage_place: MyString
+  comments: MyText
+
+two:
+  name_id: 
+  pack: MyString
+  amount: 1.5
+  unit_id: 
+  min_amount: 1.5
+  storage_place: MyString
+  comments: MyText

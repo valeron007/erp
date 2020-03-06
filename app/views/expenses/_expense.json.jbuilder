@@ -1,0 +1,2 @@
+json.extract! expense, :id, :title, :amount, :company, :faсility, :expense_category_id, :expense_by, :expense_date, :created_by_id, :updated_by_id, :created_at, :updated_at
+json.url expense_url(expense, format: :json)

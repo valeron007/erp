@@ -1,0 +1,158 @@
+<%= simple_form_for @delivery, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :name %>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <ul class="delivery-name-autocomplete">
+            </ul>
+          </div>
+
+          <div class="form-group <%= ("has-error" if @delivery.errors[:count].any?) %>">
+            <%= f.label :count, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <%= f.input_field :count, min: 0, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row <%= ("has-error" if @delivery.errors[:unit].any?) %>">
+                <%= f.label :unit, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :unit_id, collection: Unit.all.order(:name), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= f.association :contractor %>
+
+          <%= f.input :delivery_needed %>
+
+          <div class="delivery-fields">
+            <%= f.association :transport_company %>
+          </div>
+
+          <div class="form-group optional delivery-fields">
+            <%= f.label :volume, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <%= f.input_field :volume, step: 0.001, min: 0, value: number_with_precision(f.object.volume, precision: 2), class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :volume_unit, as: :string, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :volume_unit_id, collection: Unit.all.order(:name), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group delivery-fields <%= ("has-error" if @delivery.errors[:dispatch_date].any? || @delivery.errors[:arrival_date].any?) %>">
+            <%= f.label :dispatch_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :dispatch_date, as: :date_picker, value: h_localize_date(f.object.dispatch_date) %>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row finish_date_wrapper">
+                <%= f.label :arrival_date, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :arrival_date, as: :date_picker, value: h_localize_date(f.object.arrival_date) %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group optional delivery-fields">
+            <%= f.label :delivery_cost, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <%= f.input_field :delivery_cost, step: 0.01, min: 0, value: number_with_precision(f.object.delivery_cost, precision: 2), class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :delivery_perunit, step: 0.01, min: 0, value: number_with_precision(f.object.delivery_perunit, precision: 2), class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :delivery_perunit, step: 0.01, min: 0, value: number_with_precision(f.object.delivery_perunit, precision: 2), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="delivery-fields">
+            <%= f.association :delivery_payment_status %>
+          </div>
+
+          <%= f.association :delivery_status %>
+
+          <div class="form-group <%= ("has-error" if @delivery.errors[:cost].any? or @delivery.errors[:price_per_unit].any?) %>">
+            <%= f.label :price_per_unit, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <%= f.input_field :price_per_unit, step: 0.01, min: 0, value: number_with_precision(f.object.price_per_unit, precision: 2), class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :cost, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :cost, step: 0.01, min: 0, value: number_with_precision(f.object.cost, precision: 2), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group <%= ("has-error" if @delivery.errors[:total_with_delivery].any?) %>">
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :total_with_delivery, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :total_with_delivery, step: 0.01, min: 0, value: number_with_precision(f.object.total_with_delivery, precision: 2), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= f.input :vat %>
+
+          <%= f.association :delivery_document %>
+
+          <%= f.association :delivery_letter %>
+
+          <%= f.association :delivery_dest %>
+
+          <div class="form-group <%= ("has-error" if @delivery.errors[:order_date].any?) %>">
+            <%= f.label :order_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :order_date, as: :date_picker, value: h_localize_date(f.object.order_date) %>
+            </div>
+          </div>
+
+          <%= f.association :commodity_type %>
+
+          <%= f.input :pack %>
+
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), deliveries_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>

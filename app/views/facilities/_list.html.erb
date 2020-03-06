@@ -1,0 +1,62 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.facility.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :foreman, {label: t('simple_form.labels.facility.foreman')}) %></th>
+      <th><%= t('simple_form.labels.facility.address') %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :facility_status, {label: t('simple_form.labels.facility.facility_status')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :status_change_date, {label: t('simple_form.labels.facility.status_change_date')}) %></th>
+      <th><%= t('simple_form.labels.facility.first_timesheet_date') %></th>
+      <th><%= t('simple_form.labels.facility.last_timesheet_date') %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :contract_number, {label: t('simple_form.labels.facility.contract_number')}) %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @facilities.each do |facility| %>
+        <tr>
+          <td>
+            <% if policy(facility).can_view? %>
+                <%= link_to(facility.name, facility_path(facility)) %>
+            <% else %>
+                <%= facility.name %>
+            <% end %>
+          </td>
+          <td><%= facility.foreman %></td>
+          <td><%= facility.address %></td>
+          <td><%= facility.facility_status %></td>
+          <td><%= h_localize_date(facility.status_change_date) %></td>
+          <td><%= facility.first_timesheet_date %></td>
+          <td><%= facility.last_timesheet_date %></td>
+          <td><%= facility.contract_number %></td>
+          <td class="centered">
+            <% if policy(facility).can_edit? %>
+                <%= link_to edit_facility_path(facility), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(facility).can_delete? %>
+                <%= link_to facility_path(facility), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @facilities %></div>
+    <div class="col-md-4"><%= page_navigation_links @facilities %></div>
+  </div>
+</div>
+

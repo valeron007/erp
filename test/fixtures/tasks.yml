@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  desc: MyString
+  assign_date: 2016-07-25
+  finish_date: 2016-07-25
+  task_status_id: 
+  assigned_by_id: 
+  assigned_to_id: 
+  created_by_id: 
+  updated_by_id: 
+
+two:
+  title: MyString
+  desc: MyString
+  assign_date: 2016-07-25
+  finish_date: 2016-07-25
+  task_status_id: 
+  assigned_by_id: 
+  assigned_to_id: 
+  created_by_id: 
+  updated_by_id: 

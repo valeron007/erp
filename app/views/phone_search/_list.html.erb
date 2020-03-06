@@ -1,0 +1,16 @@
+<table class="table table-condensed table-hover table-valign-middle">
+  <thead>
+    <tr>
+      <th class="col-md-6"><%= t("Name") %></th>
+      <th class="col-md-6"><%= t("Phone Number") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% results.each do |result| %>
+      <tr>
+        <td class="col-md-6"><%= result %></td>
+        <td class="col-md-6"><%= result.try(:phone_number) || result.try(:phone) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

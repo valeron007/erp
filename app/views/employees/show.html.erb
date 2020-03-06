@@ -1,0 +1,402 @@
+<% content_for :title do %>
+    <%= t('File')%> <%= t('.Employee') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('File')%> <%= t('.Employee') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@employee).can_edit? %>
+        <%= link_to edit_employee_path(@employee), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@employee).can_delete? %>
+        <%= link_to employee_path(@employee), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag @employee.avatar.url(:medium) %>
+          <% if policy(@employee).can_edit? %>
+              <br><br>
+              <div style="text-align: center;">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  <%= t('Update image') %>
+                </button>
+              </div>
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="<%= t('Close') %>"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel"><%= t('Edit Employee Photo') %></h4>
+                    </div>
+                    <div class="modal-body">
+                      <div id="upload_form_wrappper">
+                        <%= simple_form_for @employee, :url => { :action => "upload_image"}, html: { multipart: true, id: 'upload_form' }, remote: true do |form| %>
+                            <%= form.input :avatar, as: :file %>
+                        <% end %>
+                      </div>
+                      <div id="crop_form_wrapper">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('Close') %></button>
+                      <button id="crop_submit" type="button" class="btn btn-primary"><%= t('Submit') %></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+          <% end %>
+          <% if policy(@employee).show_docs? %>
+              <%= link_to t('.Passport front'), @employee.passport_front.url, class:'btn btn-default btn-block', download: "#{@employee.last_name}_#{@employee.first_name}_passport_front" if @employee.passport_front.exists? %>
+              <%= link_to t('.Passport registration'), @employee.passport_reg.url, class:'btn btn-default btn-block', download: "#{@employee.last_name}_#{@employee.first_name}_passport_reg" if @employee.passport_reg.exists? %>
+              <%= link_to t('.Additional document 1'), @employee.additional_document_1.url, class:'btn btn-default btn-block', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_1" if @employee.additional_document_1.exists? %>
+              <%= link_to t('.Additional document 2'), @employee.additional_document_2.url, class:'btn btn-default btn-block', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_2" if @employee.additional_document_2.exists? %>
+              <%= link_to t('.Additional document 3'), @employee.additional_document_3.url, class:'btn btn-default btn-block', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_3" if @employee.additional_document_3.exists? %>
+          <% end %>
+        </div>
+        <div class="col-md-8">
+
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs nav-justified">
+              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+              <li class="">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+                  <h4>
+                    <%= t('Notes') %>
+                    <span class="badge bg-yellow"><%= @employee.employee_notes.count %></span>
+                  </h4>
+                </a>
+              </li>
+              <% if policy(@employee).show_objects? %>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true"><h4><%= t('Objects by employee') %></h4></a></li>
+              <% end %>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                <dl class="dl-horizontal">
+
+                  <dt><%= t('.Last name') %>:</dt>
+                  <dd><%= @employee.last_name %></dd>
+
+                  <dt><%= t('.First name') %>:</dt>
+                  <dd><%= @employee.first_name %></dd>
+
+                  <dt><%= t('.Middle name') %>:</dt>
+                  <dd><%= @employee.middle_name %></dd>
+
+                  <dt><%= t('.Position') %>:</dt>
+                  <dd><%= @employee.position %></dd>
+
+                  <dt><%= t('.Hire date') %>:</dt>
+                  <dd><%= h_localize_date(@employee.hire_date) %></dd>
+
+                  <dt><%= t('.Probation period') %>:</dt>
+                  <dd><%= @employee.probation_period %></dd>
+
+                  <dt><%= t('.Employee status') %>:</dt>
+                  <dd><%= @employee.employee_status %></dd>
+
+                  <dt><%= t('.Fire date') %>:</dt>
+                  <dd><%= h_localize_date(@employee.fire_date) %></dd>
+
+                  <dt><%= t('.Fire reason') %>:</dt>
+                  <dd><%= @employee.fire_reason %></dd>
+
+                  <% if policy(@employee).show_docs? %>
+                      <dt><%= t('.Passport') %>:</dt>
+                      <dd><%= @employee.passport %></dd>
+                  <% end %>
+
+                  <dt><%= t('.Birth date') %>:</dt>
+                  <dd><%= h_localize_date(@employee.birth_date) %></dd>
+
+                  <dt><%= t('.Citizenship') %>:</dt>
+                  <dd><%= @employee.citizenship %></dd>
+
+                  <dt><%= t('.Nationality') %>:</dt>
+                  <dd><%= @employee.nationality %></dd>
+
+                  <dt><%= t('.Felony') %>:</dt>
+                  <dd><%= t(".#{@employee.felony?.to_s}")%></dd>
+
+                  <dt><%= t('.Felony notes') %>:</dt>
+                  <dd><%= @employee.felony_notes %></dd>
+
+                  <dt><%= t('.Salary') %>:</dt>
+                  <dd><%= @employee.salary %></dd>
+
+                  <dt><%= t('.Salary ratio') %>:</dt>
+                  <dd><%= @employee.salary_ratio %></dd>
+
+                  <% if policy(@employee).show_cards? %>
+                      <dt><%= t('.Card number') %>:</dt>
+                      <dd><%= @employee.card_number %></dd>
+
+                      <dt><%= t('.Card owner') %>:</dt>
+                      <dd><%= @employee.card_owner %></dd>
+
+                      <dt><%= t('.Additional Card number') %>:</dt>
+                      <dd><%= @employee.additional_card_number %></dd>
+
+                      <dt><%= t('.Additional Card owner') %>:</dt>
+                      <dd><%= @employee.additional_card_owner %></dd>
+                  <% end %>
+
+                  <dt><%= t('.Shoes size') %>:</dt>
+                  <dd><%= @employee.shoes_size %></dd>
+
+                  <dt><%= t('.Dress size') %>:</dt>
+                  <dd><%= @employee.dress_size %></dd>
+
+                  <dt><%= t('.Height') %>:</dt>
+                  <dd><%= @employee.height %></dd>
+
+                  <dt><%= t('.Children count') %>:</dt>
+                  <dd><%= @employee.children_count %></dd>
+
+                  <dt><%= t('.Mobile number') %>:</dt>
+                  <dd><%= @employee.mobile_number %></dd>
+
+                  <dt><%= t('.Phone number') %>:</dt>
+                  <dd><%= @employee.phone_number %></dd>
+
+                  <dt><%= t('.Address') %>:</dt>
+                  <dd><%= @employee.address %></dd>
+
+                  <dt><%= t('.Residential address') %>:</dt>
+                  <dd><%= @employee.residential_address %></dd>
+
+                  <dt><%= t('.Emergency name') %>:</dt>
+                  <dd><%= @employee.emergency_name %></dd>
+
+                  <dt><%= t('.Emergency phone') %>:</dt>
+                  <dd><%= @employee.emergency_phone %></dd>
+                </dl>
+              </div><!-- /.tab-pane -->
+
+              <div class="tab-pane" id="tab_2">
+                <div class="box box-widget">
+                  <div class="box-footer box-comments">
+                    <% @employee.employee_notes.each do |note|  %>
+                        <div class="box-comment">
+                          <div class="comment-text">
+                      <span class="username">
+                        <%= note.user %>
+                        <span class="text-muted pull-right"><%= h_localize_datetime(note.created_at) %></span>
+                      </span><!-- /.username -->
+                            <%= note.val %>
+                            <br/>
+                            <% if policy(@employee).destroy_note?  %>
+                                <%= link_to employees_destroy_note_path(id: note), method: :post, data: { confirm: t('Are you sure?') }, class: 'btn btn-xs btn-danger pull-right', title: t('Delete') do %>
+                                    <i class='fa fa-lg fa-trash-o'></i>
+                                <%- end -%>
+                            <% end %>
+                          </div><!-- /.comment-text -->
+                        </div><!-- /.box-comment -->
+                    <% end  %>
+                  </div><!-- /.box-footer -->
+                  <div class="box-footer">
+                    <% if policy(@employee).create_note? %>
+                        <%= form_for @employee_note, url: employees_create_note_url do |f| %>
+                            <%= f.hidden_field :employee_id %>
+                            <div class="input-group">
+                              <%= f.text_field :val, class: 'form-control', placeholder: t('Note text') %>
+                              <span class="input-group-btn">
+                          <%= f.submit t('Add'), class: 'btn btn-warning btn-flat' %>
+                        </span>
+                            </div>
+                        <% end %>
+                    <% end %>
+                  </div><!-- /.box-footer -->
+                </div>
+              </div><!-- /.tab-pane -->
+
+              <% if policy(@employee).show_objects? %>
+                  <div class="tab-pane" id="tab_3">
+
+                    <br/>
+                    <h4><%= t('.Tools') %></h4>
+                    <hr/>
+                    <% if @tool_list.empty?  %>
+                        <h5><%= t('.No records') %></h5>
+                    <% else  %>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th><%= t('Num') %></th>
+                            <th><%= t('.Name') %></th>
+                            <th><%= t('.State') %></th>
+                            <th><%= t('.Comment') %></th>
+                            <th><%= t('.Price') %></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% total = 0 %>
+                          <% @tool_list.each_with_index do |o, index| %>
+                              <% total += o.total_price %>
+                              <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= o.s_tool.with_inventory_consist %></td>
+                                <td><%= o.s_tool_state.blank? ? "" : t(o.s_tool_state) %></td>
+                                <td><%= o.s_comment %></td>
+                                <td><%= number_to_currency(o.total_price) %></td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th><%= t('.Totals') %></th>
+                            <th><%= number_to_currency(total) %></th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                    <% end  %>
+
+                    <br/>
+                    <h4><%= t('.Materials') %></h4>
+                    <hr/>
+                    <% if @material_list.empty?  %>
+                        <h5><%= t('.No records') %></h5>
+                    <% else  %>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th><%= t('Num') %></th>
+                            <th><%= t('.Name') %></th>
+                            <th><%= t('.Amount') %></th>
+                            <th><%= t('.Price') %></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% total = 0 %>
+                          <% @material_list.each_with_index do |o, index| %>
+                              <% total += o.total_price %>
+                              <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= o.s_material.name.name %></td>
+                                <td><%= number_with_precision(o.s_amount, precision: 2) %> <%= o.s_material.unit %></td>
+                                <td><%= number_to_currency(o.total_price) %></td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th><%= t('.Totals') %></th>
+                            <th><%= number_to_currency(total) %></th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                    <% end  %>
+
+                    <br/>
+                    <h4><%= t('.Others') %></h4>
+                    <hr/>
+                    <% if @other_list.empty?  %>
+                        <h5><%= t('.No records') %></h5>
+                    <% else  %>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th><%= t('Num') %></th>
+                            <th><%= t('.Name') %></th>
+                            <th><%= t('.Amount') %></th>
+                            <th><%= t('.Price') %></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% total = 0 %>
+                          <% @other_list.each_with_index do |o, index| %>
+                              <% total += o.total_price %>
+                              <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= o.s_other.name.name %></td>
+                                <td><%= number_with_precision(o.s_amount, precision: 2) %> <%= o.s_other.unit %></td>
+                                <td><%= number_to_currency(o.total_price) %></td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th><%= t('.Totals') %></th>
+                            <th><%= number_to_currency(total) %></th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                    <% end  %>
+
+                    <br/>
+                    <h4><%= t('.Additionals') %></h4>
+                    <hr/>
+                    <% if @additional_list.empty?  %>
+                        <h5><%= t('.No records') %></h5>
+                    <% else  %>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th><%= t('Num') %></th>
+                            <th><%= t('.Name') %></th>
+                            <th><%= t('.Amount') %></th>
+                            <th><%= t('.Price') %></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% total = 0 %>
+                          <% @additional_list.each_with_index do |o, index| %>
+                              <% total += o.total_price %>
+                              <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= o.s_additional.additional.name %></td>
+                                <td><%= number_with_precision(o.s_amount, precision: 2) %> <%= o.s_additional.unit %></td>
+                                <td><%= number_to_currency(o.total_price) %></td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th><%= t('.Totals') %></th>
+                            <th><%= number_to_currency(total) %></th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                    <% end  %>
+
+                  </div><!-- /.tab-pane -->
+              <% end %>
+            </div><!-- /.tab-content -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

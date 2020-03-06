@@ -1,0 +1,56 @@
+<%% content_for :title do %>
+<%%= t('<%= singular_table_name.titleize %> Management') %>
+<%% end %>
+
+<%% content_for :page_header do %>
+<%%= t('<%= singular_table_name.titleize %> Management') %>
+<%% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <%% if policy(:<%= singular_table_name %>).can_create? %>
+      <%%= link_to new_<%= singular_table_name %>_path, class: 'btn btn-app' do %>
+      <i class='fa fa-plus-square-o'></i>
+      <span><%%= t('Add new') %></span>
+      <%%- end -%>
+    <%% end %>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <th><%= attribute.human_name %></th>
+      <% end -%>
+      <th class="centered actions"><%%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+    <tr>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+      <% end -%>
+      <td class="centered">
+        <%% if policy(<%= singular_table_name %>).can_view? %>
+          <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-sm btn-default', title: t('View') do %>
+          <i class='fa fa-lg fa-eye'></i>
+          <%%- end -%>
+        <%% end %>
+        <%% if policy(<%= singular_table_name %>).can_edit? %>
+          <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+          <i class='fa fa-lg fa-pencil-square-o'></i>
+          <%%- end -%>
+        <%% end %>
+        <%% if policy(<%= singular_table_name %>).can_delete? %>
+          <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+          <i class='fa fa-lg fa-trash-o'></i>
+          <%%- end -%>
+        <%% end %>
+      </td>
+    </tr>
+    <%% end %>
+    </tbody>
+  </table>
+
+</div>

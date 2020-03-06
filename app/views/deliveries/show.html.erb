@@ -1,0 +1,186 @@
+<% content_for :title do %>
+    <%= t('.View delivery') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View delivery') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar hidden-print">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+    <% if policy(@delivery).can_edit? %>
+        <%= link_to edit_delivery_path(@delivery), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@delivery).can_delete? %>
+        <%= link_to delivery_path(@delivery), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('Notes') %>
+                <span class="badge bg-yellow"><%= @delivery.delivery_notes.count %></span>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+            <dl class="dl-horizontal">
+
+              <dt><%= t('.Name') %></dt>
+              <dd><%= @delivery.name %>, <%= @delivery.count %> <%= @delivery.unit %></dd>
+
+              <dt><%= t('.Contractor') %></dt>
+              <dd><%= @delivery.contractor %></dd>
+
+              <% if @delivery.contractor %>
+                  <dt><%= t('.Contractor address') %></dt>
+                  <dd><%= @delivery.contractor.address %></dd>
+                  <dt><%= t('.Contractor phone') %></dt>
+                  <dd><%= @delivery.contractor.phone %></dd>
+                  <dt><%= t('.Contractor email') %></dt>
+                  <dd><%= @delivery.contractor.email %></dd>
+                  <dt><%= t('.Contractor contacts') %></dt>
+                  <dd><%= @delivery.contractor.contacts %></dd>
+                  <dt><%= t('.Contractor storage address') %></dt>
+                  <dd><%= @delivery.contractor.storage_address %></dd>
+              <% end %>
+
+              <dt><%= t('.Cost') %></dt>
+              <dd><%= number_to_currency(@delivery.cost) %></dd>
+
+              <dt><%= t('.Total with delivery') %></dt>
+              <dd><%= number_to_currency(@delivery.total_with_delivery) %></dd>
+
+              <dt><%= t('.Vat') %></dt>
+              <dd><%= t(".#{@delivery.vat?.to_s}") %></dd>
+
+              <dt><%= t('.Delivery document') %></dt>
+              <dd><%= @delivery.delivery_document %></dd>
+
+              <dt><%= t('.Delivery letter') %></dt>
+              <dd><%= @delivery.delivery_letter %></dd>
+
+              <dt><%= t('.Delivery dest') %></dt>
+              <dd><%= @delivery.delivery_dest %></dd>
+
+              <dt><%= t('.Order date') %></dt>
+              <dd><%= h_localize_date(@delivery.order_date) %></dd>
+
+              <dt><%= t('.Commodity type') %></dt>
+              <dd><%= @delivery.commodity_type %></dd>
+
+              <dt><%= t('.Pack') %></dt>
+              <dd><%= @delivery.pack %></dd>
+
+              <% if @delivery.delivery_needed %>
+                  <fieldset>
+                    <legend><%= t('.Delivery') %></legend>
+
+                    <dt><%= t('.Transport company') %></dt>
+                    <dd><%= @delivery.transport_company %></dd>
+
+                    <% if @delivery.transport_company %>
+                        <dt><%= t('.Transport company address') %></dt>
+                        <dd><%= @delivery.transport_company.address %></dd>
+                        <dt><%= t('.Transport company phone') %></dt>
+                        <dd><%= @delivery.transport_company.phone %></dd>
+                        <dt><%= t('.Transport company email') %></dt>
+                        <dd><%= @delivery.transport_company.email %></dd>
+                        <dt><%= t('.Transport company contacts') %></dt>
+                        <dd><%= @delivery.transport_company.contacts %></dd>
+                    <% end %>
+                    <dt><%= t('.Volume') %></dt>
+                    <dd><%= @delivery.volume %> <%= @delivery.volume_unit %></dd>
+
+                    <dt><%= t('.Dispatch date') %></dt>
+                    <dd><%= h_localize_date(@delivery.dispatch_date) %></dd>
+
+                    <dt><%= t('.Arrival date') %></dt>
+                    <dd><%= h_localize_date(@delivery.arrival_date) %></dd>
+
+                    <dt><%= t('.Delivery cost') %></dt>
+                    <dd><%= number_to_currency(@delivery.delivery_cost) %></dd>
+
+                    <dt><%= t('.Delivery perunit') %></dt>
+                    <dd><%=number_to_currency( @delivery.delivery_perunit) %></dd>
+
+                    <dt><%= t('.Delivery payment status') %></dt>
+                    <dd><%= @delivery.delivery_payment_status %></dd>
+
+                    <dt><%= t('.Delivery status') %></dt>
+                    <dd><%= @delivery.delivery_status %></dd>
+                  </fieldset>
+              <% end %>
+
+            </dl>
+          </div>
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <%= t('.No notes') if @delivery.delivery_notes.empty? %>
+                <% @delivery.delivery_notes.each do |note| %>
+                    <div class="box-comment">
+                      <div class="comment-text">
+                      <span class="username">
+                        <%= note.user %>
+                        <span class="text-muted pull-right"><%= h_localize_datetime(note.created_at) %></span>
+                      </span><!-- /.username -->
+                        <%= note.val %>
+                        <br/>
+                        <% if policy(@delivery).destroy_note?  %>
+                            <%= link_to deliveries_destroy_note_path(id: note), method: :post, data: { confirm: t('Are you sure?') }, class: 'btn btn-xs btn-danger pull-right', title: t('Delete') do %>
+                                <i class='fa fa-lg fa-trash-o'></i>
+                            <%- end -%>
+                        <% end %>
+                      </div><!-- /.comment-text -->
+                    </div><!-- /.box-comment -->
+                <% end %>
+              </div><!-- /.box-footer -->
+              <div class="box-footer">
+                <% if policy(@delivery).create_note? %>
+                    <%= form_for @delivery_note, url: deliveries_create_note_url do |f| %>
+                        <%= f.hidden_field :delivery_id %>
+                        <div class="input-group">
+                          <%= f.text_field :val, class: 'form-control', placeholder: t('Note text') %>
+                          <span class="input-group-btn">
+                          <%= f.submit t('Add'), class: 'btn btn-warning btn-flat' %>
+                        </span>
+                        </div>
+                    <% end %>
+                <% end %>
+              </div><!-- /.box-footer -->
+            </div>
+          </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

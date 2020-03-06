@@ -1,0 +1,153 @@
+<% content_for :title do %>
+    <%= t('.View Work Type') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View Work Type') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to work_types_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@work_type).can_edit? %>
+        <%= link_to edit_work_type_path(@work_type), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@work_type).can_delete? %>
+        <%= link_to work_type_path(@work_type), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Work Type Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('.Name') %></dt>
+            <dd><%= @work_type.name %></dd>
+
+            <dt><%= t('.Unit') %></dt>
+            <dd><%= @work_type.unit %></dd>
+
+            <dt><%= t('.Price') %></dt>
+            <dd><%= @work_type.price_per_unit %></dd>
+
+            <dt><%= t('.Facility') %></dt>
+            <dd><%= @work_type.facility %></dd>
+
+          </dl>
+
+          <br/>
+          <h4><%= t('Tools') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('.Name') %></th>
+              <th><%= t('.Amount') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @work_type.work_type_tools.each_with_index do |o, index| %>
+                <tr>
+                  <td><%= o.tool %></td>
+                  <td>
+                    <%= o.amount %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <br/>
+          <h4><%= t('Materials') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('.Name') %></th>
+              <th><%= t('.Amount') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @work_type.work_type_materials.each_with_index do |o, index| %>
+                <tr>
+                  <td><%= o.material %></td>
+                  <td>
+                    <%= o.amount %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <br/>
+          <h4><%= t('Others') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('.Name') %></th>
+              <th><%= t('.Amount') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @work_type.work_type_others.each_with_index do |o, index| %>
+                <tr>
+                  <td><%= o.other %></td>
+                  <td>
+                    <%= o.amount %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <br/>
+          <h4><%= t('Additionals') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('.Name') %></th>
+              <th><%= t('.Amount') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @work_type.work_type_additionals.each_with_index do |o, index| %>
+                <tr>
+                  <td><%= o.additional %></td>
+                  <td>
+                    <%= o.amount %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

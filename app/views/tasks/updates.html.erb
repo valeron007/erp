@@ -1,0 +1,92 @@
+<% content_for :title do %>
+    <%= t('tasks.updates.Updates') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('tasks.updates.Updates') %>
+<% end %>
+<ul class="tasks-updates-list">
+<% @tasks.each do |task| %>
+  <li class="task">
+    <dl class="dl-horizontal">
+      <dt><%= t('tasks.show.Title') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.title %>">
+        <%= task.title %>
+      </dd>
+
+      <dt><%= t('tasks.show.Desc') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.desc %>">
+        <%= task.desc %>
+      </dd>
+
+      <dt><%= t('tasks.show.Assign date') %></dt>
+      <dd data-toggle="tooltip" title="<%= h_localize_date(task.paper_trail&.previous_version&.assign_date) %>">
+        <%= h_localize_date(task.assign_date) %>
+      </dd>
+
+      <dt><%= t('tasks.show.Finish date') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.regularly ? t('.Regularly') : h_localize_date(task.paper_trail&.previous_version&.finish_date) %>">
+        <%= task.regularly ? t('.Regularly') : h_localize_date(task.finish_date) %>
+      </dd>
+
+      <dt><%= t('tasks.show.Task status') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.task_status %>">
+        <span class="badge <%= task.task_status.get_badge_color %>">
+          <%= task.task_status %>
+        </span>
+      </dd>
+
+      <dt><%= t('tasks.show.Important') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.important ? t('true') : t('false') %>">
+        <% if task.important %>
+            <span class="badge bg-red"><%= t('true') %></span>
+        <% else %>
+            <span class="badge"><%= t('false') %></span>
+        <%end%>
+      </dd>
+
+      <dt><%= t('tasks.show.Urgent') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.urgent ? t('true') : t('false') %>">
+        <% if task.urgent %>
+            <span class="badge bg-red"><%= t('true') %></span>
+        <% else %>
+            <span class="badge"><%= t('false') %></span>
+        <%end%>
+      </dd>
+
+      <dt><%= t('tasks.show.Assigned by') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.assigned_by %>">
+        <%= task.assigned_by %>
+      </dd>
+
+      <dt><%= t('tasks.show.Assigned to') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.assigned_to %>">
+        <%= task.assigned_to %>
+      </dd>
+
+      <dt><%= t('tasks.show.Created by') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.created_by %>">
+        <%= task.created_by %>
+      </dd>
+
+      <dt><%= t('tasks.show.Updated by') %></dt>
+      <dd data-toggle="tooltip" title="<%= task.paper_trail&.previous_version&.updated_by %>">
+        <%= task.updated_by %>
+      </dd>
+
+      <dt><%= t('tasks.show.Result') %></dt>
+      <dd data-toggle="tooltip" title="<%= strip_tags task.paper_trail&.previous_version&.result %>">
+        <%= strip_tags task.result %>
+      </dd>
+    </dl>
+     <div class="updates">
+      <% task.versions.last&.changeset&.each do |change| %>
+        <span class="badge" data-toggle="tooltip" title="<%= t(task.paper_trail&.previous_version&.send(change[0])) %>">
+          <%= t("activerecord.errors.models.task.attributes.#{change[0]}") %>
+        </span>
+      <% end %>
+    </div>
+  </li>
+  <hr>
+<% end %>
+</ul>

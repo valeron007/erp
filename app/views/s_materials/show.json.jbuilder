@@ -1,0 +1,1 @@
+json.partial! "s_materials/s_material", s_material: @s_material

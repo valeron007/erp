@@ -1,0 +1,35 @@
+<% content_for :title do %>
+    <%= t('.User Management') %>
+<% end %>
+<% content_for :page_header do %>
+    <%= t('.User Management') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to new_user_path, class: 'btn btn-app' do %>
+        <i class='fa fa-plus-square-o'></i>
+        <span><%= t('Add new') %></span>
+    <%- end -%>
+  </div>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= t('.Name') %></th>
+      <th><%= t('.Email') %></th>
+      <th><%= t('.Last Signin Date') %></th>
+      <th><%= t('.Role') %></th>
+      <th class="centered"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+        <tr>
+          <%= render user %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

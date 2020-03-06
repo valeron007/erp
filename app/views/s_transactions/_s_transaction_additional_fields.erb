@@ -1,0 +1,11 @@
+<div class="nested-fields">
+  <div class="clearfix">
+    <%= link_to_remove_association t('Remove'), f %>
+  </div>
+  <%= f.input :s_additional do %>
+      <%= f.select :s_additional_id, SAdditional.options_for_select, {include_blank: ''}, {class: 'form-control s-object'} %>
+  <% end %>
+
+  <%= f.input :s_amount, input_html: {min: 0, class: 's-amount'} %>
+
+</div>

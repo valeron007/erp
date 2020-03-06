@@ -1,0 +1,55 @@
+<% content_for :title do %>
+    <%= t('.View Penalty') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View Penalty') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to penalties_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@penalty).can_edit? %>
+        <%= link_to edit_penalty_path(@penalty), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@penalty).can_delete? %>
+        <%= link_to penalty_path(@penalty), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Penalty Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('.Name') %></dt>
+            <dd><%= @penalty.name %></dd>
+
+            <dt><%= t('.Penalty rate') %></dt>
+            <dd><%= @penalty.penalty_rate %></dd>
+
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

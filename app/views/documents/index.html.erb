@@ -1,0 +1,62 @@
+<% content_for :title do %>
+    <%= t('Document Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Document Management') %>
+<% end %>
+
+<div class="fix-height">
+  <% if policy(:document).can_create? %>
+      <div class="btn-actionbar">
+        <%= link_to new_document_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+      </div>
+  <% end %>
+
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= t('simple_form.labels.document.name') %></th>
+      <th><%= t('simple_form.labels.document.document_type') %></th>
+      <th><%= t('simple_form.labels.document.created_by') %></th>
+      <th><%= t('simple_form.labels.document.updated_by') %></th>
+      <th><%= t('simple_form.labels.document.updated_at') %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @documents.each do |document| %>
+        <% if policy(document).can_view? %>
+        <tr>
+          <td><%= link_to(document.name, document_path(document)) %></td>
+          <td><%= t(document.document_type) %></td>
+          <td><%= document.created_by %></td>
+          <td><%= document.updated_by %></td>
+          <td><%= h_localize_date(document.updated_at) %></td>
+          <td class="centered">
+            <% if policy(document).can_edit? %>
+                <%= link_to edit_document_path(document), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(document).can_delete? %>
+                <%= link_to document_history_path(document), class: 'btn btn-sm btn-default', title: t('History') do %>
+                    <i class='fa fa-lg fa-history'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(document).history? %>
+                <%= link_to document_path(document), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

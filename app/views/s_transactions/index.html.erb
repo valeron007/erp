@@ -1,0 +1,64 @@
+<% content_for :title do %>
+<%= t('.S Transaction Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('.S Transaction Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:s_transaction).can_create? %>
+      <%= link_to new_s_transaction_path, class: 'btn btn-app' do %>
+      <i class='fa fa-plus-square-o'></i>
+      <span><%= t('Add new') %></span>
+      <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-6">
+              <%= f.select(:with_source_id, @filterrific.select_options[:with_source_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.s_transaction.source_destination'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-6">
+              <%= f.text_field(:search_query, {'placeholder': t('Search'), class: 'form-control' }) %>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-xs-3">
+              <%= f.select(:with_user_from_id, @filterrific.select_options[:with_user_from_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.s_transaction.user_from'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-3">
+              <%= f.select(:with_user_to_id, @filterrific.select_options[:with_user_to_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.s_transaction.user_to'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-2">
+              <div class="has-icon date">
+                <%= f.text_field(:date_gte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('Date From')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="has-icon date">
+                <%= f.text_field(:date_lt, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('Date To')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+            <div class="centered col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+  <blockquote>
+    <p><i class="fa fa-lg fa-exclamation text-yellow"></i> <%= t('Click on a row to view transaction details') %></p>
+  </blockquote>
+
+</div>

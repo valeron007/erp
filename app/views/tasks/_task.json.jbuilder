@@ -1,0 +1,2 @@
+json.extract! task, :id, :title, :desc, :assign_date, :finish_date, :task_status_id, :assigned_by_id, :assigned_to_id, :created_by_id, :updated_by_id, :created_at, :updated_at
+json.url task_url(task, format: :json)

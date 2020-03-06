@@ -1,0 +1,33 @@
+<% content_for :title do %>
+  <%= t("Phone Search") %>
+<% end %>
+
+<% content_for :page_header do %>
+  <%= t("Phone Search") %>
+<% end %>
+
+<%= form_tag phone_search_path, method: :get, class: "form-inline" do %>
+  <%= text_field_tag :phone, params[:phone], placeholder: t("Phone Number"), autofocus: true, class: "form-control" %>
+  <%= submit_tag t("Search"), class: "btn btn-primary", name: nil %>
+<% end %>
+
+<%= t("Enter phone number and press search") unless @employees.present? || @contractors.present? || @clients.present? %>
+
+<% if @employees.present? %>
+  <h3><%= t("Employees") %></h3>
+  <%= render "list", results: @employees %>
+<% end %>
+
+<% if @contractors.present? %>
+  <h3><%= t("Contractors") %></h3>
+  <%= render "list", results: @contractors %>
+<% end %>
+
+<% if @clients.present? %>
+  <h3><%= t("Clients") %></h3>
+  <%= render "list", results: @clients %>
+<% end %>
+
+<% if params[:phone].present? && !@employees.present? && !@contractors.present? && !@clients.present? %>
+  <h3><%= t("No results") %></h3>
+<% end %>

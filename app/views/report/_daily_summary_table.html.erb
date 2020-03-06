@@ -1,0 +1,35 @@
+<div class="box box-primary">
+  <div class="box-header">
+    <i class="ion ion-stats-bars"></i>
+    <h3 class="box-title"><%= t('Report preview') %></h3>
+  </div>
+  <div class="box-body">
+    <table class="table table-condensed table-hover">
+      <thead>
+      <tr>
+        <th><%= t('Date') %></th>
+        <th><%= t('Employee Count') %></th>
+        <th><%= t('Facility Count') %></th>
+        <th><%= t('Facility List') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% unless @data.blank? %>
+          <% @data.each do |d| %>
+              <tr>
+                <td><%= d['report_date'] %></td>
+                <td><%= d['employee_count'] %></td>
+                <td><%= d['facility_count'] %></td>
+                <td><%= d['facility_list'] %></td>
+              </tr>
+          <% end %>
+      <% else %>
+          <tr><td colspan="4"><%= t('No data for current filter') %></td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="box-footer clearfix centered">
+    <button class="btn btn-default btn-export" data-action-url="<%= report_daily_summary_url(format: :xlsx) %>"><i class="fa fa-file-excel-o"></i> <%= t('Export to Excel') %></button>
+  </div>
+</div>

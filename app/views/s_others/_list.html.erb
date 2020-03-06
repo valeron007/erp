@@ -1,0 +1,41 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.s_other.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :amount, {label: t('simple_form.labels.s_other.amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :unit, {label: t('simple_form.labels.s_other.unit')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :min_amount, {label: t('simple_form.labels.s_other.min_amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :storage_place, {label: t('simple_form.labels.s_other.storage_place')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @s_others.each do |s_other| %>
+        <tr>
+          <td>
+             <%= link_to(s_other.name.name, s_other_path(s_other), title: s_other.name.alias_names, 'data-toggle': 'tooltip') %>
+          </td>
+          <td><%= h_decimal(s_other.amount) %></td>
+          <td><%= s_other.unit %></td>
+          <td><%= h_decimal(s_other.min_amount) %></td>
+          <td><%= s_other.storage_place %></td>
+          <td class="centered">
+                <%= link_to edit_s_other_path(s_other), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+                <%= link_to s_other_path(s_other), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-5"><%= page_entries_info @s_others %></div>
+    <div class="col-xs-5 pull-right"><%= page_navigation_links @s_others %></div>
+  </div>
+</div>
+

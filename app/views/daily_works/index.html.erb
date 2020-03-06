@@ -1,0 +1,57 @@
+<% content_for :title do %>
+<%= t('Daily Work') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('Daily Work') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:daily_work).can_create? %>
+      <%= link_to new_daily_work_path, class: 'btn btn-app' do %>
+      <i class='fa fa-plus-square-o'></i>
+      <span><%= t('Add new') %></span>
+      <%- end -%>
+    <% end %>
+    <% if policy(:daily_work).can_export? %>
+        <%= link_to daily_works_export_path(format: :xlsx), class: 'btn btn-app' do %>
+            <i class='fa fa-file-excel-o'></i>
+            <span><%= t('Export') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-6">
+              <% if policy(:daily_work).can_assign? %>
+              <%= f.select(:with_user_id, @filterrific.select_options[:with_user_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.expense.expense_by'), class: 'form-control' }) %>
+              <% end %>
+            </div>
+            <div class="col-xs-2">
+              <div class="has-icon date">
+                <%= f.text_field(:date_gte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('From date')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="has-icon date">
+                <%= f.text_field(:date_lte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('To date')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default pull-right'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+</div>

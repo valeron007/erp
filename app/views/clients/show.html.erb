@@ -1,0 +1,112 @@
+<% content_for :title do %>
+    <%= t('.Client Details') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.Client Details') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar hidden-print">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+
+    <% if policy(:lead).can_create? %>
+        <%= link_to new_lead_path(client_id: @client), class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Create lead') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@client).can_edit? %>
+        <%= link_to edit_client_path(@client), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@client).can_delete? %>
+        <%= link_to client_path(@client), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('General details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('simple_form.labels.client.name') %></dt>
+            <dd><%= @client.name %></dd>
+
+            <dt><%= t('simple_form.labels.client.address') %></dt>
+            <dd><%= @client.address %></dd>
+
+            <dt><%= t('simple_form.labels.client.phone') %></dt>
+            <dd><%= @client.phone %></dd>
+
+            <dt><%= t('simple_form.labels.client.comment') %></dt>
+            <dd><%= @client.comment %></dd>
+
+          </dl>
+
+          <br/>
+          <h4><%= t('Leads') %></h4>
+          <hr/>
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= t('simple_form.labels.lead.short_name') %></th>
+              <th><%= t('simple_form.labels.lead.name') %></th>
+              <th><%= t('simple_form.labels.lead.created_by') %></th>
+              <th><%= t('simple_form.labels.lead.lead_status') %></th>
+              <th><%= t('simple_form.labels.client.last_visit_date') %></th>
+              <th><%= t('simple_form.labels.client.next_visit_date') %></th>
+              <th class="centered actions"><%= t('Actions') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @client.leads.each do |o| %>
+                <% if policy(o).can_view? %>
+                    <tr>
+                      <td><%= link_to(o, lead_path(o))  %></td>
+                      <td><%= o.name %></td>
+                      <td><%= o.created_by %></td>
+                      <td><%= o.lead_status %></td>
+                      <td><%= h_localize_date(o.visit_date) %></td>
+                      <td><%= h_localize_date(o.next_date) %></td>
+                      <td class="centered">
+                        <% if policy(o).can_edit? %>
+                            <%= link_to edit_lead_path(o), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                                <i class='fa fa-lg fa-pencil-square-o'></i>
+                            <%- end -%>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

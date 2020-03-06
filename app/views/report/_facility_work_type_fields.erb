@@ -1,0 +1,12 @@
+<div class="nested-fields">
+  <div class="clearfix">
+    <%= link_to_remove_association t('Remove'), f %>
+  </div>
+  <%= f.input :work_type do %>
+      <%= f.select :work_type_id, WorkType.all.map {|e| [e.to_s, e.id, {'data-price' => e.price_per_unit, 'data-tools' => e.work_type_tools.to_json, 'data-materials' => e.work_type_materials.to_json, 'data-others' => e.work_type_others.to_json, 'data-additionals' => e.work_type_additionals.to_json}]}, {include_blank: ''}, {class: 'form-control s-object'} %>
+  <% end %>
+
+  <%= f.input :amount, input_html: {min: 0, class: 's-amount'} %>
+
+  <%= f.input :total_price, input_html: {min: 0, step: 0.01, class: 's-total'} %>
+</div>

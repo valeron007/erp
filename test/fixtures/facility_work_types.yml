@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  facility_id: 
+  work_type_id: 
+  amount: 1.5
+  total_price: 1.5
+
+two:
+  facility_id: 
+  work_type_id: 
+  amount: 1.5
+  total_price: 1.5

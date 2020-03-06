@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  facility_id: 
+  employee_id: 
+  date: 2016-03-19
+  start_time: 2016-03-19 17:31:22
+  end_time: 2016-03-19 17:31:22
+  salary_period_id:
+  rework: false
+  penalty_id: 
+  quality_penalty_id: 
+  penalty_description: MyText
+  probation_period: false
+  payment_type_id: 
+  ratio: 1.5
+  salary: 1.5
+  overtime: 1
+  description: MyText
+  total_amount: 1.5
+  work_type_id: 
+
+two:
+  facility_id: 
+  employee_id: 
+  date: 2016-03-19
+  start_time: 2016-03-19 17:31:22
+  end_time: 2016-03-19 17:31:22
+  salary_period_id:
+  rework: false
+  penalty_id: 
+  quality_penalty_id: 
+  penalty_description: MyText
+  probation_period: false
+  payment_type_id: 
+  ratio: 1.5
+  salary: 1.5
+  overtime: 1
+  description: MyText
+  total_amount: 1.5
+  work_type_id: 

@@ -1,0 +1,57 @@
+<% content_for :title do %>
+    <%= t('View Document History') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View Document History') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar hidden-print">
+    <%= link_to document_path(@document), class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to document') %></span>
+    <%- end -%>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table">
+            <tbody>
+            <% @document.versions.each do |version| %>
+                <tr>
+                  <td>
+                    <a href="#" class="diff_link" data-version-id="<%= version.id %>" data-label-old="<%= t('Old Text') %>" data-label-new="<%= t('New Text') %>">
+                      <%= "#{t('Version')} #{version.id}, #{h_localize_datetime(version.created_at)}" %>
+                      <div class="diff_content_from hide"><%= strip_tags version.changeset["content"][0] %></div>
+                      <div class="diff_content_to hide"><%= strip_tags version.changeset["content"][1] %></div>
+                    </a>
+                  </td>
+                  <td>'<%= version.changeset["name"].blank? ? @document.name : version.changeset["name"][0] %>' &rarr; '<%= version.changeset["name"].blank? ? @document.name : version.changeset["name"][1] %>'</td>
+                  <td>
+                    <% if version.whodunnit && version.whodunnit != 'Guest' %>
+                        <% user = User.find_by_id(version.whodunnit) %>
+                        <% if user %>
+                            <%= user %>
+                            (<%= t('last sign in at') %> <%= h_localize_datetime(user.last_sign_in_at) %>)
+                        <% end %>
+                    <% else %>
+                        -
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3"><div class="diffoutput-<%= version.id %>"></div></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+</div>

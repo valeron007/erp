@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Export Sheet') do |sheet|
+
+  sheet.add_row ['']
+  sheet.add_row ['', t('Last Name'), t('First Name'), t('Position'), t('Employee Status'), t('Hire Date')]
+
+  unless @employees.blank?
+    @employees.each do |e|
+      sheet.add_row ['', e.last_name, e.first_name, e.position, e.employee_status, h_localize_date(e.hire_date)]
+    end
+  end
+
+  sheet.add_table "B2:F#{sheet.rows.last.index+2}", :name => 'Employees', :style_info => { :name => 'TableStyleMedium2' }
+
+  sheet.column_widths 5, 30, 30, 20, 20, 20
+
+  sheet.add_style 'B2:F2', b: true, sz: 13
+
+end
+
+wb.apply_styles

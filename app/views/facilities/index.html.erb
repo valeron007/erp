@@ -1,0 +1,40 @@
+<% content_for :title do %>
+    <%= t('.Facility Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.Facility Management') %>
+<% end %>
+
+<div class="fix-height">
+  <% if policy(:facility).can_create? %>
+      <div class="btn-actionbar">
+        <%= link_to new_facility_path, class: 'btn btn-app' do %>
+            <i class='fa fa-plus-square-o'></i>
+            <span><%= t('Add new') %></span>
+        <%- end -%>
+      </div>
+  <% end %>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-4">
+              <%= f.text_field(:search_query, {'placeholder': t('Search'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-4">
+              <%= f.select(:with_facility_status_id, @filterrific.select_options[:with_facility_status_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.facility.facility_status'), class: 'form-control' }) %>
+            </div>
+            <div class="centered col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+</div>

@@ -1,0 +1,58 @@
+<% content_for :title do %>
+<%= t('View')%> <%= t('Daily Work') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('View')%> <%= t('Daily Work') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+    <i class='fa fa-chevron-left'></i>
+    <span><%= t('Back to list') %></span>
+    <%- end -%>
+
+    <% if policy(@daily_work).can_edit? %>
+      <%= link_to edit_daily_work_path(@daily_work), class: 'btn btn-app' do %>
+      <i class='fa fa-pencil-square-o'></i>
+      <span><%= t('Edit') %></span>
+      <%- end -%>
+    <% end %>
+
+    <% if policy(@daily_work).can_delete? %>
+      <%= link_to daily_work_path(@daily_work), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+      <i class='fa fa-trash-o'></i>
+      <span><%= t('Delete') %></span>
+      <%- end -%>
+    <% end %>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Daily Work') %> <%= t('Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+            
+                <dt><%= t('Date') %></dt>
+                <dd><%= @daily_work.date %></dd>
+            
+                <dt><%= t('User') %></dt>
+                <dd><%= @daily_work.user %></dd>
+            
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,298 @@
+<%= simple_form_for @facility, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <% if policy(@facility).edit_full_info? %>
+              <%= f.input :doer %>
+
+              <%= f.input :customer %>
+
+              <%= f.association :client , :label => "Заказчик", :value => :customer  %> 
+
+              <%= f.association :lead, collection: Lead.not_closed.options_for_select %>
+          <% end  %>
+
+          <%= f.input :name %>
+
+          <%= f.input :full_name %>
+
+          <%= f.input :address %>
+
+          <%= f.association :facility_status %>
+
+          <div class="form-group <%= ("has-error" if @facility.errors[:projected_start_date].any?) %>">
+            <%= f.label :projected_start_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :projected_start_date, as: :date_picker, value: h_localize_date(f.object.projected_start_date) %>
+            </div>
+          </div>
+
+          <% if policy(@facility).edit_full_info? %>
+
+              <%= f.input :contact_name %>
+
+              <%= f.association :foreman, collection: User.foreman %>
+
+              <div class="form-group <%= ("has-error" if @facility.errors[:finish_date].any?) %>">
+                <%= f.label :finish_date, class: 'col-sm-3 control-label' %>
+                <div class="col-sm-3">
+                  <%= f.input_field :finish_date, as: :date_picker, value: h_localize_date(f.object.finish_date) %>
+                </div>
+              </div>
+
+              <div class="form-group <%= ("has-error" if @facility.errors[:contract_date].any?) %>">
+                <%= f.label :contract_number, class: 'col-sm-3 control-label' %>
+                <div class="col-sm-5">
+                  <%= f.input_field :contract_number, class: 'form-control' %>
+                </div>
+                <%= f.label :contract_date, class: 'col-sm-1 control-label' %>
+                <div class="col-sm-3">
+                  <%= f.input_field :contract_date, as: :date_picker, value: h_localize_date(f.object.contract_date) %>
+                </div>
+              </div>
+
+          <% end  %>
+
+          <% if policy(@facility).edit_contract_info? %>
+              <fieldset>
+                <legend>
+                  <%= t('Financial information') %>
+                </legend>
+                <div class="form-group <%= ("has-error" if @facility.errors[:p_total].any? or @facility.errors[:p_paid].any? or @facility.errors[:p_left].any?) %>">
+                  <%= f.label :p_total, class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-3">
+                    <%= f.input_field :p_total, step: 0.01, min: 0, value: number_with_precision(f.object.p_total, precision: 2),class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-3">
+                    <%= f.input_field :p_paid, min: 0, step: 0.01, value: number_with_precision(f.object.p_paid, precision: 2),class: 'form-control', placeholder: t('facilities.show.Payment paid') %>
+                  </div>
+                  <div class="col-sm-3">
+                    <%= f.input_field :p_left, min: 0, step: 0.01, value: number_with_precision(f.object.p_left, precision: 2),class: 'form-control', placeholder: t('facilities.show.Payment left') %>
+                  </div>
+                </div>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_docs? %>
+              <fieldset>
+                <legend>
+                  <%= t('Additional documents') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :adocs, {'data-association-insertion-node':'.adoc_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="adoc_fields">
+                  <%= f.simple_fields_for :adocs do |adoc|  %>
+                      <%= render 'adoc_fields', f: adoc %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:adocs].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :adocs %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_works? %>
+              <fieldset>
+                <legend>
+                  <%= t('Work Categories') %>
+                </legend>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" for="work_category_id"><%= t('Category') %></label>
+                  <div class="col-sm-9">
+                    <%= select_tag 'work_category_id', options_for_select(WorkCategory.all.map {|e| [e.to_s, e.id, {'data-works' => e.work_type_categories.to_json}]}), include_blank: true, class: 'form-control', id: 'work_category_id' %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" for="work_amount"><%= t('Amount') %></label>
+                  <div class="col-sm-9">
+                    <input type="number" class="form-control" name="work_amount" id="work_amount" min="0" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" id="calc_works"><i class="fa fa-plus"></i> <%= t('Add works from category') %></button>
+                    <button type="button" id="clear_works"><i class="fa fa-trash"></i> <%= t('Clear all works') %></button>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>
+                  <%= t('Projected works') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_work_types, {'class': 'add-work', 'data-association-insertion-node':'.work_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="work_fields">
+                  <%= f.simple_fields_for :facility_work_types do |o|  %>
+                      <%= render 'facility_work_type_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_work_types].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_work_types %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_tools? %>
+              <fieldset>
+                <legend>
+                  <%= t('Needed tools') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_tools, {'class': 'add-tool', 'data-association-insertion-node':'.tool_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="clearfix row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" id="calc_tools"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                    <button type="button" id="clear_tools"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                  </div>
+                </div>
+                <div class="tool_fields">
+                  <%= f.simple_fields_for :facility_tools do |o|  %>
+                      <%= render 'facility_tool_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_tools].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_tools %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_materials? %>
+              <fieldset>
+                <legend>
+                  <%= t('Needed materials') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_materials, {'class': 'add-material', 'data-association-insertion-node':'.material_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="clearfix row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" id="calc_materials"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                    <button type="button" id="clear_materials"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                  </div>
+                </div>
+                <div class="material_fields">
+                  <%= f.simple_fields_for :facility_materials do |o|  %>
+                      <%= render 'facility_material_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_materials].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_materials %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_others? %>
+              <fieldset>
+                <legend>
+                  <%= t('Needed others') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_others, {'class': 'add-other', 'data-association-insertion-node':'.other_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="clearfix row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" id="calc_others"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                    <button type="button" id="clear_others"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                  </div>
+                </div>
+                <div class="other_fields">
+                  <%= f.simple_fields_for :facility_others do |o|  %>
+                      <%= render 'facility_other_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_others].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_others %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_additionals? %>
+              <fieldset>
+                <legend>
+                  <%= t('Needed additionals') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_additionals, {'class': 'add-additional', 'data-association-insertion-node':'.additional_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="clearfix row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <button type="button" id="calc_additionals"><i class="fa fa-plus"></i> <%= t('Add from works') %></button>
+                    <button type="button" id="clear_additionals"><i class="fa fa-trash"></i> <%= t('Clear') %></button>
+                  </div>
+                </div>
+                <div class="additional_fields">
+                  <%= f.simple_fields_for :facility_additionals do |o|  %>
+                      <%= render 'facility_additional_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_additionals].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_additionals %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+          <% if policy(@facility).edit_costs? %>
+              <fieldset>
+                <legend>
+                  <%= t('Additional Costs') %>
+                  <%= link_to_add_association '<i class="fa fa-plus"></i>'.html_safe, f, :facility_costs, {'data-association-insertion-node':'.cost_fields', 'data-association-insertion-method': 'prepend'} %>
+                </legend>
+                <div class="cost_fields">
+                  <%= f.simple_fields_for :facility_costs do |o|  %>
+                      <%= render 'facility_cost_fields', f: o %>
+                  <% end %>
+                </div>
+                <% if @facility.errors[:facility_costs].any? %>
+                    <div class="form-group has-error">
+                      <label class="col-sm-3 control-label"></label>
+                      <div class="col-sm-9 col-xs-6">
+                        <%= f.error :facility_costs %>
+                      </div>
+                    </div>
+                <% end  %>
+              </fieldset>
+          <% end  %>
+
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), facilities_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>

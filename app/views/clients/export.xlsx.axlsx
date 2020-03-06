@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Export Sheet') do |sheet|
+
+  sheet.add_row ['']
+  sheet.add_row ['', t('simple_form.labels.client.name'), t('simple_form.labels.client.address'), t('simple_form.labels.client.phone'), t('simple_form.labels.client.comment')]
+
+  unless @clients.blank?
+    @clients.each do |e|
+      sheet.add_row ['', e.name, e.address, e.phone, e.comment]
+    end
+  end
+
+  sheet.add_table "B2:E#{sheet.rows.last.index+2}", :name => 'DailyTimesheets', :style_info => { :name => 'TableStyleMedium2' }
+
+  sheet.column_widths 5, 50, 30, 20, 50
+
+  sheet.add_style 'B2:E2', b: true, sz: 13
+
+end
+
+wb.apply_styles

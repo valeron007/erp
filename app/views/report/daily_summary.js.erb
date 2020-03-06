@@ -1,0 +1,4 @@
+<% js = escape_javascript(
+  render('daily_summary_table', {data: @data, f: @f, filter_facility: @filter_facility} )
+) %>
+$("#report_preview").html("<%= js %>");

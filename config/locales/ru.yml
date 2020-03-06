@@ -1,0 +1,1263 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ru:
+  #Login
+  login to begin: "Войдите чтобы начать"
+  Email: "Электронная почта"
+  Password: "Пароль"
+  Remember me: "Запомнить меня"
+  Sign in: "Войти"
+  Access Denied: "Доступ к данному действию запрещен, ваши действия записаны, пожалуйста обратитесь к администратору за разъяснениями"
+
+  #Header
+  Num: "№"
+  All: "Все"
+  Dashboard: "Главная"
+  User: "Пользователь"
+  Users: "Пользователи"
+  Employees: "Сотрудники"
+  Phone Search: "Поиск по номеру телефона"
+  Phone Number: "Номер телефона"
+  Enter phone number and press search: "Введите номер телефона и нажмите \"Поиск\""
+  No results: "Нет результатов"
+  Employee Count: "Кол-во рабочих"
+  Daily Timesheets: "Дневной отчет"
+  Daily Timesheet: "Дневной отчет"
+  Details: "Данные"
+  Daily Works: "Работа за день"
+  Manager: "Менеджер"
+  Leads: "Лиды"
+  Reports: "Отчеты"
+  References: "Дополнительно"
+  Management: "Управление"
+  Contacts: "Контакты"
+  Positions: "Должности"
+  Facilities: "Объекты"
+  Facility Count: "Кол-во объектов"
+  Facility List: "Список объектов"
+  Work types: "Работы"
+  Work categories: "Виды работ"
+  Tools: "Инструменты"
+  Materials: "Материалы"
+  Timesheet works: "Выполненные работы"
+  Penalties: "Штрафы"
+  Client: "Заказчик"
+  Clients: "Клиенты"
+  Adoc Statuses: "Статусы доп. документов"
+  Adoc Names: "Названия доп. документов"
+  Units: "Ед. измерения"
+  Deliveries: "Снабжение"
+  Contractors: "Поставщики"
+  Transport companies: "Транспортные компании"
+  Delivery letters: "Доверенности"
+  KPI: "KPI"
+  Done: "Выполнено"
+  Close Task: "Выполнить задание"
+  Open Task: "Переоткрыть задание"
+  Delete Task: "Удалить задание"
+  General details: "Основные данные"
+  Export to Excel: "Скачать в Excel"
+  Reset filters: "Сбросить фильтр"
+  Add timesheet: "Добавить отчет"
+  Payment details: "Платежные данные"
+  Personal details: "Личные данные"
+  Contact details: "Контакты"
+  Work Category Details: "Основные параметры"
+  Work Type Details: "Основные параметры"
+  Penalty Details: "Детали штрафа"
+  Upload files: "Загрузить файлы"
+  From date: "Дата с"
+  To date: "Дата по"
+  Files: "Файлы"
+  Search: "Поиск"
+  Position: "Должность"
+  Salary ratio: "Коэффициент"
+  Employee Status: "Статус"
+  Hire Date: "Дата приема"
+  Update: "Обновить"
+  Edit: "Изменение"
+  Add: "Добавить"
+  Create: "Добавить"
+  Delete: "Удаление"
+  Back to list: "К списку"
+  Back to document: "К документу"
+  last sign in at: "Последний вход в систему"
+  Add error: "Ошибка"
+  Add new: "Новый"
+  Update locations: "Обновить местоположения"
+  Actions: "Действия"
+  View: "Просмотр"
+  Are you sure?: "Вы уверены?"
+  Submit: "Сохранить"
+  Cancel: "Отменить"
+  Add from works: "Добавить с планируемых работ"
+  Clear: "Очистить"
+  Clear all works: "Очистить все работы"
+  Calculate: "Рассчитать"
+  Recalculate: "Пересчитать"
+  Daily timesheet penalty: "Штраф"
+  Daily timesheet status: "Статус"
+  Work type: "Работа"
+  Psycho aspects: "Психологические аспекты"
+  Project information: "Проектная информация"
+  Additional information: "Дополнительная информация"
+  Additional documents: "Дополнительные документы"
+  Projected works: "Планируемые работы"
+  Work Categories: "Типы работ"
+  Add works from category: "Добавить работы по типу"
+  Category: "Тип"
+  When: "Когда"
+  Whom: "Кому"
+  Who: "Кто"
+  How much: "Сколько"
+  Where: "Куда"
+  Company: "Компания"
+  Needed tools: "Необходимые инструменты"
+  Needed materials: "Необходимые материалы"
+  Needed others: "Необходимый инвентарь"
+  Needed additionals: "Необходимое прочее"
+  Tools: "Инструменты"
+  Materials: "Материалы"
+  Others: "Инвентарь"
+  Additionals: "Прочее"
+  Inventory Types: "Тип наименования"
+  Additional Costs: "Дополнительные расходы"
+  Financial information: "Финансовая информация"
+  Next visit: "Следующее посещение"
+  Add new client: "Добавить клиента"
+  Amount: "Количество"
+  Remove: "Удалить"
+  Removed: "Удален"
+  Delete: "Удалить"
+  Deleted: "Удален"
+  Reports Dashboard: "Все отчеты"
+  View report: "Посмотреть отчет"
+  Employee Payments Report: "Заработная плата за период"
+  Facility Works Report: "Работы на объекте за период"
+  Labor Costs Report: "Затраты на объекте за период"
+  Work Efficiency Report: "Эффективность за период"
+  Daily Summary Report: "Суммарный дневной отчет"
+  Calc Report: "Калькулятор"
+  Facility: "Объект"
+  View Facility: "Карточка объекта"
+  Date Range: "Диапазон дат"
+  View Report: "Посмотреть отчет"
+  Report preview: "Предпросмотр отчета"
+  Report Filter: "Фильтр отчета"
+  Employee: "Сотрудник"
+  Total Payout: "ЗП за период"
+  Time Based: "ЗП по окладу"
+  Work Based: "ЗП по сделке"
+  Total Penalties: "Штрафы"
+  Penalties Details: "Описание штрафов"
+  Facilities Time Based: "Объекты по окладу"
+  Facilities Work Based: "Объекты по сделке"
+  Had piecework: "Была сделка"
+  Work Name: "Наименование работы"
+  Price: "Стоимость"
+  Amount: "Количество"
+  Employee Effectivity: "% Эффективности работника"
+  Foreman Effectivity: "% Эффективности прораба"
+  Date: "Дата"
+  From: "от"
+  "#": "№"
+  Status: "Статус"
+  Employee: "Сотрудник"
+  Facility: "Объект"
+  Total: "Всего"
+  Penalty: "Штрафы"
+  No data for current filter: "Нет данных при выбранных условиях"
+  Download: "Скачать"
+  Preview: "Посмотреть"
+  View All: "Смотреть всех"
+  Upcoming birthdays: "Не забыть поздравить"
+  Employees List: "К полному списоку работников"
+  General Info: "Основные данные"
+  Lead Info: "Связанный лид"
+  Objects Info: "Что на объекте"
+  Objects by employee: "Ответственность"
+  Notes: "Заметки"
+  Edit Employee Photo: "Обновления фото сотрудника"
+  Update image: "Обновить фото"
+  Close: "Закрыть"
+  File: "Файл"
+  Note text: "Текст заметки"
+  Add note: "Добавить заметку"
+  Note added: "Заметка добавлена"
+  Note removed: "Заметка удалена"
+  record_changed_placeholder: "Значение '%{what}' было изменено, старое значение '%{from}', новое значение '%{to}'"
+  Payment status: "Статус оплаты"
+  Visit date: "Дата посещения"
+  Next date: "Дата след. посещения"
+  Date From: "Дата с"
+  Date To: "Дата по"
+  Date next visit from: "Дата след. пос. с"
+  Date next visit to: "Дата след. пос. до"
+  Done date: "Дата выполнения"
+  Lead was changed: "Лид был изменен"
+  Task was changed: "Задание было изменено"
+  Transaction was changed: "Транзакция была изменена"
+  Time: "Время"
+  Tasks: "Задания"
+  Expenses: "Кошелек"
+  Daily Work: "Работа за день"
+  Edit Daily Work: "Изменение работы"
+  Create Daily Work: "Добавление работы"
+  Hours: "ч."
+  Task Management: "Управление заданиями"
+  Create Task: "Добавление задания"
+  Edit Task: "Изменение задания"
+  View Task: "Просмотр задания"
+  Task Details: "Детали задания"
+  Expense Management: "Управление кошельком"
+  Create Expense: "Изменение баланса"
+  Edit Expense: "Изменение баланса"
+  View Expense: "Просмотр деталей"
+  Expense Details: "Детали транзакции"
+  Storage: "Склад"
+  Transactions: "Транзакции"
+  new: "Новый"
+  good: "Хорошее"
+  normal: "Удовлетворительное"
+  bad: "Плохое"
+  need_repair: "Требуется ремонт"
+  Count: "Кол-во"
+  My wallet: "Кошелек"
+  Balance: "Баланс"
+  Add funds: "Приход"
+  Sub funds: "Расход"
+  Transfer funds: "Перевод"
+  Export: "Экспорт"
+  Income: "Приход(с объекта на склад)"
+  Outcome: "Расход(со склада на объект)"
+  Transfer: "Перемещение(с объекта на объект)"
+  income: "Приход(с объекта на склад)"
+  outcome: "Расход(со склада на объект)"
+  transfer: "Перемещение(с объекта на объект)"
+  Central store: "Центральный склад"
+
+  Record has been saved: "Запись сохранена"
+  Record has been deleted: "Запись удалена"
+  Records has been updated: "Записи обновлены"
+  Records per page: "Записей на страницу"
+  "true": "Да"
+  "false": "Нет"
+  Upcoming leads visit: "Запланированы к посещению"
+  Upcoming tasks: "Ближайшие задачи"
+  Tasks List: "К полному спику заданий"
+  Deliveries List: "К полному списку снабжения"
+  Leads List: "К полному спику лидов"
+  Materials List: "К полному спику материалов"
+  Others List: "К полному спику инвентаря"
+  Additionals List: "К полному спику прочего"
+  Print: "Распечатать"
+  History: "История"
+  Old Text: "Старый текст"
+  New Text: "Новый текст"
+  Create lead: "Создать лид"
+
+  Documents: "Документы"
+  Document: "Документ"
+  Document Management: "Список документов"
+  View Document: "Просмотр документа"
+  View Document History: "История изменений документа"
+  Edit Document: "Изменение документа"
+  Call Records: "Детализация звонков"
+  Note: "Примечание"
+  Click on a row to view transaction details: "Нажмите на строчку в списке транзакций для просмотра деталей транзакции"
+  text: "текст"
+  sheet: "таблица"
+  Tool Management: "Управление инструментами"
+  Create Tool: "Добавить инструмент"
+  Edit Tool: "Редактировать инструмент"
+
+  Material Management : "Управление материалами"
+  Create Material: "Добавить материал"
+  Edit Material: "Редактировать материал"
+
+  Other Management: "Управление инвентарем"
+  Create Other: "Добавить инвентарь"
+  Edit Other: "Редактировать инвентарь"
+
+  Additional Management: "Управление прочим"
+  Create Additional: "Добавить прочее"
+  Edit Additional: "Редактировать прочее"
+
+  Name: "Наименование"
+  Unit: "Ед.изм."
+  Price per unit: "Цена за ед."
+  Document name: "Док. наименование"
+  Inventory type: "Тип наименования"
+  Default warehouse: "Основной склад"
+  Default entrance: "Поставка на склад"
+  Default exit: "Утилизация,убытие"
+
+  Without null: "Скрыть нулевые"
+
+  View Task History: "Истоирия изменений задания"
+  Back to task: "Назад к заданию"
+  Version: "Версия"
+  Attribute: "Параметр"
+  Before: "До"
+  After: "После"
+
+  facilities:
+    show:
+      Doer: "Исполнитель"
+      Customer: "Заказчик"
+      Full Name: "Название объекта как в договоре"
+      Name: "Краткое название"
+      Address: "Адрес"
+      Contact Name: "Контактные лица"
+      Foreman: "Прораб"
+      Facility Status: "Статус объекта"
+      Contract: "Контракт № и дата"
+      Contract Number: "№ контракта"
+      Contract Date: "Дата контракта"
+      Document: "Документ"
+      Title: "Название"
+      Amount: "Кол-во"
+      Price: "Сумма"
+      Present: "Есть"
+      Status: "Статус"
+      No notes: "Заметок пока нет"
+      Totals: "Итого"
+      Finish date: "Дата завершения"
+      Payment total: "Сумма по договору"
+      Payment paid: "Оплачено"
+      Payment left: "Осталось"
+      Tools: "Инструменты"
+      Materials: "Материалы"
+      Others: "Инвентарь"
+      Additionals: "Прочее"
+      State: "Состояние"
+      Comment: "Комментарий"
+      No records: "Записи отсутствуют"
+    index:
+      Name: "Название объекта"
+      Address: "Адрес объекта"
+      Facility Status: "Статус объекта"
+      Facility Management: "Управление объектами"
+      Name: "Название"
+      Address: "Адрес"
+    new:
+      Create Facility: "Добавление объекта"
+    edit:
+      Edit Facility: "Изменение объекта"
+
+  work_categories:
+    index:
+      Work Category Management: "Управление видами работами"
+      Name: "Наименование"
+    show:
+      View Work Category: "Карточка вида работы"
+      Name: "Наименование"
+      Work types: "Работы"
+      Work: "Наименование"
+      Amount: "Кол-во"
+      Price: "Сумма"
+      Totals: "Итого"
+    edit:
+      Edit Work Category: "Изменение вида работы"
+      Work types: "Работы"
+      Amount: "Кол-во"
+    new:
+      Create Work Category: "Добавление вида работы"
+      Work types: "Работы"
+      Amount: "Кол-во"
+
+  work_types:
+    index:
+      Work Type Management: "Управление работами"
+      Work Category: "Тип"
+      Name: "Название"
+      Unit: "Ед. изм."
+      Price: "Цена"
+      Facility: "Объект"
+    show:
+      View Work Type: "Карточка работы"
+      Work Category: "Тип"
+      Name: "Название"
+      Unit: "Ед. изм."
+      Price: "Цена"
+      Facility: "Объект"
+      Tools: "Инструменты"
+      Materials: "Материалы"
+      Amount: "Кол-во"
+    edit:
+      Edit Work Type: "Изменение работы"
+      Tool: "Инструмент"
+      Material: "Материал"
+      Amount: "Кол-во"
+    new:
+      Create Work Type: "Добавление работы"
+      Tool: "Инструмент"
+      Material: "Материал"
+      Amount: "Кол-во"
+
+  penalties:
+    index:
+      Penalty Management: "Управление штрафами"
+      Name: "Название"
+      Penalty rate: "Сумма"
+    show:
+      View Penalty: "Просмотр штрафа"
+      Name: "Название"
+      Penalty rate: "Сумма"
+    edit:
+      Edit Penalty: "Изменение штрафа"
+    new :
+      Create Penalty: "Добавление штрафа"
+
+  daily_timesheets:
+    show:
+      Facility: "Название объекта"
+      Employee: "Работник"
+      Date: "Дата"
+      Start time: "Время начала"
+      End time: "Время окончания"
+      Salary period: "Расчетный период"
+      Penalty: "Штраф"
+      Penalties: "Штрафы"
+      Quality penalty: "Штраф инженера качества"
+      Penalty description: "Детали штрафов"
+      Probation period: "Испытательный период"
+      Payment type: "Тип оплаты"
+      Ratio: "Коэффициент"
+      Salary: "Оклад"
+      Overtime: "Переработка"
+      Description: "Описание"
+      Total amount: "Итого"
+      Work type: "Работы"
+      Not set: "Не установлен"
+      Rework: "Переделки"
+      "true": "Да"
+      "false": "Нет"
+      Additional Payment Value: "Доплата"
+      Additional Payment Reason: "Причина"
+    index:
+      Facility: "Название объекта"
+      Employee: "Работник"
+      Date: "Дата"
+      Total amount: "Сумма"
+      Daily Timesheet Management: "Управление дневными отчетами"
+    new:
+      Create Daily Timesheet: "Новый дневной отчет"
+    edit:
+      Edit Daily Timesheet: "Редактирование дневного отчета"
+
+  employees:
+    show:
+      Employee: "сотрудника"
+      First name: "Имя"
+      Last name: "Фамилия"
+      Middle name: "Отчество"
+      Actions: "Действия"
+      Detail: "Данные"
+      Position: "Должность"
+      Payment details: "Платежная информация"
+      Personal details: "Личная информация"
+      Contact details: "Контактная информация"
+      Hire date: "Дата найма"
+      Probation period: "Испытательный срок"
+      Employee status: "Статус"
+      Fire date: "Дата увольнения"
+      Fire reason: "Причина увольнения"
+      Passport: "Паспорт"
+      Birth date: "Дата рождения"
+      Citizenship: "Гражданство"
+      Nationality: "Национальность"
+      Felony: "Судимость"
+      Felony notes: "Примечание"
+      Salary: "Оклад"
+      Salary ratio: "Коэффициент"
+      Card number: "Основная карта"
+      Card owner: "ФИО основной карты"
+      Additional Card number: "Доп. карта"
+      Additional Card owner: "ФИО доп. карты"
+      Shoes size: "Размер обуви"
+      Dress size: "Размер одежды"
+      Height: "Рост"
+      Children count: "Детей до 18"
+      Mobile number: "Служебный телефон"
+      Phone number: "Личный телефон"
+      Address: "Адрес регистрации"
+      Residential address: "Адрес проживания"
+      Emergency name: "Контактное лицо"
+      Emergency phone: "Тел. контактного лица"
+      Passport front: "Паспорт с фото"
+      Passport registration: "Паспорт с пропиской"
+      Additional document 1: "Дополнительный документ 1"
+      Additional document 2: "Дополнительный документ 2"
+      Additional document 3: "Дополнительный документ 3"
+      "true": "Есть"
+      "false": "Нет"
+      Tools: "Инструменты"
+      Name: "Наименование"
+      State: "Состояние"
+      Comment: "Комментарии"
+      Materials: "Материалы"
+      Amount: "Кол-во"
+      Others: "Инвентарь"
+      Additionals: "Прочее"
+      No records: "Записи отсутствуют"
+      Price: "Сумма"
+      Totals: "Итого"
+    index:
+      Worker: "Без испытательного срока"
+      Trial: "Испытательный срок"
+      Position: "Должность"
+      First name: "Имя"
+      Last name: "Фамилия"
+      State: "Сатус"
+      Employee Management: "Управление сотрудниками"
+    edit:
+      Employee: "работника"
+    new:
+      Create: "Добавление"
+      Employee: "работника"
+
+  positions:
+    index:
+      Position Management: "Управление должностями"
+      Name: "Дожность"
+    show:
+      View Position: "Просмотр должности"
+      Titles: "Название"
+    edit:
+      Edit Position: "Изменение должности"
+    new:
+      Create Position: "Добавление должности"
+
+  users:
+    index:
+      User Management: "Управление пользователями"
+      Name: "Имя пользователя"
+      Email: "Электронный адрес"
+      Last Signin Date: "Последний вход"
+      Role: "Права"
+    show:
+      User Information: "Детали пользователя"
+      Name: "Имя пользователя"
+      Email: "Электронный адрес"
+    new:
+      Create User: "Добавление пользователя"
+    edit:
+      Edit User : "Изменение пользователя"
+
+  leads:
+    index:
+      Name: "Название"
+      Short name: "Короткое название"
+      Client: "Клиент"
+      Visit date: "Дата посещения"
+      Next date: "Следующее посещение"
+      Status: "Статус"
+      Lead Management: "Управление лидами"
+      Manager: "Менеджер"
+      Show notes: "Заметки"
+    edit:
+      Edit lead: "Изменение лида"
+    new:
+      Create lead: "Создание лида"
+    show:
+      No notes: "Заметок пока нет"
+      Lead card: "Карточка лида"
+
+  tasks:
+    index:
+      Title: "Название"
+      Assign date: "Дата назначения"
+      Finish date: "Дата завершения"
+      Task status: "Статус задачи"
+      Assigned by: "Назначил"
+      Assigned to: "Исполнитель"
+      Created by: "Создал"
+      Updated by: "Обновил"
+      Regularly: "Регулярное"
+    show:
+      No notes: "Заметок пока нет"
+      Title: "Название"
+      Desc: "Описание"
+      Assign date: "Дата назначения"
+      Finish date: "Дата завершения"
+      Task status: "Статус задачи"
+      Assigned by: "Назначил"
+      Assigned to: "Исполнитель"
+      Created by: "Создал"
+      Updated by: "Обновил"
+      Regularly: "Регулярное"
+      Result: "Результат"
+      Important: "Важно"
+      Urgent: "Срочно"
+    history:
+      title: "Название"
+      desc: "Описание"
+      assign_date: "Дата назначения"
+      finish_date: "Дата завершения"
+      task_status: "Статус задачи"
+      assigned_by: "Назначил"
+      assigned_to: "Исполнитель"
+      created_by: "Создал"
+      updated_by: "Обновил"
+      regularly: "Регулярное"
+      result: "Результат"
+      important: "Важно"
+      urgent: "Срочно"
+      file_list: "Файлы"
+      note_list: "Заметки"
+  expenses:
+    index:
+      Title: "Название"
+      Amount: "Сумма"
+      Company: "Компания"
+      Facility: "Объект"
+      Expense category: "Категория"
+      Expense date: "Дата"
+      Expense by: "Потратил"
+      Created by: "Создал"
+      Updated by: "Обновил"
+    show:
+      Title: "Название"
+      Amount: "Сумма"
+      Company: "Компания"
+      Facility: "Объект"
+      Expense category: "Категория"
+      Expense by: "Потратил"
+      Expense date: "Дата"
+      Created by: "Создал"
+      Updated by: "Обновил"
+  deliveries:
+    show:
+      Name: "Наименование"
+      Count: "Количество"
+      Unit: "Ед.изм."
+      Contractor: "Поставщик"
+      City: "Город"
+      Address: "Адрес"
+      Transport company: "Транспортная компания"
+      Delivery: "Доставка"
+      Volume: "Объем"
+      Volume unit: "Ед.изм."
+      Dispatch date: "Дата отправки"
+      Arrival date: "Дата прибытия"
+      Delivery cost: "Цена доставки"
+      Delivery perunit: "Цена за единицу"
+      Delivery payment status: "Статус оплаты"
+      Delivery status: "Статус доставки"
+      Cost: "Цена"
+      Total with delivery: "Цена с доставкой"
+      Vat: "НДС"
+      Delivery document: "Документ"
+      Delivery letter: "Доверенность"
+      Delivery dest: "Пункт назначения"
+      Order date: "Дата заказа"
+      Commodity type: "Тип"
+      Pack: "Упаковка"
+      "true": "Есть"
+      "false": "Нет"
+      View delivery: "Просмотр заказа"
+      No notes: "Заметок пока нет"
+      Created by: "Создал"
+      Contractor address: "Адрес"
+      Contractor phone: "Телефон"
+      Contractor email: "Эл. почта"
+      Contractor contacts: "Контакты"
+      Contractor storage address: "Адрес склада"
+      Transport company address: "Адрес"
+      Transport company phone: "Телефон"
+      Transport company email: "Эл. почта"
+      Transport company contacts: "Контакты"
+    index:
+      Delivery Management: "Управление снабжением"
+    new:
+      Create delivery: "Создание заказа"
+    edit:
+      Edit delivery: "Редактирование заказа"
+  contractors:
+    index:
+      Contractor management: "Управление поставщиками"
+      Name: "Название"
+      Phone: "Телефон"
+      Email: "Эл.почта"
+    show:
+      View contractor: "Просмотр поставщика"
+      Contractor details: "Информация поставщика"
+      Name: "Название"
+      Phone: "Телефон"
+      Email: "Эл.почта"
+      Address: "Адрес"
+      Contacts: "Контакты"
+      Storage address: "Адрес склада"
+    edit:
+      Edit contractor: "Редактирование поставщика"
+    new:
+      Create contractor: "Добавление поставщика"
+  transport_companies:
+    index:
+      Transport company management : "Управление транспортными компаниями"
+      Name: "Название"
+      Phone: "Телефон"
+      Email: "Эл.почта"
+    show:
+      View transport company: "Просмотр транспортной компании"
+      Transport company details: "Информация транспортной компании"
+      Name: "Название"
+      Phone: "Телефон"
+      Email: "Эл.почта"
+      Address: "Адрес"
+      Contacts: "Контакты"
+    edit:
+      Edit transport company: "Редактирование транспортной компании"
+    new:
+      Create transport company: "Добавление транспортной компании"
+  s_transactions:
+    index:
+      S Transaction Management: "Управление транзакциями"
+    show:
+      View S Transaction: "Просмотр транзакции"
+      S Transaction Details: "Детали транзакции"
+      Destination: "Объект"
+      User from: "Выдал"
+      User to: "Принял"
+      Comments: "Комментарий"
+      Amount: "Количество"
+      Name: "Наименование"
+      Comment: "Комментарий"
+      State: "Состояние"
+      Others: "Инвентарь"
+      Additionals: "Прочее"
+      Materials: "Материалы"
+      Tools: "Инструменты"
+      Income: "Приход(с объекта на склад)"
+      Outcome: "Расход(со склада на объект)"
+      Transfer: "Перемещение(с объекта на объект)"
+      Operation: "Вид операции"
+      Document number: "Номер накладной"
+    edit:
+      Edit S Transaction: "Редактирование транзакции"
+    new:
+      Create S Transaction: "Создание транзакции"
+  s_materials:
+    index:
+      S Material Management: "Управление материалами"
+    edit:
+      Edit S Material: "Редактирование материала"
+    new:
+      Create S Material: "Добавление материала"
+    show:
+      View S Material: "Просмотр материала"
+      Transactions: "Транзакции"
+      Name: "Наименование"
+      Pack: "Упаковка/фасовка"
+      Amount: "Остаток"
+      Min amount: "Заказать при"
+      Storage place: "Место хранения"
+      Comments: "Комментарий"
+      Unit: "Ед.изм."
+      Date: "Дата"
+      Destination: "Объект"
+      User from: "Выдал"
+      User to: "Принял"
+      Count: "Количество"
+      Income: "Приход(с объекта на склад)"
+      Outcome: "Расход(со склада на объект)"
+      Operation: "Операция"
+  s_others:
+    index:
+      S Other Management: "Управление инвентарем"
+    edit:
+      Edit S Other: "Редактирование инвентаря"
+    new:
+      Create S Other: "Добавление инвентаря"
+    show:
+      View S Other: "Просмотр инвентаря"
+      Transactions: "Транзакции"
+      Name: "Наименование"
+      Amount: "Остаток"
+      Min amount: "Заказать при"
+      Storage place: "Место хранения"
+      Comments: "Комментарий"
+      Unit: "Ед.изм."
+      Date: "Дата"
+      Destination: "Объект"
+      User from: "Выдал"
+      User to: "Принял"
+      Income: "Приход(с объекта на склад)"
+      Outcome: "Расход(со склада на объект)"
+      Operation: "Операция"
+      Count: "Количество"
+  s_additionals:
+    index:
+      S Additional Management: "Управление прочим"
+    edit:
+      Edit S Additional: "Редактирование прочего"
+    new:
+      Create S Additional: "Добавление прочего"
+    show:
+      View S Additional: "Просмотр прочего"
+      Transactions: "Транзакции"
+      Additional: "Наименование"
+      Amount: "Остаток"
+      Min amount: "Заказать при"
+      Storage place: "Место хранения"
+      Comments: "Комментарий"
+      Unit: "Ед.изм."
+      Date: "Дата"
+      Destination: "Объект"
+      User from: "Выдал"
+      User to: "Принял"
+      Income: "Приход(с объекта на склад)"
+      Outcome: "Расход(со склада на объект)"
+      Operation: "Операция"
+      Count: "Количество"
+  s_tools:
+    index:
+      S Tool Management: "Управление инструментами"
+    edit:
+      Edit S Tool: "Редактирование инструмента"
+    new:
+      Create S Tool: "Добавление инструмента"
+    show:
+      View S Tool: "Просмотр инструмента"
+      Transactions: "Транзакции"
+      Name: "Наименование"
+      Amount: "Остаток"
+      Consist: "Комплектация"
+      Min amount: "Заказать при"
+      Storage place: "Место хранения"
+      Comments: "Комментарий"
+      Date: "Дата"
+      Destination: "Объект"
+      User from: "Выдал"
+      User to: "Принял"
+      Rfid tag: "RFID метка"
+      Serial number: "Серийный номер"
+      Inventory number: "Инвентарный номер"
+      Barcode tag: "Штрих код"
+      Description: "Описание"
+      State: "Состояние"
+      Income: "Приход(с объекта на склад)"
+      Outcome: "Расход(со склада на объект)"
+      Operation: "Операция"
+      Count: "Количество"
+      Location: "Местоположение"
+  clients:
+    index:
+      Client Management: "Управление клиентами"
+    new:
+      Create client: "Добавление клиента"
+    edit:
+      Edit client: "Изменение клиента"
+    show:
+      Client Details: "Карточка клиента"
+
+  helpers:
+    submit:
+      update: "Сохранить"
+
+
+
+  #Roles   enum role: [:admin, :storekeeper, :driver, :supplier, :office, :engineer, :foreman, :chief, :head, :accountant, :manager, :headmanager]
+
+  user:
+    role:
+      admin: "Администратор"
+      storekeeper: "Кладовщик"
+      driver: "Водитель"
+      supplier: "Снабженец"
+      office: "Офис-контроль"
+      engineer: "Инженер ПТО"
+      foreman: "Прораб"
+      chief: "Директор"
+      head: "Ген. директор"
+      accountant: "Бухгалтер"
+      manager: "Менеджер"
+      headmanager: "Старший менеджер"
+      employee: "Сотрудник"
+      headforeman: "Старший прораб"
+
+  #date format
+  date:
+    formats:
+      default: "%d.%m.%Y"
+    order:
+      - :day
+      - :month
+      - :year
+  #time format
+  time:
+    formats:
+      default: "%d.%m.%Y, %H:%M"
+
+  number:
+    currency:
+      format:
+        unit: 'руб.'
+        delimiter: ','
+        separator: '.'
+        precision: 2
+        format: '%n %u'
+
+  will_paginate:
+    page_gap: '...'
+    page_entries_info:
+      single_page:
+        zero:  "Записи не найдены"
+        one:   "Найдена 1 запись"
+        other: "Всего записей: %{count}"
+      single_page_html:
+        zero:  "Записи не найдены"
+        one:   "Найдена 1 запись"
+        other: "Всего записей: <b>%{count}</b>"
+
+      multi_page: "Показаны записи с %{from} по %{to} из %{count}"
+      multi_page_html: "Показаны записи с <b>%{from}&nbsp;по&nbsp;%{to}</b> из <b>%{count}</b>"
+  devise:
+    sessions:
+      signed_in: "Успешный вход в систему."
+      signed_out: "Успешный выход из системы."
+      already_signed_out: "Успешный выход из системы."
+
+
+  errors:
+    messages:
+      blank: "Поле обязательно для заполнения"
+
+  activerecord:
+    errors:
+      messages:
+        blank: "Необходимо заполнить поле"
+        not_a_number: "Значение должно быть цифрой"
+        greater_than: "Значение должно быть больше %{count}"
+        greater_than_or_equal_to: "Значение должно быть больше либо равно %{count}"
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Email занят"
+            password_confirmation:
+              confirmation: "Пароли не совпадают"
+        s_transaction:
+          attributes:
+            source:
+              should_equals_current_location: "Должен соответствовать текущему местоположению"
+            s_transaction_tools:
+              wrong_location: "В транзакции присутствуют инструменты, текущее местоположение которых не соответсвует объекту отправки"
+        daily_timesheet:
+          attributes:
+            date:
+              blank: "Необходимо заполнить поле `Дата`"
+            start_time:
+              blank: "Необходимо заполнить поле `Время с`"
+            end_time:
+              blank: "Необходимо заполнить поле `Время до`"
+            salary:
+              blank: "Необходимо заполнить поле `Оклад`"
+              greater_than: "Оклад должен быть больше %{count}"
+              greater_than_or_equal_to: "Оклад должен быть больше либо равно %{count}"
+            daily_timesheet_work_types:
+              blank: "В отчете должна притуствовать хотя бы одна выполненная работа."
+        daily_timesheet_work_type:
+          attributes:
+            amount:
+              blank: "Необходимо заполнить поле `Количество`"
+              greater_than: "Значение должно быть больше %{count}"
+        task:
+          attributes:
+            title: "Название"
+            desc: "Описание"
+            assign_date: "Дата назначения"
+            finish_date: "Дата завершения"
+            task_status_id: "Статус задачи"
+            assigned_by_id: "Назначил"
+            assigned_to_id: "Исполнитель"
+            created_by:  "Создал"
+            updated_by:  "Обновил"
+            regularly:   "Регулярное"
+            result:      "Результат"
+            important:   "Важно"
+            urgent:      "Срочно"
+  ckeditor:
+    page_title: 'Управление файлами'
+    confirm_delete: 'Вы уверены что хотите удалить файл?'
+    buttons:
+      cancel: 'Отмена'
+      upload: 'Загрузить'
+      delete: 'Удалить'
+      next: 'Следующий'
+  date:
+    abbr_day_names:
+    - Вс
+    - Пн
+    - Вт
+    - Ср
+    - Чт
+    - Пт
+    - Сб
+    abbr_month_names:
+    -
+    - янв.
+    - февр.
+    - марта
+    - апр.
+    - мая
+    - июня
+    - июля
+    - авг.
+    - сент.
+    - окт.
+    - нояб.
+    - дек.
+    day_names:
+    - воскресенье
+    - понедельник
+    - вторник
+    - среда
+    - четверг
+    - пятница
+    - суббота
+    formats:
+      default: "%d.%m.%Y"
+      long: "%-d %B %Y"
+      short: "%-d %b"
+    month_names:
+    -
+    - января
+    - февраля
+    - марта
+    - апреля
+    - мая
+    - июня
+    - июля
+    - августа
+    - сентября
+    - октября
+    - ноября
+    - декабря
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        few: около %{count} часов
+        many: около %{count} часов
+        one: около %{count} часа
+        other: около %{count} часа
+      about_x_months:
+        few: около %{count} месяцев
+        many: около %{count} месяцев
+        one: около %{count} месяца
+        other: около %{count} месяца
+      about_x_years:
+        few: около %{count} лет
+        many: около %{count} лет
+        one: около %{count} года
+        other: около %{count} лет
+      almost_x_years:
+        one: почти 1 год
+        few: почти %{count} года
+        many: почти %{count} лет
+        other: почти %{count} лет
+      half_a_minute: меньше минуты
+      less_than_x_minutes:
+        few: меньше %{count} минут
+        many: меньше %{count} минут
+        one: меньше %{count} минуты
+        other: меньше %{count} минуты
+      less_than_x_seconds:
+        few: меньше %{count} секунд
+        many: меньше %{count} секунд
+        one: меньше %{count} секунды
+        other: меньше %{count} секунды
+      over_x_years:
+        few: больше %{count} лет
+        many: больше %{count} лет
+        one: больше %{count} года
+        other: больше %{count} лет
+      x_days:
+        few: "%{count} дня"
+        many: "%{count} дней"
+        one: "%{count} день"
+        other: "%{count} дня"
+      x_minutes:
+        few: "%{count} минуты"
+        many: "%{count} минут"
+        one: "%{count} минуту"
+        other: "%{count} минуты"
+      x_months:
+        few: "%{count} месяца"
+        many: "%{count} месяцев"
+        one: "%{count} месяц"
+        other: "%{count} месяца"
+      x_years:
+        few: "%{count} года"
+        many: "%{count} лет"
+        one: "%{count} год"
+        other: "%{count} года"
+      x_seconds:
+        few: "%{count} секунды"
+        many: "%{count} секунд"
+        one: "%{count} секунду"
+        other: "%{count} секунды"
+    prompts:
+      day: День
+      hour: Часов
+      minute: Минут
+      month: Месяц
+      second: Секунд
+      year: Год
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: нужно подтвердить
+      blank: не может быть пустым
+      present: нужно оставить пустым
+      confirmation: не совпадает со значением поля %{attribute}
+      empty: не может быть пустым
+      equal_to: может иметь лишь значение, равное %{count}
+      even: может иметь лишь нечетное значение
+      exclusion: имеет зарезервированное значение
+      greater_than: может иметь значение большее %{count}
+      greater_than_or_equal_to: может иметь значение большее или равное %{count}
+      inclusion: имеет непредусмотренное значение
+      invalid: имеет неверное значение
+      less_than: может иметь значение меньшее чем %{count}
+      less_than_or_equal_to: может иметь значение меньшее или равное %{count}
+      not_a_number: не является числом
+      not_an_integer: не является целым числом
+      odd: может иметь лишь четное значение
+      taken: уже существует
+      too_long:
+        few: слишком большой длины (не может быть больше чем %{count} символа)
+        many: слишком большой длины (не может быть больше чем %{count} символов)
+        one: слишком большой длины (не может быть больше чем %{count} символ)
+        other: слишком большой длины (не может быть больше чем %{count} символа)
+      too_short:
+        few: недостаточной длины (не может быть меньше %{count} символов)
+        many: недостаточной длины (не может быть меньше %{count} символов)
+        one: недостаточной длины (не может быть меньше %{count} символа)
+        other: недостаточной длины (не может быть меньше %{count} символа)
+      wrong_length:
+        few: неверной длины (может быть длиной ровно %{count} символа)
+        many: неверной длины (может быть длиной ровно %{count} символов)
+        one: неверной длины (может быть длиной ровно %{count} символ)
+        other: неверной длины (может быть длиной ровно %{count} символа)
+      other_than: должно отличаться от %{count}
+    template:
+      body: 'Проблемы возникли со следующими полями:'
+      header:
+        few: "%{model}: сохранение не удалось из-за %{count} ошибок"
+        many: "%{model}: сохранение не удалось из-за %{count} ошибок"
+        one: "%{model}: сохранение не удалось из-за %{count} ошибки"
+        other: "%{model}: сохранение не удалось из-за %{count} ошибки"
+  helpers:
+    select:
+      prompt: 'Выберите: '
+    submit:
+      create: Создать %{model}
+      submit: Сохранить %{model}
+      update: Сохранить %{model}
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: руб.
+    format:
+      delimiter: ""
+      precision: 2
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion:
+            few: миллиардов
+            many: миллиардов
+            one: миллиард
+            other: миллиардов
+          million:
+            few: миллионов
+            many: миллионов
+            one: миллион
+            other: миллионов
+          quadrillion:
+            few: квадриллионов
+            many: квадриллионов
+            one: квадриллион
+            other: квадриллионов
+          thousand:
+            few: тысяч
+            many: тысяч
+            one: тысяча
+            other: тысяч
+          trillion:
+            few: триллионов
+            many: триллионов
+            one: триллион
+            other: триллионов
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            few: байта
+            many: байт
+            one: байт
+            other: байта
+          gb: ГБ
+          kb: КБ
+          mb: МБ
+          tb: ТБ
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " и "
+      two_words_connector: " и "
+      words_connector: ", "
+  time:
+    am: утра
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+    pm: вечера

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_id: 
+  description: MyString
+  description: MyString
+  amount: 1.5
+  serial_number: MyString
+  rfid_tag: MyString
+  barcode_tag: MyString
+  consist: MyString
+  min_amount: 1.5
+  storage_place: MyString
+  state: MyString
+  comments: MyText
+
+two:
+  name_id: 
+  description: MyString
+  description: MyString
+  amount: 1.5
+  serial_number: MyString
+  rfid_tag: MyString
+  barcode_tag: MyString
+  consist: MyString
+  min_amount: 1.5
+  storage_place: MyString
+  state: MyString
+  comments: MyText

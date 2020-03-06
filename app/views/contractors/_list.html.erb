@@ -1,0 +1,45 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.contractor.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :phone, {label: t('simple_form.labels.contractor.phone')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :email, {label: t('simple_form.labels.contractor.email')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @contractors.each do |contractor| %>
+        <tr>
+          <td>
+            <% if policy(contractor).can_view? %>
+                <%= link_to(contractor.name, contractor_path(contractor)) %>
+            <% else %>
+                <%= contractor.name %>
+            <% end %>
+          </td>
+          <td><%= contractor.phone %></td>
+          <td><%= contractor.email %></td>
+          <td class="centered">
+            <% if policy(contractor).can_edit? %>
+                <%= link_to edit_contractor_path(contractor), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(contractor).can_delete? %>
+                <%= link_to contractor_path(contractor), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-5"><%= page_entries_info @contractors %></div>
+    <div class="col-xs-5 pull-right"><%= page_navigation_links @contractors %></div>
+  </div>
+</div>
+

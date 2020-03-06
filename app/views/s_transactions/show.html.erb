@@ -1,0 +1,234 @@
+<% content_for :title do %>
+    <%= t('.View S Transaction') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.View S Transaction') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar hidden-print">
+    <%= link_to s_transactions_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <a href="#" onclick="window.print();return false;" class="btn btn-app">
+      <i class='fa fa-print'></i>
+      <span><%= t('Print') %></span>
+    </a>
+    <% if policy(@s_transaction).can_edit? %>
+        <%= link_to edit_s_transaction_path(@s_transaction), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+
+    <% if policy(@s_transaction).can_delete? %>
+        <%= link_to s_transaction_path(@s_transaction), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+
+    <a href="#error_modal" data-toggle="modal" class="btn btn-app">
+      <i class='fa fa-bug'></i>
+      <span><%= t('Add error') %></span>
+    </a>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('Notes') %>
+                <span class="badge bg-yellow"><%= @s_transaction.s_transaction_notes.count %></span>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+
+            <% unless @s_transaction.error_text.blank? %>
+                <div class="box box-danger box-solid">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"><%= t('simple_form.labels.s_transaction.error') %></h3>
+                    <!-- /.box-tools -->
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <%= @s_transaction.error_text %>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+            <% end %>
+
+            <dl class="dl-horizontal">
+
+              <dt><%= t('Date') %></dt>
+              <dd><%= h_localize_date(@s_transaction.date) %></dd>
+
+              <dt><%= t('simple_form.labels.s_transaction.source') %></dt>
+              <dd><%= @s_transaction.source.blank? ? t('Default warehouse') : @s_transaction.source %></dd>
+
+              <dt><%= t('simple_form.labels.s_transaction.destination') %></dt>
+              <dd><%= @s_transaction.destination.blank? ? t('Default warehouse') : @s_transaction.destination %></dd>
+
+              <dt><%= t('.User from') %></dt>
+              <dd><%= @s_transaction.user_from %></dd>
+
+              <dt><%= t('.User to') %></dt>
+              <dd><%= @s_transaction.user_to %></dd>
+
+              <dt><%= t('.Operation') %></dt>
+              <dd><%= @s_transaction.get_transaction_icon.html_safe unless @s_transaction.get_transaction_icon.blank? %></dd>
+
+              <dt><%= t('.Document number') %></dt>
+              <dd><%= @s_transaction.document_number %></dd>
+
+              <dt><%= t('.Comments') %></dt>
+              <dd><%= @s_transaction.comments %></dd>
+            </dl>
+            <br/>
+            <h4><%= t('.Materials') %></h4>
+            <hr/>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th><%= t('Num') %></th>
+                <th><%= t('.Name') %></th>
+                <th><%= t('.Amount') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @s_transaction.s_transaction_materials.each_with_index do |o, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= o.s_material.name.name %></td>
+                    <td><%= h_decimal(o.s_amount) %> <%= o.s_material.unit %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+            <br/>
+            <h4><%= t('.Tools') %></h4>
+            <hr/>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th><%= t('Num') %></th>
+                <th><%= t('.Name') %></th>
+                <th><%= t('.State') %></th>
+                <th><%= t('.Comment') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @s_transaction.s_transaction_tools.each_with_index do |o, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= o.s_tool.with_inventory_consist %></td>
+                    <td><%= o.s_tool_state.blank? ? "" : t(o.s_tool_state) %></td>
+                    <td><%= o.s_comment %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+            <br/>
+            <h4><%= t('.Others') %></h4>
+            <hr/>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th><%= t('Num') %></th>
+                <th><%= t('.Name') %></th>
+                <th><%= t('.Amount') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @s_transaction.s_transaction_others.each_with_index do |o, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= o.s_other.name.name %></td>
+                    <td><%= h_decimal(o.s_amount) %> <%= o.s_other.unit %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+            <br/>
+            <h4><%= t('.Additionals') %></h4>
+            <hr/>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th><%= t('Num') %></th>
+                <th><%= t('.Name') %></th>
+                <th><%= t('.Amount') %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @s_transaction.s_transaction_additionals.each_with_index do |o, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= o.s_additional.additional.name %></td>
+                    <td><%= h_decimal(o.s_amount) %> <%= o.s_additional.unit %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <%= t('.No notes') if @s_transaction.s_transaction_notes.empty? %>
+                <% @s_transaction.s_transaction_notes.each do |note| %>
+                    <div class="box-comment">
+                      <div class="comment-text">
+                      <span class="username">
+                        <%= note.user %>
+                        <span class="text-muted pull-right"><%= h_localize_datetime(note.created_at) %></span>
+                      </span><!-- /.username -->
+                        <%= simple_format(note.val.gsub('. ', '<br>')) %>
+                        <br/>
+                        <% if policy(@s_transaction).destroy_note?  %>
+                            <%= link_to s_transactions_destroy_note_path(id: note), method: :post, data: { confirm: t('Are you sure?') }, class: 'btn btn-xs btn-danger pull-right', title: t('Delete') do %>
+                                <i class='fa fa-lg fa-trash-o'></i>
+                            <%- end -%>
+                        <% end %>
+                      </div><!-- /.comment-text -->
+                    </div><!-- /.box-comment -->
+                <% end %>
+              </div><!-- /.box-footer -->
+              <div class="box-footer">
+                <%= form_for @s_transaction_note, url: s_transactions_create_note_url do |f| %>
+                    <%= f.hidden_field :s_transaction_id %>
+                    <div class="input-group">
+                      <%= f.text_field :val, class: 'form-control', placeholder: t('Note text') %>
+                      <span class="input-group-btn">
+                          <%= f.submit t('Add'), class: 'btn btn-warning btn-flat' %>
+                        </span>
+                    </div>
+                <% end %>
+              </div><!-- /.box-footer -->
+            </div>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<%= render '_partials/error.modal', model: @s_transaction, url: s_transactions_create_error_path(@s_transaction)  %>

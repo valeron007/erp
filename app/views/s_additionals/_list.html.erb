@@ -1,0 +1,53 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :additional, {label: t('simple_form.labels.s_additional.additional')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :amount, {label: t('simple_form.labels.s_additional.amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :unit, {label: t('simple_form.labels.s_additional.unit')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :min_amount, {label: t('simple_form.labels.s_additional.min_amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :storage_place, {label: t('simple_form.labels.s_additional.storage_place')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @s_additionals.each do |s_additional| %>
+        <tr>
+          <td>
+            <%= link_to(s_additional.additional.name, s_additional_path(s_additional), title: s_additional.additional.alias_names, 'data-toggle': 'tooltip') %>
+          </td>
+          <td><%= h_decimal(s_additional.amount) %></td>
+          <td><%= s_additional.unit %></td>
+          <td><%= h_decimal(s_additional.min_amount) %></td>
+          <td><%= s_additional.storage_place %></td>
+          <td class="centered">
+            <% if policy(:s_additional).can_edit? %>
+                <%= link_to edit_s_additional_path(s_additional), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(:s_additional).can_delete? %>
+                <%= link_to s_additional_path(s_additional), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @s_additionals %></div>
+    <div class="col-md-4"><%= page_navigation_links @s_additionals %></div>
+  </div>
+</div>
+

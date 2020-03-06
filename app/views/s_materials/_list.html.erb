@@ -1,0 +1,43 @@
+<div id="filterrific_results">
+  <table class="table table-condensed table-hover table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.s_material.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :pack, {label: t('simple_form.labels.s_material.pack')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :amount, {label: t('simple_form.labels.s_material.amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :unit, {label: t('simple_form.labels.s_material.unit')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :min_amount, {label: t('simple_form.labels.s_material.min_amount')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :storage_place, {label: t('simple_form.labels.s_material.storage_place')}) %></th>
+
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @s_materials.each do |s_material| %>
+        <tr>
+          <td>
+             <%= link_to(s_material.name.name, s_material_path(s_material), title: s_material.name.alias_names, 'data-toggle': 'tooltip') %>
+          </td>
+          <td><%= s_material.pack %></td>
+          <td><%= h_decimal(s_material.amount) %></td>
+          <td><%= s_material.unit %></td>
+          <td><%= h_decimal(s_material.min_amount) %></td>
+          <td><%= s_material.storage_place %></td>
+          <td class="centered">
+                <%= link_to edit_s_material_path(s_material), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+                <%= link_to s_material_path(s_material), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-xs-5"><%= page_entries_info @s_materials %></div>
+    <div class="col-xs-5 pull-right"><%= page_navigation_links @s_materials %></div>
+  </div>
+</div>
+

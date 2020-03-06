@@ -1,0 +1,123 @@
+<% content_for :title do %>
+    <%= t('Expenses') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Expenses') %>
+<% end %>
+
+<% content_for :page_header_block do %>
+    <div class="row">
+      <div class="col-sm-4 hidden-xs">
+          <h2><span><i class="glyphicon glyphicon-piggy-bank"></i></span> <%= t('My wallet') %></h2>
+      </div>
+      <div class="col-sm-8 col-xs-12" style="margin-top: 10px;">
+        <div class="btn-actionbar pull-right">
+          <div class="balance-block">
+            <h2>
+              <span class="label label-<%= @user_balance >= 0 ? 'success' : 'danger' %>">
+                <%= number_to_currency(@user_balance) %>
+              </span>
+            </h2>
+          </div>
+
+
+          <% if policy(:expense).can_create? %>
+              <%= link_to new_expense_path(d: :p), class: 'btn btn-app' do %>
+                  <i class='fa  fa-plus-circle text-green'></i>
+                  <span><%= t('Add funds') %></span>
+              <%- end -%>
+          <% end %>
+
+          <% if policy(:expense).can_create? %>
+              <%= link_to new_expense_path(d: :m), class: 'btn btn-app' do %>
+                  <i class='fa fa-minus-circle text-red'></i>
+                  <span><%= t('Sub funds') %></span>
+              <%- end -%>
+          <% end %>
+
+          <% if policy(:expense).can_create? %>
+              <%= link_to new_expense_path(d: :t), class: 'btn btn-app' do %>
+                  <i class='fa fa-recycle text-yellow'></i>
+                  <span><%= t('Transfer funds') %></span>
+              <%- end -%>
+          <% end %>
+
+          <% if policy(:expense).can_export? %>
+              <a href="#" id="export_to_excel" class="btn btn-app" data-url="<%= expenses_export_path(format: :xlsx) %>">
+                <i class='fa fa-file-excel-o'></i>
+                <span><%= t('Export') %></span>
+              </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<div class="fix-height">
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <% if policy(:expense).can_assign? %>
+              <div class="row">
+                <div class="col-xs-4">
+                  <%= f.text_field(:search_query, {'placeholder': t('Search'), class: 'form-control' }) %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.select(:with_category_id, @filterrific.select_options[:with_category_id], { include_blank: ''}, {'data-placeholder': t('Category'), class: 'form-control' }) %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.select(:with_expense_by_id, @filterrific.select_options[:with_expense_by_id], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.expense.expense_by'), class: 'form-control' }) %>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-xs-2">
+                  <div class="has-icon date">
+                    <%= f.text_field(:date_gte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('From date')) %>
+                    <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="has-icon date">
+                    <%= f.text_field(:date_lte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('To date')) %>
+                    <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+                  </div>
+                </div>
+                <div class="col-xs-6">&nbsp;</div>
+                <div class="col-xs-2">
+                  <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default pull-right'}) %>
+                </div>
+              </div>
+          <% else %>
+              <div class="row">
+                <div class="col-xs-3">
+                  <%= f.text_field(:search_query, {'placeholder': t('Search'), class: 'form-control' }) %>
+                </div>
+                <div class="col-xs-3">
+                  <%= f.select(:with_category_id, @filterrific.select_options[:with_category_id], { include_blank: ''}, {'data-placeholder': t('Category'), class: 'form-control' }) %>
+                </div>
+                <div class="col-xs-2">
+                  <div class="has-icon date">
+                    <%= f.text_field(:date_gte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('From date')) %>
+                    <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="has-icon date">
+                    <%= f.text_field(:date_lte, class: 'filterrific-periodically-observed form-control datepicker', placeholder: t('To date')) %>
+                    <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default pull-right'}) %>
+                </div>
+              </div>
+          <% end %>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+</div>

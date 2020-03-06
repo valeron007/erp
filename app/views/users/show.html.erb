@@ -1,0 +1,8 @@
+<% content_for :title do %>
+    <%= t('.User Information') %>
+<% end %>
+<% content_for :page_header do %>
+    <%= t('.User Information') %>
+<% end %>
+<p><%= t('.Name') %>: <%= @user.name if @user.name %></p>
+<p><%= t('.Email') %>: <%= @user.email if @user.email %></p>

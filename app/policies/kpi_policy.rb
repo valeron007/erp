@@ -1,0 +1,2 @@
+class KpiPolicy < ApplicationPolicy
+end

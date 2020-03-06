@@ -1,0 +1,44 @@
+<% content_for :title do %>
+<%= t('.S Material Management') %>
+<% end %>
+
+<% content_for :page_header do %>
+<%= t('.S Material Management') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="btn-actionbar">
+    <% if policy(:s_material).can_create? %>
+      <%= link_to new_s_material_path, class: 'btn btn-app' do %>
+      <i class='fa fa-plus-square-o'></i>
+      <span><%= t('Add new') %></span>
+      <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="box-body">
+      <%= form_for_filterrific @filterrific, html: { class: 'form' }, class:'' do |f| %>
+          <div class="row">
+            <div class="col-xs-4">
+              <%= f.text_field(:search_query, {'placeholder': t('Search'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-4">
+              <%= f.select(:with_storage_place, @filterrific.select_options[:with_storage_place], { include_blank: ''}, {'data-placeholder': t('simple_form.labels.s_material.storage_place'), class: 'form-control' }) %>
+            </div>
+            <div class="centered col-xs-2">
+              <%= f.check_box(:without_null) %>
+              <%= f.label :without_null, t("Without null") %>
+            </div>
+            <div class="centered col-xs-2">
+              <%= link_to(t('Reset filters'), reset_filterrific_url, {'class':'btn btn-default'}) %>
+            </div>
+          </div>
+          <%= render_filterrific_spinner %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render('list') %>
+
+</div>

@@ -1,0 +1,37 @@
+<% content_for :title do %>
+    <%= t('Daily Summary Report') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('Daily Summary Report') %>
+<% end %>
+
+<div class="fix-height">
+  <div class="box">
+    <div class="box-body">
+      <%= form_for @filter, url: report_daily_summary_url(format: :js), remote: true, html: { class: 'form' }, class:'' do |f| %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <div class="row">
+            <div class="col-xs-6">
+              <%= f.select(:facility_id, Facility.all.collect { |p| [ p.name, p.id ] }, { include_blank: ''}, {'data-placeholder': t('Facility'), class: 'form-control' }) %>
+            </div>
+            <div class="col-xs-6">
+              <div class="has-icon date">
+                <%= f.text_field(:date_range, class: 'form-control daterange', placeholder: t('Date Range')) %>
+                <span class="glyphicon glyphicon-calendar form-control-icon"></span>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-12 centered">
+          <button type="button" class="btn btn-default btn-preview" data-action-url="<%= report_daily_summary_url(format: :js) %>"><%= t('View Report') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="report_preview"></div>
+
+
+</div>

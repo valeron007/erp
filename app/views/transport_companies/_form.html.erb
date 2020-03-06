@@ -1,0 +1,55 @@
+<%= simple_form_for @transport_company, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :name %>
+
+          <%= f.input :address %>
+
+          <%= f.input :phone %>
+
+          <%= f.input :email %>
+
+          <%= f.input :contacts %>
+          <fieldset>
+            <legend><%= t('Files') %></legend>
+            <% @transport_company.transport_company_files.each_with_index do |file, index| %>
+                <div class="form-group">
+                  <label class="date optional col-sm-3 control-label"></label>
+                  <div class="col-sm-5">
+                    <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-file-del"><%= t('Delete') %></button>
+                    <input name="transport_company_files_remove[<%= index %>]" type="hidden" value="0">
+                  </div>
+                </div>
+            <% end %>
+            <div class="form-group">
+              <label class="date optional col-sm-3 control-label"><%= t('Upload files') %></label>
+              <div class="col-sm-5">
+                <%= f.file_field :transport_company_files, multiple: true %>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), transport_companies_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>

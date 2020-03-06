@@ -1,0 +1,1 @@
+json.partial! "adoc_names/adoc_name", adoc_name: @adoc_name

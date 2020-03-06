@@ -1,0 +1,281 @@
+<% content_for :title do %>
+    <%= t('.Lead card') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('.Lead card') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to @return_to, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@lead).can_edit? %>
+        <%= link_to edit_lead_path(@lead), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@lead).can_delete? %>
+        <%= link_to lead_path(@lead), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+    <a href="#error_modal" data-toggle="modal" class="btn btn-app">
+      <i class='fa fa-bug'></i>
+      <span><%= t('Add error') %></span>
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><h4><%= t('General Info') %></h4></a></li>
+          <li class="">
+            <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+              <h4>
+                <%= t('Notes') %>
+                <span class="badge bg-yellow"><%= @lead.lead_notes.count %></span>
+              </h4>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+
+            <% unless @lead.error_text.blank? %>
+                <div class="box box-danger box-solid">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"><%= t('simple_form.labels.lead.error') %></h3>
+                    <!-- /.box-tools -->
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <%= @lead.error_text %>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+            <% end %>
+
+            <dl class="dl-horizontal">
+              <% if has_lead_full_access %>
+                  <dt><%= t('simple_form.labels.lead.created_by') %>:</dt>
+                  <dd><%= @lead.created_by %></dd>
+              <% end %>
+
+
+              <dt><%= t('simple_form.labels.lead.name') %>:</dt>
+              <dd><%= @lead.name %></dd>
+
+              <dt><%= t('simple_form.labels.lead.short_name') %>:</dt>
+              <dd><%= @lead.short_name %></dd>
+
+              <dt><%= t('simple_form.labels.lead.client') %>:</dt>
+              <dd><%= link_to(@lead.client, client_path(@lead.client)) %></dd>
+
+              <dt><%= t('simple_form.labels.lead.address') %>:</dt>
+              <dd><%= @lead.address %></dd>
+
+              <dt><%= t('simple_form.labels.lead.visit_date') %>:</dt>
+              <dd><%= @lead.visit_date %></dd>
+
+              <dt><%= t('simple_form.labels.lead.lead_status') %>:</dt>
+              <dd><%= @lead.lead_status %></dd>
+
+              <dt><%= t('simple_form.labels.lead.lead_type') %>:</dt>
+              <dd><%= @lead.lead_type %></dd>
+
+              <dt><%= t('simple_form.labels.lead.lead_construction_types') %>:</dt>
+              <dd>
+                <% @lead.lead_construction_types.each do |o| %>
+                    <%= o %><br/>
+                <% end %>
+              </dd>
+
+              <br/>
+              <h3><%= t('Next visit') %></h3>
+              <hr/>
+
+              <dt><%= t('simple_form.labels.lead.next_date') %>:</dt>
+              <dd><%= @lead.next_date %></dd>
+
+              <dt><%= t('simple_form.labels.lead.next_visit_comment') %>:</dt>
+              <dd><%= @lead.next_visit_comment %></dd>
+
+              <br/>
+              <h3><%= t('Project information') %></h3>
+              <hr/>
+
+              <dt><%= t('simple_form.labels.lead.project') %>:</dt>
+              <dd><%= t("#{@lead.project?.to_s}") %></dd>
+
+              <dt><%= t('simple_form.labels.lead.project_institute') %>:</dt>
+              <dd><%= @lead.project_institute %></dd>
+
+              <dt><%= t('simple_form.labels.lead.gip') %>:</dt>
+              <dd><%= @lead.gip %></dd>
+
+              <dt><%= t('simple_form.labels.lead.gip_phone') %>:</dt>
+              <dd><%= @lead.gip_phone %></dd>
+
+              <dt><%= t('simple_form.labels.lead.gap') %>:</dt>
+              <dd><%= @lead.gap %></dd>
+
+              <dt><%= t('simple_form.labels.lead.gap_phone') %>:</dt>
+              <dd><%= @lead.gap_phone %></dd>
+
+              <dt><%= t('simple_form.labels.lead.project_help') %>:</dt>
+              <dd><%= t("#{@lead.project_help?.to_s}") %></dd>
+
+              <br/>
+              <h3><%= t('Additional information') %></h3>
+              <hr/>
+              <dt><%= t('simple_form.labels.lead.details') %>:</dt>
+              <dd><%= @lead.details.gsub(/\n/, '<br/>').html_safe %></dd>
+
+              <dt><%= t('simple_form.labels.lead.representatives') %>:</dt>
+              <dd><%= @lead.representatives.gsub(/\n/, '<br/>').html_safe %></dd>
+
+              <br/>
+              <h3><%= t('Contacts') %></h3>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th><%= t('Num') %></th>
+                  <th><%= t('simple_form.labels.lead.contacts.name') %></th>
+                  <th><%= t('simple_form.labels.lead.contacts.phone') %></th>
+                  <th><%= t('simple_form.labels.lead.contacts.position') %></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @lead.contacts.each_with_index do |contact, index| %>
+                    <tr>
+                      <td><%= index+1 %></td>
+                      <td><%= contact.name %></td>
+                      <td><%= contact.phone %></td>
+                      <td><%= contact.position %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+
+              <br/>
+              <h3><%= t('Psycho aspects') %></h3>
+              <hr/>
+              <ul>
+                <% if @lead.psycho01? %><li><%= t('simple_form.labels.lead.psycho01') %></li><% end %>
+                <% if @lead.psycho02? %><li><%= t('simple_form.labels.lead.psycho02') %></li><% end %>
+                <% if @lead.psycho03? %><li><%= t('simple_form.labels.lead.psycho03') %></li><% end %>
+                <% if @lead.psycho04? %><li><%= t('simple_form.labels.lead.psycho04') %></li><% end %>
+                <% if @lead.psycho05? %><li><%= t('simple_form.labels.lead.psycho05') %></li><% end %>
+                <% if @lead.psycho06? %><li><%= t('simple_form.labels.lead.psycho06') %></li><% end %>
+                <% if @lead.psycho07? %><li><%= t('simple_form.labels.lead.psycho07') %></li><% end %>
+                <% if @lead.psycho08? %><li><%= t('simple_form.labels.lead.psycho08') %></li><% end %>
+                <% if @lead.psycho09? %><li><%= t('simple_form.labels.lead.psycho09') %></li><% end %>
+                <% if @lead.psycho10? %><li><%= t('simple_form.labels.lead.psycho10') %></li><% end %>
+                <% if @lead.psycho11? %><li><%= t('simple_form.labels.lead.psycho11') %></li><% end %>
+                <% if @lead.psycho12? %><li><%= t('simple_form.labels.lead.psycho12') %></li><% end %>
+                <% if @lead.psycho13? %><li><%= t('simple_form.labels.lead.psycho13') %></li><% end %>
+              </ul>
+              <% unless @lead.psycho_other.blank? %>
+                  <strong><%= t('simple_form.labels.lead.psycho_other') %></strong><br/>
+                  <em><%= @lead.psycho_other.gsub(/\n/, '<br/>').html_safe %></em>
+              <% end %>
+
+
+              <br/>
+              <h3><%= t('Financial information') %></h3>
+              <hr/>
+              <dt><%= t('simple_form.labels.lead.sum_contract') %>:</dt>
+              <dd><%= @lead.sum_contract %></dd>
+
+              <dt><%= t('simple_form.labels.lead.lead_payment_status') %>:</dt>
+              <dd><%= @lead.lead_payment_status %></dd>
+
+              <dt><%= t('simple_form.labels.lead.sum_payment') %>:</dt>
+              <dd><%= @lead.sum_payment %></dd>
+
+              <dt><%= t('simple_form.labels.lead.debt') %>:</dt>
+              <dd><%= @lead.debt %></dd>
+
+              <dt><%= t('simple_form.labels.lead.credit') %>:</dt>
+              <dd><%= @lead.credit %></dd>
+
+              <dt><%= t('simple_form.labels.lead.next_date') %>:</dt>
+              <dd><%= @lead.next_date %></dd>
+
+              <br/>
+              <h3><%= t('Files') %></h3>
+              <hr/>
+
+              <table class="table">
+                <tbody>
+                <% @lead.lead_files.each_with_index do |file, index| %>
+                    <tr>
+                      <td>
+                        <% if MIME::Types.type_for(file.url).first.try(:media_type) == 'image' %>
+                            <%= link_to image_tag(file.url, border: 0, style: 'max-width: 200px'), file.url, "data-toggle": 'lightbox', "data-gallery": "gallery" %>
+                        <% else %>
+                            <%= link_to URI::decode(file.url.to_s.split('/').last), file.url %>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+
+
+
+
+            </dl>
+          </div><!-- /.tab-pane -->
+          <div class="tab-pane" id="tab_2">
+            <div class="box box-widget">
+              <div class="box-footer box-comments">
+                <%= t('.No notes') if @lead.lead_notes.empty? %>
+                <% @lead.lead_notes.each do |note| %>
+                    <div class="box-comment">
+                      <div class="comment-text">
+                      <span class="username">
+                        <%= note.user %>
+                        <span class="text-muted pull-right"><%= h_localize_datetime(note.created_at) %></span>
+                      </span><!-- /.username -->
+                        <%= note.val %>
+                        <br/>
+                        <% if policy(@lead).destroy_note?  %>
+                            <%= link_to leads_destroy_note_path(id: note), method: :post, data: { confirm: t('Are you sure?') }, class: 'btn btn-xs btn-danger pull-right', title: t('Delete') do %>
+                                <i class='fa fa-lg fa-trash-o'></i>
+                            <%- end -%>
+                        <% end %>
+                      </div><!-- /.comment-text -->
+                    </div><!-- /.box-comment -->
+                <% end %>
+              </div><!-- /.box-footer -->
+              <div class="box-footer">
+                <% if policy(@lead).create_note? %>
+                    <%= form_for @lead_note, url: leads_create_note_url do |f| %>
+                        <%= f.hidden_field :lead_id %>
+                        <div class="input-group">
+                          <%= f.text_field :val, class: 'form-control', placeholder: t('Note text') %>
+                          <span class="input-group-btn">
+                          <%= f.submit t('Add'), class: 'btn btn-warning btn-flat' %>
+                        </span>
+                        </div>
+                    <% end %>
+                <% end %>
+              </div><!-- /.box-footer -->
+            </div>
+          </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= render '_partials/error.modal', model: @lead, url: lead_create_error_path(@lead)  %>

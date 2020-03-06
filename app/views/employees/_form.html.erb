@@ -1,0 +1,283 @@
+<%= simple_form_for @employee, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+    <div class="box box-primary" xmlns="http://www.w3.org/1999/html">
+      <div class="box-body">
+
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+
+          <%= f.input :last_name %>
+
+          <%= f.input :first_name %>
+
+          <%= f.input :middle_name %>
+
+          <div class="group-with-plus">
+            <%= f.association :position %>
+            <% if policy(:position).can_create? %>
+                <a href="#new_position_modal" data-toggle="modal" class="btn btn-success group-plus"><i class="fa fa-plus"></i></a>
+            <% end %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :hire_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :hire_date, as: :date_picker, value: h_localize_date(f.object.hire_date) %>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :probation_period, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :probation_period, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= f.association :employee_status %>
+
+          <div class="form-group">
+            <%= f.label :fire_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :fire_date, as: :date_picker, value: h_localize_date(f.object.fire_date) %>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <%= f.label :fire_reason, class: 'col-sm-6 control-label' %>
+                <div class="col-sm-6">
+                  <%= f.input_field :fire_reason_id, collection: FireReason.all.order(:order), class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if policy(@employee).edit_docs? %>
+              <%= f.input :passport %>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :birth_date, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <%= f.input_field :birth_date, as: :string, value: h_localize_date(f.object.birth_date), class: 'form-control' %>
+            </div>
+          </div>
+
+          <%= f.input :citizenship %>
+
+          <%= f.input :nationality %>
+
+          <div class="form-group optional">
+            <%= f.label :felony, class: 'col-sm-3 control-label' %>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <%= f.input_field :felony, as: :radio_buttons, checked: f.object.felony? %>
+              </div>
+            </div>
+          </div>
+          <div class="employee_felony_notes_wrapper">
+            <%= f.input :felony_notes %>
+          </div>
+          <fieldset>
+            <legend><%= t('Payment details') %></legend>
+            <div class="form-group optional">
+              <%= f.label :salary, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <%= f.input_field :salary, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <%= f.label :salary_ratio, class: 'col-sm-6 control-label' %>
+                  <div class="col-sm-6">
+                    <%= f.input_field :salary_ratio, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% if @employee.errors[:salary].any? || @employee.errors[:salary_ratio].any? %>
+                <div class="form-group has-error">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-9 col-xs-6">
+                    <%= f.error :salary, error_prefix: "#{t('salary', scope: 'simple_form.labels.employee')}:" %>
+                    <%= f.error :salary_ratio, error_prefix: "#{t('salary_ratio', scope: 'simple_form.labels.employee')}:" %>
+                  </div>
+                </div>
+            <% end  %>
+
+            <% if policy(@employee).edit_cards? %>
+                <%= f.input :card_number %>
+
+                <%= f.input :card_owner %>
+
+                <%= f.input :additional_card_number %>
+
+                <%= f.input :additional_card_owner %>
+            <% end %>
+
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Personal details') %></legend>
+            <div class="form-group optional">
+              <%= f.label :shoes_size, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <%= f.input_field :shoes_size, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <%= f.label :dress_size, class: 'col-sm-6 control-label' %>
+                  <div class="col-sm-6">
+                    <%= f.input_field :dress_size, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group optional">
+              <%= f.label :height, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <%= f.input_field :height, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <%= f.label :children_count, class: 'col-sm-6 control-label' %>
+                  <div class="col-sm-6">
+                    <%= f.input_field :children_count, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% if (@employee.errors[:shoes_size].any? || @employee.errors[:dress_size].any? || @employee.errors[:height].any? || @employee.errors[:children_count].any?) %>
+                <div class="form-group has-error">
+                  <label class="col-sm-3 control-label"></label>
+                  <div class="col-sm-9 col-xs-6">
+                    <%= f.error :shoes_size, error_prefix: "#{t('shoes_size', scope: 'simple_form.labels.employee')}:" %>
+                    <%= f.error :dress_size, error_prefix: "#{t('dress_size', scope: 'simple_form.labels.employee')}:"  %>
+                    <%= f.error :height, error_prefix: "#{t('height', scope: 'simple_form.labels.employee')}:"  %>
+                    <%= f.error :children_count, error_prefix: "#{t('children_count', scope: 'simple_form.labels.employee')}:"  %>
+                  </div>
+                </div>
+            <% end  %>
+          </fieldset>
+          <fieldset>
+            <legend><%= t('Contact details') %></legend>
+            <%= f.input :mobile_number %>
+
+            <%= f.input :phone_number %>
+
+            <%= f.input :address %>
+
+            <%= f.input :residential_address %>
+
+            <%= f.input :emergency_name %>
+
+            <%= f.input :emergency_phone %>
+          </fieldset>
+
+          <% if policy(@employee).edit_docs? %>
+              <fieldset>
+                <legend><%= t('Files') %></legend>
+                <div class="form-group">
+                  <%= f.label :avatar, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :avatar, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.avatar.url, class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_avatar" if @employee.avatar.exists? %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :passport_front, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :passport_front, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.passport_front.url, class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_passport_front" if @employee.passport_front.exists? %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :passport_reg, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :passport_reg, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.passport_reg.url , class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_passport_reg" if @employee.passport_reg.exists? %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :additional_document_1, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :additional_document_1, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.additional_document_1.url , class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_1" if @employee.additional_document_1.exists? %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :additional_document_2, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :additional_document_2, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.additional_document_2.url , class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_2" if @employee.additional_document_2.exists? %>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :additional_document_3, class: 'col-sm-5 control-label' %>
+                  <div class="col-sm-5">
+                    <%= f.input_field :additional_document_3, as: :file, class: 'form-control' %>
+                  </div>
+                  <div class="col-sm-2">
+                    <%= link_to t('Preview'), @employee.additional_document_3.url , class:'btn btn-default', download: "#{@employee.last_name}_#{@employee.first_name}_additional_document_3" if @employee.additional_document_3.exists? %>
+                  </div>
+                </div>
+              </fieldset>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+        <div class="form-group">
+          <div class='col-sm-offset-3 col-sm-9'>
+            <%= button_tag(type: 'submit', class: "btn btn-lg btn-success") do %>
+                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i> <%= t('Submit') %>
+            <% end %>
+            <%= link_to t('Cancel'), employees_path, class: 'btn btn-lg btn-default' %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>
+<% if policy(:position).can_create? %>
+    <div class="modal fade" id="new_position_modal" tabindex="-1" role="dialog" aria-labelledby="positionModalLabel" aria-hidden="true">
+      <%= simple_form_for @position, remote: true, html: { class: 'form-horizontal', 'data-model' => 'position' }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f| %>
+
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="positionModalLabel"><%= t('Add new position') %></h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'positions/form', modal: true %>
+              </div>
+              <div class="modal-footer">
+                <button id="modal-submit" type="button" class="btn btn-success"><%= t('Submit') %></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+<% end %>

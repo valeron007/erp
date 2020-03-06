@@ -1,0 +1,312 @@
+<% content_for :title do %>
+    <%= t('Dashboard') %>
+<% end %>
+<% content_for :page_header do %>
+    <%= t('Dashboard') %>
+<% end %>
+
+
+<div class="fix-height">
+  <div class="row">
+    <% if has_dob_widget_access  %>
+        <% unless @employees.blank?  %>
+            <div class="col-md-12">
+              <!-- USERS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Upcoming birthdays') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @employees.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <ul class="users-list clearfix">
+                    <% @employees.each do |employee| %>
+                        <li>
+                          <%= image_tag employee.avatar.url(:thumb) %>
+                          <%= link_to(employee, employee_path(employee), class: 'users-list-name') %>
+                          <span class="users-list-date"><%= human_date_format(employee.to_birthday, "%-d %B") %></span>
+                        </li>
+                    <% end  %>
+                  </ul><!-- /.users-list -->
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Employees List'), employees_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+    <% end  %>
+
+    <% if has_lead_widget_access  %>
+        <% unless @leads.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Upcoming leads visit') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @leads.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.lead.name') %></th>
+                        <th><%= t('simple_form.labels.lead.client') %></th>
+                        <th><%= t('simple_form.labels.lead.lead_status') %></th>
+                        <th><%= t('Date') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @leads.each do |lead| %>
+                          <tr>
+                            <td><%= link_to(lead, lead_path(lead)) %></td>
+                            <td><%= lead.client %></td>
+                            <td><%= lead.lead_status %></td>
+                            <td><%= h_localize_date(lead.next_date) %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Leads List'),leads_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+    <% end  %>
+  </div>
+  <div class="row">
+    <% if has_task_widget_access  %>
+        <% unless @tasks.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Upcoming tasks') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @tasks.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.task.title') %></th>
+                        <th><%= t('simple_form.labels.task.task_status') %></th>
+                        <th><%= t('simple_form.labels.task.important') %></th>
+                        <th><%= t('simple_form.labels.task.urgent') %></th>
+                        <th><%= t('simple_form.labels.task.assigned_by') %></th>
+                        <th><%= t('simple_form.labels.task.finish_date') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @tasks.each do |task| %>
+                          <tr>
+                            <td><%= link_to(task, task_path(task)) %></td>
+                            <td><span class="badge <%= task.task_status.get_badge_color %>"><%= task.task_status %></span></td>
+                            <td>
+                              <% if task.important %>
+                                  <span class="badge bg-red"><%= t('true') %></span>
+                              <% else %>
+                                  <span class="badge"><%= t('false') %></span>
+                              <%end%>
+                            </td>
+                            <td>
+                              <% if task.urgent %>
+                                  <span class="badge bg-red"><%= t('true') %></span>
+                              <% else %>
+                                  <span class="badge"><%= t('false') %></span>
+                              <%end%>
+                            </td>
+                            <td><%= task.assigned_by %></td>
+                            <td><%= human_date(task.finish_date) %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Tasks List'),tasks_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+    <% end  %>
+  </div>
+  <div class="row">
+    <% if has_delivery_widget_access  %>
+        <% unless @deliveries.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Deliveries') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @deliveries.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.delivery.name') %></th>
+                        <th><%= t('simple_form.labels.delivery.transport_company') %></th>
+                        <th><%= t('simple_form.labels.delivery.arrival_date') %></th>
+                        <th><%= t('simple_form.labels.delivery.delivery_status') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @deliveries.each do |delivery| %>
+                          <tr>
+                            <td><%= link_to(delivery, delivery_path(delivery)) %></td>
+                            <td><%= delivery.transport_company %></td>
+                            <td><%= human_date(delivery.arrival_date) %></td>
+                            <td><%= delivery.delivery_status %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Deliveries List'),deliveries_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+    <% end  %>
+  </div>
+  <div class="row">
+    <% if has_storage_widget_access  %>
+        <% if has_s_materials_access and not @s_materials.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Materials') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @s_materials.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.s_material.name') %></th>
+                        <th><%= t('simple_form.labels.s_material.amount') %></th>
+                        <th><%= t('simple_form.labels.s_material.min_amount') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @s_materials.each do |s_material| %>
+                          <tr>
+                            <td><%= link_to(s_material.name, s_material_path(s_material)) %></td>
+                            <td><%= s_material.amount %></td>
+                            <td><%= s_material.min_amount %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Materials List'),s_materials_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+        <% if has_s_others_access and not @s_others.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Others') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @s_others.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.s_other.name') %></th>
+                        <th><%= t('simple_form.labels.s_other.amount') %></th>
+                        <th><%= t('simple_form.labels.s_other.min_amount') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @s_others.each do |s_other| %>
+                          <tr>
+                            <td><%= link_to(s_other.name, s_other_path(s_other)) %></td>
+                            <td><%= s_other.amount %></td>
+                            <td><%= s_other.min_amount %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Others List'),s_others_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+        <% if has_s_additionals_access and not @s_additionals.blank?  %>
+            <div class="col-md-12">
+              <!-- LEADS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><%= t('Additionals') %></h3>
+                  <div class="box-others pull-right">
+                    <span class="label label-danger"><%= @s_additionals.count  %></span>
+                    <button class="btn btn-box-other" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th><%= t('simple_form.labels.s_other.name') %></th>
+                        <th><%= t('simple_form.labels.s_other.amount') %></th>
+                        <th><%= t('simple_form.labels.s_other.min_amount') %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @s_additionals.each do |o| %>
+                          <tr>
+                            <td><%= link_to(o.additional, s_additional_path(o)) %></td>
+                            <td><%= o.amount %></td>
+                            <td><%= o.min_amount %></td>
+                          </tr>
+                      <% end  %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <%= link_to t('Additionals List'),s_additionals_path %>
+                </div><!-- /.box-footer -->
+              </div><!--/.box -->
+            </div><!-- /.col -->
+        <% end  %>
+    <% end  %>
+  </div></div>

@@ -1,0 +1,39 @@
+<div class="box box-primary">
+  <div class="box-header">
+    <i class="ion ion-stats-bars"></i>
+    <h3 class="box-title"><%= t('Report preview') %></h3>
+  </div>
+  <div class="box-body">
+    <table class="table table-condensed table-hover">
+      <thead>
+      <tr>
+        <th><%= t('Facility') %></th>
+        <th><%= t('Employee') %></th>
+        <th><%= t('Work Name') %></th>
+        <th><%= t('Price') %></th>
+        <th><%= t('Amount') %></th>
+        <th><%= t('Total') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% unless @data.blank? %>
+          <% @data.each do |d| %>
+              <tr>
+                <td><%= d['facility_name'] %></td>
+                <td><%= "#{d['employee_last_name']} #{d['employee_first_name']} #{d['employee_middle_name']}" %></td>
+                <td><%= d['work_name'] %></td>
+                <td><%= d['work_price'] %></td>
+                <td><%= d['work_amount'] %></td>
+                <td><%= d['work_price']*d['work_amount'] %></td>
+              </tr>
+          <% end %>
+      <% else %>
+          <tr><td colspan="6"><%= t('No data for current filter') %></td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="box-footer clearfix centered">
+    <button class="btn btn-default btn-export" data-action-url="<%= report_facility_works_url(format: :xlsx) %>"><i class="fa fa-file-excel-o"></i> <%= t('Export to Excel') %></button>
+  </div>
+</div>

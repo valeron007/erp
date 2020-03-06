@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Export Sheet') do |sheet|
+
+  sheet.add_row ['']
+  sheet.add_row ['', t('When'), t('Whom'), t('How much'), t('Where'), t('Category'), t('Company'), t('Facility')]
+
+  unless @expenses.blank?
+    @expenses.each do |e|
+      sheet.add_row ['', h_localize_date(e.expense_date), e.expense_by, e.direction*e.amount, e.title, e.expense_category, e.company, e.facility]
+    end
+  end
+
+  sheet.add_table "B2:H#{sheet.rows.last.index+2}", :name => 'Expenses', :style_info => { :name => 'TableStyleMedium2' }
+
+  sheet.column_widths 5, 10, 20, 15, 40, 20, 30, 30
+
+  sheet.add_style 'B2:H2', b: true, sz: 13
+
+end
+
+wb.apply_styles

@@ -1,0 +1,52 @@
+<% content_for :title do %>
+    <%= t('View')%> <%= t('Adoc Name') %>
+<% end %>
+
+<% content_for :page_header do %>
+    <%= t('View')%> <%= t('Adoc Name') %>
+<% end %>
+
+<div class="fix-height">
+
+  <div class="btn-actionbar">
+    <%= link_to adoc_names_path, class: 'btn btn-app' do %>
+        <i class='fa fa-chevron-left'></i>
+        <span><%= t('Back to list') %></span>
+    <%- end -%>
+    <% if policy(@adoc_name).can_edit? %>
+        <%= link_to edit_adoc_name_path(@adoc_name), class: 'btn btn-app' do %>
+            <i class='fa fa-pencil-square-o'></i>
+            <span><%= t('Edit') %></span>
+        <%- end -%>
+    <% end %>
+    <% if policy(@adoc_name).can_delete? %>
+        <%= link_to adoc_name_path(@adoc_name), method: 'delete', data: { confirm: t('Are you sure?') }, class: 'btn btn-app' do %>
+            <i class='fa fa-trash-o'></i>
+            <span><%= t('Delete') %></span>
+        <%- end -%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title"><%= t('Adoc Name') %> <%= t('Details') %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <dl class="dl-horizontal">
+
+            <dt><%= t('Name') %></dt>
+            <dd><%= @adoc_name.name %></dd>
+
+          </dl>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </div>
+  </div>
+
+</div>

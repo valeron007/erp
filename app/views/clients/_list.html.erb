@@ -1,0 +1,59 @@
+<div id="filterrific_results">
+  <table class="table table-bordered table-striped table-valign-middle">
+    <thead>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name, {label: t('simple_form.labels.client.name')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :address, {label: t('simple_form.labels.client.address')}) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :phone, {label: t('simple_form.labels.client.phone')}) %></th>
+      <th><%= t('simple_form.labels.client.managers') %></th>
+      <th><%= t('simple_form.labels.client.last_visit_date') %></th>
+      <th><%= t('simple_form.labels.client.next_visit_date') %></th>
+      <th class="centered actions"><%= t('Actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @clients.each do |client| %>
+        <tr>
+
+          <td>
+            <% if policy(client).can_view? %>
+                <%= link_to(client.name, client_path(client)) %>
+            <% else %>
+                <%= client.name %>
+            <% end %>
+          </td>
+          <td><%= client.address %></td>
+          <td><%= client.phone %></td>
+          <td><%= client.managers %></td>
+          <td class="centered"><%= client.last_visit_date %></td>
+          <td class="centered"><%= client.next_visit_date %></td>
+
+          <td class="centered">
+            <% if policy(client).can_edit? %>
+                <%= link_to edit_client_path(client), class: 'btn btn-sm btn-default', title: t('Edit') do %>
+                    <i class='fa fa-lg fa-pencil-square-o'></i>
+                <%- end -%>
+            <% end %>
+            <% if policy(client).can_delete? %>
+                <%= link_to client_path(client), method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-sm btn-danger', title: t('Delete') do %>
+                    <i class='fa fa-lg fa-trash-o'></i>
+                <%- end -%>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-2 col-xs-2" style="margin-top: -5px;">
+      <label class="control-label" style="font-weight: 300;font-size: 80%;"><%= t('Records per page') %></label>
+      <select id="per_page_select" name="per_page" class="form-control">
+        <% [10, 15, 20, 25, 50, 100].each do |per_page| %>
+            <option value="<%= per_page %>" <% if @selected_per_page.to_i == per_page %>selected="selected"<%- end -%> data-url="<%= request.url %>"><%= per_page %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-10" style="margin-top:25px;"><%= page_entries_info @clients %></div>
+    <div class="col-md-4"><%= page_navigation_links @clients %></div>
+  </div>
+</div>

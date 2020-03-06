@@ -1,0 +1,1 @@
+json.partial! "s_tools/s_tool", s_tool: @s_tool

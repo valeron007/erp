@@ -1,0 +1,1 @@
+json.array! @s_tools, partial: 's_tools/s_tool', as: :s_tool

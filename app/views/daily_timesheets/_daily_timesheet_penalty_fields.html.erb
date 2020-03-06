@@ -1,0 +1,14 @@
+<div class="nested-fields group-with-plus">
+  <div class="clearfix">
+    <%= link_to_remove_association t('Remove'), f %>
+  </div>
+  <%= f.input :penalty do %>
+      <%= f.select :penalty_id, @penalties.map { |p| [p.to_s, p.id, {'data-price' => p.penalty_rate}] }, {include_blank: ''}, {class: 'form-control penalty-select'} %>
+  <% end %>
+  <%= f.input :employee do %>
+      <%= f.select :employee_id, Employee.can_issue_penalty.map {|e| [e.to_s, e.id]}, {include_blank: ''}, {class: 'form-control employee-select'} %>
+  <% end %>
+  <% if policy(:penalty).can_create? %>
+  <a href="#new_penalty_modal" data-toggle="modal" class="btn btn-success group-plus" style="top:20px;"><i class="fa fa-plus"></i></a>
+  <% end %>
+</div>

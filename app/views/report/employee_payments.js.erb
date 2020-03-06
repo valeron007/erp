@@ -1,0 +1,4 @@
+<% js = escape_javascript(
+  render('employee_payments_table', {data: @data, f: @f} )
+) %>
+$("#report_preview").html("<%= js %>");

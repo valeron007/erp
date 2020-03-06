@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  daily_timesheet_id: 
+  penalty_id: 
+
+two:
+  daily_timesheet_id: 
+  penalty_id: 

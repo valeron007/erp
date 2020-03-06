@@ -1,0 +1,34 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th><%= t(:Materials) %></th>
+    <th><%= t(:Tools) %></th>
+    <th><%= t(:Others) %></th>
+    <th><%= t(:Additionals) %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <% @s_transaction.s_transaction_materials.each do |o| %>
+          <span class="label label-primary"><%= o.s_material.name.name %> x <%= h_decimal(o.s_amount) %> <%= o.s_material.unit %></span><br/>
+      <% end %>
+    </td>
+    <td>
+      <% @s_transaction.s_transaction_tools.each do |o| %>
+          <span class="label label-primary"><%= o.s_tool.with_inventory_number %></span><br/>
+      <% end %>
+    </td>
+    <td>
+      <% @s_transaction.s_transaction_others.each do |o| %>
+          <span class="label label-primary"><%= o.s_other.name.name %> x <%= h_decimal(o.s_amount) %> <%= o.s_other.unit %></span><br/>
+      <% end %>
+    </td>
+    <td>
+      <% @s_transaction.s_transaction_additionals.each do |o| %>
+      <span class="label label-primary"><%= o.s_additional.additional.name %> x <%= h_decimal(o.s_amount) %> <%= o.s_additional.unit %></span><br/>
+      <% end %>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,42 @@
+<div class="nested-fields">
+
+  <div class="clearfix">
+    <%= link_to_remove_association t('Remove'), f %>
+  </div>
+
+  <%= f.input :index_number, input_html: { min: 0 } %>
+
+  <%= f.input :adoc_name do %>
+      <%= f.select :adoc_name_id, AdocName.all.map {|e| [e.to_s, e.id]}, {include_blank: ''}, {class: 'form-control'} %>
+  <% end %>
+
+  <%= f.input :name %>
+
+
+  <div class="form-group">
+    <%= f.label :number, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-5">
+      <%= f.input_field :number, as: :string, class: 'form-control' %>
+    </div>
+    <%= f.label :date, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-3">
+      <%= f.input_field :date, as: :date_picker, value: h_localize_date(f.object.date) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :amount, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-5">
+      <%= f.input_field :amount, min: 0, step: 0.01, class: 'form-control' %>
+    </div>
+    <%= f.label :present, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-3">
+      <%= f.input_field :present %>
+    </div>
+  </div>
+
+  <%= f.input :adoc_status do %>
+      <%= f.select :adoc_status_id, AdocStatus.all.map {|e| [e.to_s, e.id]}, {include_blank: ''}, {class: 'form-control'} %>
+  <% end %>
+  <hr/>
+</div>
