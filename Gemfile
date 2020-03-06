@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.6'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'coffee-script-source', '1.8.0', platforms: [:mingw, :mswin, :x64_mingw]
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'devise'
 gem 'high_voltage'
 gem 'pundit'
